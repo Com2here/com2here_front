@@ -1,0 +1,26 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: gray;
+    padding: 15px 20px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    margin-left: auto; /* 네비게이션 메뉴를 오른쪽으로 밀기 */
+}
+
+.navbarMenu {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    background-color: gray;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.navbarMenu:hover {
+    background-color: #555;
+}
