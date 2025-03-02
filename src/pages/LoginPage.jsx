@@ -5,7 +5,7 @@ import LoginForm from "../components/LoginForm";
 
 const LoginPage = () => {
   return (
-    <div className="page">
+    <div className="login-page">
       <div className="login-form-left-side">
         <div className="titleWrap">로그인</div>
         <LoginForm />

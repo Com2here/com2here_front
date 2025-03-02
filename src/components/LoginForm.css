@@ -1,0 +1,6 @@
+.login-input-wrap > input {
+    border: none;
+    background-color: inherit;
+    width: inherit;
+    height: inherit;
+}
