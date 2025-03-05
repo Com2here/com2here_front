@@ -6,11 +6,10 @@
 .home-cover {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
   height: 590px;
-  background-color: var(--secondary-yellow);
+  /* background-color: var(--secondary-yellow); */
   /* background-color: var(--secondary-pink); */
   border-radius: 44px;
   gap: 32px;
@@ -23,18 +22,23 @@
   font-weight: 600;
   line-height: 40px;
   letter-spacing: -1px;
+  margin-top: 55px;
 }
 
 .home-btn-wrapper {
   display: flex;
   flex-direction: row;
-  gap: 44px;
+  gap: 100px;
+  margin-top: 40px;
 }
 
 .home-rec-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 5px solid black;
+  padding: 40px;
+  border-radius: 44px;
 }
 
 .home-img {

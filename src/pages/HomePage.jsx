@@ -8,7 +8,7 @@ const HomePage = () => {
     <main className="home-page">
       <section className="home-cover">
         <h2 className="home-cover-text">
-          🧐 컴퓨터/노트북 추천은 여기서
+          컴퓨터/노트북 추천은 여기서
           <br />
           Com, here!
         </h2>
