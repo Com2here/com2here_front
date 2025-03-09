@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
 import "./LoginPage.css";
+
 import LoginForm from "../components/LoginForm";
 
 const LoginPage = () => {
