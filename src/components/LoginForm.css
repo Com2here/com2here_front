@@ -1,0 +1,164 @@
+.login-form {
+  padding-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 33vw;
+}
+
+.login-oauth {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
+}
+
+.login-oauth-btn {
+  display: flex;
+  width: 100%;
+  height: 5vh;
+  border-radius: 12px;
+  border: none;
+  text-align: center;
+  align-items: center;
+  padding-left: 16px;
+  cursor: pointer;
+}
+
+.login-kakao-btn {
+  background-color: #fee500;
+  padding-right: 36px;
+}
+
+.login-naver-btn {
+  background-color: #03c75a;
+  padding-left: 17px;
+  padding-right: 32px;
+}
+
+.login-google-btn {
+  background-color: white;
+  border: 1px solid rgba(116, 119, 117, 0.6);
+  padding-left: 14px;
+  padding-right: 34px;
+}
+
+.login-kakao-logo {
+  width: 19px;
+}
+
+.login-naver-logo {
+  width: 15px;
+}
+
+.login-google-logo {
+  width: 18px;
+}
+
+.login-oauth-text {
+  flex-grow: 1;
+  font-size: 16px;
+}
+
+.login-kakao-text {
+  color: black;
+  opacity: 85%;
+}
+
+.login-naver-text {
+  color: #fff;
+  opacity: 95%;
+}
+
+.login-divider {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 1.3rem 0;
+}
+
+.login-divider-design {
+  display: flex;
+  background-color: rgba(224, 224, 224, 0.6);
+  width: 40%;
+  height: 1px;
+}
+
+.login-divider-text {
+  font-size: 13px;
+  flex-grow: 1;
+  text-align: center;
+  line-height: 18px;
+  color: rgba(117, 117, 117, 0.7);
+  letter-spacing: 0.48px;
+  justify-content: center;
+}
+
+.login-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 33vw;
+  /* align-items: center; */
+}
+
+.input-id > input,
+.input-password > input {
+  width: 100%;
+  height: 5.4vh;
+  border: 1px solid rgba(117, 117, 117, 0.7);
+  border-radius: 12px;
+  padding: 0 16px;
+}
+
+.login-feat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 26px;
+  font-size: 0.9rem;
+  padding: 0 1.5px;
+}
+
+.login-remember {
+  align-items: center;
+  height: 100%;
+  display: flex;
+  gap: 0.4rem;
+  color: var(--main-black);
+}
+
+.login-remember > input {
+  border: 1px solid rgba(117, 117, 117, 0.7);
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.login-remember > label {
+  cursor: pointer;
+}
+
+.login-find {
+  color: var(--main-red);
+  opacity: .95;
+}
+
+.login-submit-btn {
+  width: 33vw;
+  margin-top: 1.3rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  background-color: rgba(242, 58, 48, 0.9);
+  color: var(--main-white);
+  border: none;
+  border-radius: 12px;
+  height: 39px;
+}

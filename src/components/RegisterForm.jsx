@@ -1,9 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./RegisterForm.css";
 
 const RegisterForm = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
 
@@ -18,20 +23,17 @@ const RegisterForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://58.238.182.100:9000/api/login",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json", // 서버에 JSON 데이터 전송
-          },
-        }
-      );
+      const response = await axios.post("/api/v1/user/register", formData, {
+        headers: {
+          "Content-Type": "application/json", // 서버에 JSON 데이터 전송
+        },
+      });
 
       console.log("회원가입 성공:", response.data);
-      alert("회원가입 성공!");
+      alert("환영합니다!");
       navigate("/login");
     } catch (error) {
+      console.log("상태!! ", error.response.status);
       console.error("회원가입 에러:", error);
       alert("회원가입 실패!");
     }
@@ -41,6 +43,16 @@ const RegisterForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="register-input-container">
+          <div className="register-input-wrap input-username">
+            <input
+              name="username"
+              placeholder="name"
+              type="text"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
           <div className="register-input-wrap input-id">
             <input
               name="email"

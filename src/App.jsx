@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import SupportPage from "./pages/SupportPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/support" element={<SupportPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/mypage" element={<MyPage />} />
       </Routes>
     </>
   );
