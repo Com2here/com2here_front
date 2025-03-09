@@ -34,7 +34,7 @@
 .login-register-link {
   cursor: pointer;
   color: var(--main-red);
-  opacity: .95;
+  opacity: 0.95;
   text-decoration: none;
 }
 

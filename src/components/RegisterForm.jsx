@@ -40,13 +40,13 @@ const RegisterForm = () => {
   };
 
   return (
-    <div>
+    <div className="register-form">
       <form onSubmit={handleSubmit}>
         <div className="register-input-container">
           <div className="register-input-wrap input-username">
             <input
               name="username"
-              placeholder="name"
+              placeholder="이름"
               type="text"
               value={formData.username}
               onChange={handleChange}
@@ -56,7 +56,7 @@ const RegisterForm = () => {
           <div className="register-input-wrap input-id">
             <input
               name="email"
-              placeholder="Email"
+              placeholder="이메일"
               type="email"
               value={formData.email}
               onChange={handleChange}
@@ -65,16 +65,28 @@ const RegisterForm = () => {
           </div>
           <div className="register-input-wrap input-password">
             <input
-              placeholder="Password"
-              type="password"
               name="password"
+              placeholder="비밀번호"
+              type="password"
               value={formData.password}
               onChange={handleChange}
               required
             />
           </div>
+          <div className="register-input-wrap input-password">
+            <input
+              name="password2"
+              placeholder="비밀번호 확인"
+              type="password"
+              value={formData.password2}
+              onChange={handleChange}
+              required
+            />
+          </div>
         </div>
-        <button type="submit">회원가입</button>
+        <button className="register-submit-btn" type="submit">
+          회원가입
+        </button>
       </form>
     </div>
   );
