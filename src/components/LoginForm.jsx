@@ -27,6 +27,28 @@ const LoginForm = () => {
     }
   };
 
+  const getNaverLoginUrl = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/user/login/naver/url"
+      );
+      window.location.href = response.data.url; // 백엔드에서 받은 URL로 이동
+    } catch (error) {
+      console.error("네이버 로그인 URL 가져오기 에러:", error);
+    }
+  };
+
+  const getGoogleLoginUrl = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/user/login/google/url"
+      );
+      window.location.href = response.data.url; // 백엔드에서 받은 URL로 이동
+    } catch (error) {
+      console.error("구글 로그인 URL 가져오기 에러:", error);
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -72,7 +94,10 @@ const LoginForm = () => {
           </span>
         </a>
 
-        <button className="login-naver-btn login-oauth-btn">
+        <a
+          className="login-naver-btn login-oauth-btn"
+          onClick={getNaverLoginUrl}
+        >
           <img
             className="login-naver-logo"
             src={imgPathNaver}
@@ -81,8 +106,12 @@ const LoginForm = () => {
           <span className="login-naver-text login-oauth-text">
             네이버로 시작하기
           </span>
-        </button>
-        <button className="login-google-btn login-oauth-btn">
+        </a>
+
+        <a
+          className="login-google-btn login-oauth-btn"
+          onClick={getGoogleLoginUrl}
+        >
           <img
             className="login-google-logo"
             src={imgPathGoogle}
@@ -91,7 +120,7 @@ const LoginForm = () => {
           <span className="login-google-text login-oauth-text">
             구글로 시작하기
           </span>
-        </button>
+        </a>
       </fieldset>
 
       <div className="login-divider">
