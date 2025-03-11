@@ -11,43 +11,27 @@ const LoginForm = () => {
   const imgPathGoogle = "/images/google-logo.svg";
 
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [kakaoLoginUrl, setKakaoLoginUrl] = useState(""); // 카카오 로그인 URL을 저장할 상태
+  // const [loading, setLoading] = useState(false); // 로딩
+  // const [error, setError] = useState(null); // 에러
+  // const [kakaoLoginUrl, setKakaoLoginUrl] = useState(""); // url유지
+  // const [naverLoginUrl, setNaverLoginUrl] = useState("");
+  // const [googleLoginUrl, setGoogleLoginUrl] = useState("");
   const navigate = useNavigate();
 
-  const getKakaoLoginUrl = async () => {
+  const getLoginUrl = async (platform) => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/user/login/kakao/url"
+        `http://localhost:3000/api/v1/user/login/${platform}/url`
       );
       window.location.href = response.data.url; // 백엔드에서 받은 URL로 이동
     } catch (error) {
-      console.error("카카오 로그인 URL 가져오기 에러:", error);
+      console.error(`${platform} 로그인 URL 가져오기 에러:`, error);
     }
   };
 
-  const getNaverLoginUrl = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/api/v1/user/login/naver/url"
-      );
-      window.location.href = response.data.url; // 백엔드에서 받은 URL로 이동
-    } catch (error) {
-      console.error("네이버 로그인 URL 가져오기 에러:", error);
-    }
-  };
-
-  const getGoogleLoginUrl = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/api/v1/user/login/google/url"
-      );
-      window.location.href = response.data.url; // 백엔드에서 받은 URL로 이동
-    } catch (error) {
-      console.error("구글 로그인 URL 가져오기 에러:", error);
-    }
-  };
+  const getKakaoLoginUrl = () => getLoginUrl("kakao");
+  const getNaverLoginUrl = () => getLoginUrl("naver");
+  const getGoogleLoginUrl = () => getLoginUrl("google");
 
   const handleChange = (e) => {
     setFormData({
