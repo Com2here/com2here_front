@@ -1,7 +1,9 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
+// import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
+
 import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
+import axios from "axios";
 
 const LoginForm = () => {
   const imgPathKakao = "/images/kakao-logo.svg";
@@ -9,8 +11,27 @@ const LoginForm = () => {
   const imgPathGoogle = "/images/google-logo.svg";
 
   const [formData, setFormData] = useState({ email: "", password: "" });
-
+  // const [loading, setLoading] = useState(false); // 로딩
+  // const [error, setError] = useState(null); // 에러
+  // const [kakaoLoginUrl, setKakaoLoginUrl] = useState(""); // url유지
+  // const [naverLoginUrl, setNaverLoginUrl] = useState("");
+  // const [googleLoginUrl, setGoogleLoginUrl] = useState("");
   const navigate = useNavigate();
+
+  const getLoginUrl = async (platform) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/v1/user/login/${platform}/url`
+      );
+      window.location.href = response.data.url; // 백엔드에서 받은 URL로 이동
+    } catch (error) {
+      console.error(`${platform} 로그인 URL 가져오기 에러:`, error);
+    }
+  };
+
+  const getKakaoLoginUrl = () => getLoginUrl("kakao");
+  const getNaverLoginUrl = () => getLoginUrl("naver");
+  const getGoogleLoginUrl = () => getLoginUrl("google");
 
   const handleChange = (e) => {
     setFormData({
@@ -21,17 +42,14 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
 
     try {
-      const response = await axios.post(
-        "http://58.238.182.100:9000/api/login",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json", // 서버에 JSON 데이터 전송
-          },
-        }
-      );
+      const response = await api.post("/login", formData);
+
+      // JWT 토큰 저장
+      localStorage.setItem("token", response.data.token);
 
       console.log("로그인 성공:", response.data);
       alert("로그인 성공!");
@@ -45,7 +63,11 @@ const LoginForm = () => {
   return (
     <div className="login-form">
       <fieldset className="login-oauth">
-        <button className="login-kakao-btn login-oauth-btn">
+        {/* 카카오 로그인 버튼 */}
+        <a
+          className="login-kakao-btn login-oauth-btn"
+          onClick={getKakaoLoginUrl}
+        >
           <img
             className="login-kakao-logo"
             src={imgPathKakao}
@@ -54,8 +76,12 @@ const LoginForm = () => {
           <span className="login-kakao-text login-oauth-text">
             카카오로 시작하기
           </span>
-        </button>
-        <button className="login-naver-btn login-oauth-btn">
+        </a>
+
+        <a
+          className="login-naver-btn login-oauth-btn"
+          onClick={getNaverLoginUrl}
+        >
           <img
             className="login-naver-logo"
             src={imgPathNaver}
@@ -64,8 +90,12 @@ const LoginForm = () => {
           <span className="login-naver-text login-oauth-text">
             네이버로 시작하기
           </span>
-        </button>
-        <button className="login-google-btn login-oauth-btn">
+        </a>
+
+        <a
+          className="login-google-btn login-oauth-btn"
+          onClick={getGoogleLoginUrl}
+        >
           <img
             className="login-google-logo"
             src={imgPathGoogle}
@@ -74,7 +104,7 @@ const LoginForm = () => {
           <span className="login-google-text login-oauth-text">
             구글로 시작하기
           </span>
-        </button>
+        </a>
       </fieldset>
 
       <div className="login-divider">
