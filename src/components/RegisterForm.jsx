@@ -1,21 +1,79 @@
 import { useState } from "react";
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 import { useNavigate } from "react-router-dom";
+import Joi from "joi";
 import "./RegisterForm.css";
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
+    password2: "",
   });
 
-  const navigate = useNavigate();
+  // 버튼 비활성화
+  const [active, setActive] = useState(false);
+
+  const [errors, setErrors] = useState({});
+
+  // Joi 스키마 정의
+  const schema = Joi.object({
+    username: Joi.string().min(1).max(30).required().messages({
+      // "string.empty": "이름을 입력해주세요.",
+      // "string.min": "최소 1글자 이상 입력해주세요.",
+      "string.max": "30글자 이하로 입력해주세요.",
+    }),
+    email: Joi.string()
+      .email({ tlds: { allow: false } })
+      .required()
+      .messages({
+        // "string.empty": "이메일을 입력해주세요.",
+        "string.email": "유효한 이메일이 아닙니다.",
+      }),
+    password: Joi.string()
+      .min(8)
+      .max(20)
+      .required()
+      .regex(
+        new RegExp(
+          "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+-=[\\]{};':\"\\\\|,.<>/?])"
+        )
+      )
+      .messages({
+        // "string.empty": "비밀번호를 입력해주세요.",
+        "string.min": "8글자 이상 20글자 이하로 입력해주세요.",
+        "string.max": "8글자 이상 20글자 이하로 입력해주세요.",
+        "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
+      }),
+    password2: Joi.string().valid(Joi.ref("password")).required().messages({
+      // "string.empty": "비밀번호 확인을 입력해주세요.",
+      "any.only": "비밀번호가 일치하지 않습니다.",
+    }),
+  });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
+    setFormData((prevData) => {
+      const updatedData = {
+        ...prevData,
+        [e.target.name]: e.target.value,
+      };
+      const validation = schema.validate(updatedData, { abortEarly: false });
+      if (validation.error) {
+        const errorMessages = {};
+        validation.error.details.forEach((detail) => {
+          errorMessages[detail.path[0]] = detail.message;
+        });
+        setErrors(errorMessages);
+        console.log(validation.error.details);
+        setActive(false);
+      } else {
+        setErrors({});
+        setActive(true);
+      }
+      return updatedData;
     });
   };
 
@@ -52,6 +110,9 @@ const RegisterForm = () => {
               onChange={handleChange}
               required
             />
+            {errors.username && (
+              <span className="register-error-message">{errors.username}</span>
+            )}
           </div>
           <div className="register-input-wrap input-id">
             <input
@@ -62,6 +123,9 @@ const RegisterForm = () => {
               onChange={handleChange}
               required
             />
+            {errors.email && (
+              <span className="register-error-message">{errors.email}</span>
+            )}
           </div>
           <div className="register-input-wrap input-password">
             <input
@@ -72,6 +136,9 @@ const RegisterForm = () => {
               onChange={handleChange}
               required
             />
+            {errors.password && (
+              <span className="register-error-message">{errors.password}</span>
+            )}
           </div>
           <div className="register-input-wrap input-password">
             <input
@@ -82,9 +149,18 @@ const RegisterForm = () => {
               onChange={handleChange}
               required
             />
+            {errors.password2 && (
+              <span className="register-error-message">{errors.password2}</span>
+            )}
           </div>
         </div>
-        <button className="register-submit-btn" type="submit">
+        <button
+          className={
+            active ? "active-register-submit-btn" : "register-submit-btn"
+          }
+          type="submit"
+          disabled={!active}
+        >
           회원가입
         </button>
       </form>

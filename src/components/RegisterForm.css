@@ -14,7 +14,7 @@
 }
 
 .register-input-wrap {
-    width: 33vw;
+  width: 33vw;
 }
 
 .register-input-wrap > input {
@@ -25,18 +25,39 @@
   padding: 0 16px;
 }
 
+.register-error-message {
+  color: var(--error-red);
+  padding-left: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.active-register-submit-btn {
+  width: 33vw;
+  margin-top: 1.3rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  background-color: rgba(242, 58, 48, 0.9);
+  color: var(--main-white);
+  border: none;
+  border-radius: 12px;
+  height: 39px;
+}
+
 .register-submit-btn {
-    width: 33vw;
-    margin-top: 1.3rem;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 1rem;
-    background-color: rgba(242, 58, 48, 0.9);
-    color: var(--main-white);
-    border: none;
-    border-radius: 12px;
-    height: 39px;
-  }
-  
+  width: 33vw;
+  margin-top: 1.3rem;
+  cursor: default;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  background-color: rgba(242, 58, 48, 0.7);
+  color: var(--main-white);
+  border: none;
+  border-radius: 12px;
+  height: 39px;
+}
