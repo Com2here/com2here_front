@@ -22,7 +22,7 @@ const RegisterForm = () => {
   // Joi 스키마 정의
   const schema = Joi.object({
     username: Joi.string().min(1).max(30).required().messages({
-      // "string.empty": "이름을 입력해주세요.",
+      "string.empty": "",
       // "string.min": "최소 1글자 이상 입력해주세요.",
       "string.max": "30글자 이하로 입력해주세요.",
     }),
@@ -30,23 +30,26 @@ const RegisterForm = () => {
       .email({ tlds: { allow: false } })
       .required()
       .messages({
-        // "string.empty": "이메일을 입력해주세요.",
+        "string.empty": "",
         "string.email": "유효한 이메일이 아닙니다.",
       }),
     password: Joi.string()
-      .min(8)
-      .max(20)
       .required()
       .pattern(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/
       )
       .messages({
-        "string.min": "8글자 이상 20글자 이하로 입력해주세요.",
-        "string.max": "8글자 이상 20글자 이하로 입력해주세요.",
         "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
+        "string.empty": "",
+      })
+      .min(8)
+      .max(20)
+      .messages({
+        "string.min": "비밀번호는 최소 8글자 이상 입력해주세요.",
+        "string.max": "비밀번호는 최대 20글자 이하로 입력해주세요.",
       }),
     password2: Joi.string().valid(Joi.ref("password")).required().messages({
-      // "string.empty": "비밀번호 확인을 입력해주세요.",
+      "string.empty": "",
       "any.only": "비밀번호가 일치하지 않습니다.",
     }),
   });
