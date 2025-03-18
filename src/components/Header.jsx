@@ -4,8 +4,8 @@ import Navbar from "./Navbar";
 function Header() {
   const locationNow = useLocation();
 
-  if (locationNow.pathname === "/login") return null;
-  if (locationNow.pathname === "/register") return null;
+  if (locationNow.pathname === "/login" || locationNow.pathname === "/register")
+    return null;
 
   return (
     <header>

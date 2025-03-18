@@ -1,6 +1,5 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
 
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
@@ -8,10 +7,11 @@ import SupportPage from "./pages/SupportPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import MyPage from "./pages/MyPage";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Header></Header>
 
       <Routes>
@@ -21,7 +21,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/mypage" element={<MyPage />} />
       </Routes>
-    </>
+    </AuthProvider>
   );
 }
 
