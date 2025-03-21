@@ -1,34 +1,72 @@
 .navbar {
-    display: flex;
-    margin: 0 auto;
-    align-items: center;
-    width: 85vw;
-    background-color: white;
-    padding: 20px 0;
-    
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  width: 85vw;
+  height: 88px;
+  background-color: white;
+  padding: 20px 0;
 }
 
 .nav-links {
-    display: flex;
-    gap: 15px;
-    margin-left: auto; /* 네비게이션 메뉴를 오른쪽으로 밀기 */
+  display: flex;
+  gap: 15px;
+  margin-left: auto; /* 네비게이션 메뉴를 오른쪽으로 밀기 */
+  align-items: center;
+}
+
+.navbar-mylist {
+  display: flex;
+  width: 48px;
+  min-height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 7px 15px;
+}
+
+.navbar-mylist:hover {
+  background-color: var(--main-gray);
+}
+
+.navbar-mylist img {
+  width: 29px;
+}
+
+.navbar-mycomputer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 48px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  /* background-color: var(--secondary-pink); */
+  background-color: var(--color6);
+  color: var(--main-white);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.navbar-mycomputer:hover {
+  opacity: 0.9;
 }
 
 .navbarLogin {
-    color: var(--main-white);
-    text-decoration: none;
-    padding: 10px 18px;
-    background-color: var(--main-red);
-    border-radius: 44px;
+  color: var(--main-white);
+  text-decoration: none;
+  padding: 10px 18px;
+  background-color: var(--main-red);
+  border-radius: 44px;
 }
 
 .navbarSupport {
-    color: var(--main-black);
-    text-decoration: none;
-    padding: 10px 12px;
-    font-weight: 500;
+  color: var(--main-black);
+  text-decoration: none;
+  padding: 10px 12px;
+  font-weight: 500;
 }
 
 .navbarLogin:hover {
-    opacity: 80%;
+  opacity: 80%;
 }
