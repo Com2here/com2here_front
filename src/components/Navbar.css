@@ -10,9 +10,27 @@
 
 .nav-links {
   display: flex;
-  gap: 15px;
+  /* gap: 15px; */
   margin-left: auto; /* 네비게이션 메뉴를 오른쪽으로 밀기 */
   align-items: center;
+}
+
+.nav-logout {
+  display: flex;
+  width: 48px;
+  min-height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 7px 15px;
+}
+
+.nav-logout:hover {
+  background-color: var(--main-gray);
+}
+
+.nav-logout img {
+  width: 27px;
 }
 
 .navbar-mylist {
@@ -46,6 +64,7 @@
   color: var(--main-white);
   font-weight: 500;
   font-size: 0.875rem;
+  margin-left: 9px;
 }
 
 .navbar-mycomputer:hover {
@@ -65,6 +84,7 @@
   text-decoration: none;
   padding: 10px 12px;
   font-weight: 500;
+  margin-left: 15px;
 }
 
 .navbarLogin:hover {

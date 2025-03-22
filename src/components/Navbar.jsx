@@ -6,6 +6,7 @@ import "./NavBar.css";
 const NavBar = () => {
   const imgPathLogo = "/images/logo.svg";
   const imgPathHeart = "/images/heart.svg";
+  const imgPathLogout = "/images/logout.svg";
 
   const navigate = useNavigate();
   const { isLoggedIn, userInfo, logout } = useAuth();
@@ -26,8 +27,8 @@ const NavBar = () => {
       <div className="nav-links">
         {isLoggedIn ? (
           <>
-            <Link className="navbarLogout" to={"/"} onClick={handleLogout}>
-              로그아웃
+            <Link className="nav-logout" onClick={handleLogout}>
+              <img src={imgPathLogout} alt="로그아웃" />
             </Link>
             <Link className="navbar-mylist" to={"/mylist"}>
               <img src={imgPathHeart} alt="찜한 견적" />
