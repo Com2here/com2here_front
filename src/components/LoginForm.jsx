@@ -53,13 +53,19 @@ const LoginForm = () => {
       const response = await api.post("v1/user/login", formData);
       console.log(response.data);
 
-      // JWT 토큰 저장
-      localStorage.setItem("accessToken", response.data.accessToken);
-      localStorage.setItem("refreshToken", response.data.refreshToken);
+      login({
+        token: {
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
+        },
+        user: {
+          username: response.data.username,
+          email: response.data.email,
+        },
+      });
 
       console.log("로그인 성공:", response.data);
       alert("로그인 성공!");
-      login();
       navigate("/");
     } catch (error) {
       console.error("로그인 에러:", error);
