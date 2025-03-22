@@ -4,13 +4,15 @@ import { useAuth } from "../contexts/AuthContext";
 import "./NavBar.css";
 
 const NavBar = () => {
-  const imgPath = "/images/logo.svg";
+  const imgPathLogo = "/images/logo.svg";
+  const imgPathHeart = "/images/heart.svg";
+  const imgPathLogout = "/images/logout.svg";
+
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
+  const { isLoggedIn, userInfo, logout } = useAuth();
 
   // 로그아웃
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
     logout();
     navigate("/");
   };
@@ -19,18 +21,19 @@ const NavBar = () => {
     <div className="navbar">
       <h1>
         <Link to={"/"}>
-          <img src={imgPath} alt="컴히얼" />
+          <img src={imgPathLogo} alt="컴히얼" />
         </Link>
       </h1>
       <div className="nav-links">
-        {isAuthenticated ? (
+        {isLoggedIn ? (
           <>
-            <Link className="navbarLogout" to={"/"} onClick={handleLogout}>
-              로그아웃
+            <Link className="nav-logout" onClick={handleLogout}>
+              <img src={imgPathLogout} alt="로그아웃" />
             </Link>
-            <Link className="navbarMypage" to={"/mypage"}>
-              프로필
+            <Link className="navbar-mylist" to={"/mylist"}>
+              <img src={imgPathHeart} alt="찜한 견적" />
             </Link>
+            <Link className="navbar-mycomputer">{userInfo.user.username}</Link>
           </>
         ) : (
           <>
