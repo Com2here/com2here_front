@@ -10,6 +10,7 @@ import RegisterPage from "./pages/RegisterPage";
 import MyPage from "./pages/MyPage";
 import MylistPage from "./pages/MylistPage";
 import AccountPage from "./pages/AccountPage";
+import EstimatePage from "./pages/EstimatePage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mylist" element={<MylistPage />}></Route>
         <Route path="/account" element={<AccountPage />}></Route>
+        <Route path="/estimate" element={<EstimatePage />}></Route>
       </Routes>
     </AuthProvider>
   );

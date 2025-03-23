@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -13,10 +14,12 @@ const HomePage = () => {
           Com, here!
         </h2>
         <div className="home-btn-wrapper">
-          <div className="home-rec-wrapper">
-            <img className="home-img" src={imgPathPc} alt="컴퓨터" />
-            <button className="home-btn-rec">컴퓨터 고르기</button>
-          </div>
+          <Link to={"/estimate"}>
+            <div className="home-rec-wrapper">
+              <img className="home-img" src={imgPathPc} alt="컴퓨터" />
+              <button className="home-btn-rec">컴퓨터 고르기</button>
+            </div>
+          </Link>
           <div className="home-rec-wrapper">
             <img className="home-img" src={imgPathLaptop} alt="노트북" />
             <button className="home-btn-rec">노트북 고르기</button>

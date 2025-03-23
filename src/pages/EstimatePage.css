@@ -1,0 +1,97 @@
+.estimate-page {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  align-items: center;
+}
+
+.estimate-container {
+  max-width: 1200px;
+}
+
+.estimate-container > div {
+  width: 1200px;
+}
+
+.estimate-pc-categories {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  gap: 8px;
+  margin-bottom: 24px;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: center;
+  gap: 20px;
+  background-color: #ccc;
+}
+
+.estimate-category {
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.selected {
+  background-color: #ddd;
+}
+
+.estimate-budget-section {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  margin-bottom: 24px;
+  background-color: #ccc;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  gap: 200px;
+}
+
+.budget-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.pc-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.pc-card {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.pc-image {
+  height: 160px;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.buy-button {
+  background-color: red;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.wishlist-button {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  cursor: pointer;
+}
