@@ -9,6 +9,10 @@ import "./LoginForm.css";
 const LoginForm = () => {
   const navigate = useNavigate();
 
+  const handleFindPassword = () => {
+    navigate("/find-password"); // 비밀번호 찾기 페이지로 이동
+  };
+
   const imgPathKakao = "/images/kakao-logo.svg";
   const imgPathNaver = "/images/naver-logo.svg";
   const imgPathGoogle = "/images/google-logo.svg";
@@ -147,7 +151,9 @@ const LoginForm = () => {
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">로그인 상태 유지</label>
             </div>
-            <span className="login-find">비밀번호 찾기</span>
+            <span className="login-find" onClick={handleFindPassword}>
+              비밀번호 찾기
+            </span>
           </div>
         </div>
         <button className="login-submit-btn" type="submit">
