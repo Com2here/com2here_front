@@ -1,0 +1,32 @@
+.dropdown {
+  z-index: 6;
+  top: 3.25rem;
+  right: 0;
+  left: auto;
+  display: block;
+  position: absolute;
+  width: 10rem;
+  padding: 0.5rem 0;
+  background-color: var(--main-white);
+  border-radius: 0.3rem;
+  border: 1px solid var(--main-gray);
+  box-shadow:
+    0 10px 15px -3px rgba(157, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  font-size: 0.875rem;
+  color: var(--main-black);
+}
+
+.dropdown-menu {
+  width: 100%;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-menu li {
+  padding: 0.5rem 0.9rem;
+}
+
+.dropdown-menu li:hover {
+  background-color: rgba(239, 240, 242, 0.8);
+}

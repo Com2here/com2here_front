@@ -1,6 +1,7 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import Dropdown from "./Dropdown";
 import "./NavBar.css";
 
 const NavBar = () => {
@@ -8,8 +9,11 @@ const NavBar = () => {
   const imgPathHeart = "/images/heart.svg";
   const imgPathLogout = "/images/logout.svg";
 
+  const navRef = useRef(null);
+
   const navigate = useNavigate();
   const { isLoggedIn, userInfo, logout } = useAuth();
+  const [view, setView] = useState(false);
 
   // 로그아웃
   const handleLogout = () => {
@@ -33,15 +37,25 @@ const NavBar = () => {
             <Link className="navbar-mylist" to={"/mylist"}>
               <img src={imgPathHeart} alt="찜한 견적" />
             </Link>
-            <Link className="navbar-mycomputer">{userInfo.user.username}</Link>
+            <div
+              className="nav-profile"
+              ref={navRef}
+              onClick={() => setView(!view)}
+            >
+              {userInfo.user.username}
+            </div>
+            {view && (
+              <Dropdown
+                showDropdown={view}
+                setShowDropdown={setView}
+                navRef={navRef}
+              />
+            )}
           </>
         ) : (
           <>
             <Link className="navbarLogin" to={"/login"}>
               로그인
-            </Link>
-            <Link className="navbarSupport" to={"/support"}>
-              문의하기
             </Link>
           </>
         )}
