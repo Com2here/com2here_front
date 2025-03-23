@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import React from "react";
 import "./SideBar.css";
@@ -6,26 +6,51 @@ import "./SideBar.css";
 const SideBar = () => {
   const imgPath = "/images/mypage-nav.svg";
 
+  const locationNow = useLocation();
+
   return (
     <div className="sidebar">
       <nav className="sidebar-nav">
-        <Link to="/mypage">
-          <p className="sidebar-nav-title">나의 컴퓨터</p>
-        </Link>
+        {locationNow.pathname === "/mypage" && (
+          <Link to="/mypage">
+            <p className="sidebar-nav-title">나의 컴퓨터</p>
+          </Link>
+        )}
+        {locationNow.pathname === "/account" && (
+          <Link to="/account">
+            <p className="sidebar-nav-title">계정 설정</p>
+          </Link>
+        )}
+
         <ul>
           <img src={imgPath} className="sidebar-nav-img" />
-          <li>
-            회원정보
-            <ul>회원정보 수정</ul>
-          </li>
-          <li>관심목록</li>
-          <li>
-            활동내역
-            <ul>
-              내가 쓴 글<br />
-              내가 쓴 댓글
-            </ul>
-          </li>
+          {locationNow.pathname === "/mypage" && (
+            <>
+              <Link to={"/mylist"}>
+                <li>관심목록</li>
+              </Link>
+              <li>
+                활동내역
+                <ul>
+                  내가 쓴 글<br />
+                  내가 쓴 댓글
+                </ul>
+              </li>
+            </>
+          )}
+          {locationNow.pathname === "/account" && (
+            <>
+              <Link to={"/account"}>
+                <li>프로필 편집</li>
+              </Link>
+              <li>
+                비밀번호 변경
+              </li>
+              <li>
+                계정 삭제
+              </li>
+            </>
+          )}
         </ul>
       </nav>
     </div>

@@ -39,6 +39,9 @@ const Dropdown = ({ showDropdown, setShowDropdown, navRef }) => {
             <Link to={"/mypage"}>
               <li>내 컴퓨터</li>
             </Link>
+            <Link to={"/account"}>
+              <li>계정 설정</li>
+            </Link>
             <Link to={"/support"}>
               <li>문의하기</li>
             </Link>

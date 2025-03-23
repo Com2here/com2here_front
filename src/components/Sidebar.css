@@ -38,10 +38,6 @@
   margin-bottom: 25px;
 }
 
-.sidebar-nav ul li:nth-child(odd) {
-    color: var(--main-red);
-}
-
 .sidebar-nav ul li ul {
   font-weight: 400;
   font-size: 1rem;
