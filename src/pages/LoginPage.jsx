@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import "./LoginPage.css";
 
 import LoginForm from "../components/LoginForm";
+import { SITE_URL, PAGE_TITLES } from "../constants/constants";
+import { ROUTES } from "../constants/routes";
+import "./LoginPage.css";
 
 const LoginPage = () => {
   const imgPath = "/images/logo-white.svg";
@@ -10,7 +12,11 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <Helmet>
-        <title>로그인 - 컴히얼</title>
+        <title>{PAGE_TITLES.login}</title>
+        <meta property="og:title" content={PAGE_TITLES.login} />
+        <meta property="og:url" content={`${SITE_URL}${ROUTES.LOGIN}`} />
+        <meta name="twitter:title" content={PAGE_TITLES.login}></meta>
+        <meta name="twitter:url" content={`${SITE_URL}${ROUTES.LOGIN}`}></meta>
       </Helmet>
       <div className="login-form-left-side">
         <h1 className="login-page-text">로그인</h1>

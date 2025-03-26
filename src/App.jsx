@@ -1,5 +1,6 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "./contexts/AuthContext";
 
 import HomePage from "./pages/HomePage";
@@ -14,20 +15,23 @@ import EstimatePage from "./pages/EstimatePage";
 
 function App() {
   return (
-    <AuthProvider>
-      <Header></Header>
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/support" element={<SupportPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/mylist" element={<MylistPage />}></Route>
-        <Route path="/account" element={<AccountPage />}></Route>
-        <Route path="/estimate" element={<EstimatePage />}></Route>
-      </Routes>
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <Router>
+          <Header></Header>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/support" element={<SupportPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/mylist" element={<MylistPage />}></Route>
+            <Route path="/account" element={<AccountPage />}></Route>
+            <Route path="/estimate" element={<EstimatePage />}></Route>
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </HelmetProvider>
   );
 }
 

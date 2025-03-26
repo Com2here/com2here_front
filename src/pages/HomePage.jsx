@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+
+import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -7,6 +10,13 @@ const HomePage = () => {
 
   return (
     <main className="home-page">
+      <Helmet>
+        <title>{PAGE_TITLES.home}</title>
+        <meta property="og:title" content={PAGE_TITLES.home} />
+        <meta property="og:url" content={SITE_URL} />
+        <meta name="twitter:title" content={PAGE_TITLES.home}></meta>
+        <meta name="twitter:url" content={SITE_URL}></meta>
+      </Helmet>
       <section className="home-cover">
         <h2 className="home-cover-text">
           컴퓨터/노트북 추천은 여기서
