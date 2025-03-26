@@ -11,7 +11,7 @@ const RegisterForm = () => {
     username: "",
     email: "",
     password: "",
-    password2: "",
+    confirmPassword: "",
   });
 
   // 버튼 비활성화
@@ -36,7 +36,7 @@ const RegisterForm = () => {
     password: Joi.string()
       .required()
       .pattern(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/,
       )
       .messages({
         "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
@@ -48,10 +48,13 @@ const RegisterForm = () => {
         "string.min": "비밀번호는 최소 8글자 이상 입력해주세요.",
         "string.max": "비밀번호는 최대 20글자 이하로 입력해주세요.",
       }),
-    password2: Joi.string().valid(Joi.ref("password")).required().messages({
-      "string.empty": "",
-      "any.only": "비밀번호가 일치하지 않습니다.",
-    }),
+    confirmPassword: Joi.string()
+      .valid(Joi.ref("password"))
+      .required()
+      .messages({
+        "string.empty": "",
+        "any.only": "비밀번호가 일치하지 않습니다.",
+      }),
   });
 
   const handleChange = (e) => {
@@ -142,15 +145,17 @@ const RegisterForm = () => {
           </div>
           <div className="register-input-wrap input-password">
             <input
-              name="password2"
+              name="confirmPassword"
               placeholder="비밀번호 확인"
               type="password"
-              value={formData.password2}
+              value={formData.confirmPassword}
               onChange={handleChange}
               required
             />
-            {errors.password2 && (
-              <span className="register-error-message">{errors.password2}</span>
+            {errors.confirmPassword && (
+              <span className="register-error-message">
+                {errors.confirmPassword}
+              </span>
             )}
           </div>
         </div>

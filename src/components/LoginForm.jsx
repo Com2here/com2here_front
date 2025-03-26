@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-// import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
-
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import { useAuth } from "../contexts/AuthContext";
+// import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
 import "./LoginForm.css";
 
 const LoginForm = () => {
@@ -51,7 +51,7 @@ const LoginForm = () => {
 
     try {
       const response = await api.post("v1/user/login", formData);
-      console.log(response.data);
+      // console.log(response.data);
 
       login({
         token: {
