@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios, { formToJSON } from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Joi from "joi";
 import "./RegisterForm.css";
@@ -11,19 +11,17 @@ const RegisterForm = () => {
     username: "",
     email: "",
     password: "",
-    password2: "",
+    confirmPassword: "",
   });
 
-  // 버튼 비활성화
   const [active, setActive] = useState(false);
-
   const [errors, setErrors] = useState({});
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailVerified, setEmailVerified] = useState(false);
 
-  // Joi 스키마 정의
   const schema = Joi.object({
     username: Joi.string().min(1).max(30).required().messages({
       "string.empty": "",
-      // "string.min": "최소 1글자 이상 입력해주세요.",
       "string.max": "30글자 이하로 입력해주세요.",
     }),
     email: Joi.string()
@@ -36,7 +34,7 @@ const RegisterForm = () => {
     password: Joi.string()
       .required()
       .pattern(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]).{8,20}$/
       )
       .messages({
         "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
@@ -48,10 +46,13 @@ const RegisterForm = () => {
         "string.min": "비밀번호는 최소 8글자 이상 입력해주세요.",
         "string.max": "비밀번호는 최대 20글자 이하로 입력해주세요.",
       }),
-    password2: Joi.string().valid(Joi.ref("password")).required().messages({
-      "string.empty": "",
-      "any.only": "비밀번호가 일치하지 않습니다.",
-    }),
+    confirmPassword: Joi.string()
+      .valid(Joi.ref("password"))
+      .required()
+      .messages({
+        "string.empty": "",
+        "any.only": "비밀번호가 일치하지 않습니다.",
+      }),
   });
 
   const handleChange = (e) => {
@@ -67,11 +68,10 @@ const RegisterForm = () => {
           errorMessages[detail.path[0]] = detail.message;
         });
         setErrors(errorMessages);
-        console.log(validation.error.details);
         setActive(false);
       } else {
         setErrors({});
-        setActive(true);
+        setActive(emailVerified);
       }
       return updatedData;
     });
@@ -79,21 +79,36 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post("/api/v1/user/register", formData, {
-        headers: {
-          "Content-Type": "application/json", // 서버에 JSON 데이터 전송
-        },
-      });
-
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/user/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       console.log("회원가입 성공:", response.data);
       alert("환영합니다!");
       navigate("/login");
     } catch (error) {
-      console.log("상태!! ", error.response.status);
       console.error("회원가입 에러:", error);
       alert("회원가입 실패!");
+    }
+  };
+
+  const sendVerificationEmail = async () => {
+    try {
+      await axios.post("http://localhost:3000/api/v1/email/send", {
+        mail: formData.email,
+        withCredentials: true, // CORS 인증 요청 허용
+      });
+      setEmailSent(true);
+      alert("이메일로 인증 링크를 보냈습니다. 확인해주세요!");
+    } catch (error) {
+      console.error("이메일 인증 요청 실패:", error);
+      alert("이메일 인증 요청에 실패했습니다.");
     }
   };
 
@@ -127,6 +142,15 @@ const RegisterForm = () => {
               <span className="register-error-message">{errors.email}</span>
             )}
           </div>
+          {!emailVerified && (
+            <button
+              type="button"
+              onClick={sendVerificationEmail}
+              disabled={emailSent}
+            >
+              {emailSent ? "이메일 전송 완료" : "이메일 인증하기"}
+            </button>
+          )}
           <div className="register-input-wrap input-password">
             <input
               name="password"
@@ -142,15 +166,17 @@ const RegisterForm = () => {
           </div>
           <div className="register-input-wrap input-password">
             <input
-              name="password2"
+              name="confirmPassword"
               placeholder="비밀번호 확인"
               type="password"
-              value={formData.password2}
+              value={formData.confirmPassword}
               onChange={handleChange}
               required
             />
-            {errors.password2 && (
-              <span className="register-error-message">{errors.password2}</span>
+            {errors.confirmPassword && (
+              <span className="register-error-message">
+                {errors.confirmPassword}
+              </span>
             )}
           </div>
         </div>
