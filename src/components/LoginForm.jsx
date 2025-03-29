@@ -22,6 +22,10 @@ const LoginForm = () => {
 
   const { login } = useAuth(); // 로그인 함수 가져오기
 
+  const handleFindPassword = () => {
+    navigate("/reset-password");
+  };
+
   const getLoginUrl = async (platform) => {
     try {
       const response = await axios.get(
@@ -153,7 +157,12 @@ const LoginForm = () => {
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">로그인 상태 유지</label>
             </div>
-            <span className="login-find">비밀번호 찾기</span>
+            <span
+              className="login-find"
+              onClick={handleFindPassword}
+            >
+              비밀번호를 잊어버리셨나요?
+            </span>
           </div>
         </div>
         <button className="login-submit-btn" type="submit">

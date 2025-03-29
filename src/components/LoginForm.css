@@ -145,6 +145,7 @@
 .login-find {
   color: var(--main-red);
   opacity: 0.95;
+  cursor: pointer;
 }
 
 .login-submit-btn {
