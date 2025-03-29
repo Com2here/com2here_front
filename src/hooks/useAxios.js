@@ -4,7 +4,6 @@ import {
   getRefreshToken,
   setAccessToken,
   setRefreshToken,
-  logout,
 } from "../utils/token";
 
 const api = axios.create({

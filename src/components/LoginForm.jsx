@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { useAuth } from "../contexts/AuthContext";
-// import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
+import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
 import "./LoginForm.css";
 
 const LoginForm = () => {

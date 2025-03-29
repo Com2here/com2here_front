@@ -2,15 +2,13 @@
   display: flex;
   margin: 0 auto;
   align-items: center;
-  width: 85vw;
-  height: 88px;
-  background-color: white;
-  padding: 20px 0;
+  width: 100vw;
+  height: 70px;
+  padding: 15px 7.5vw;
 }
 
 .nav-links {
   display: flex;
-  /* gap: 15px; */
   margin-left: auto; /* 네비게이션 메뉴를 오른쪽으로 밀기 */
   align-items: center;
   position: relative;
@@ -27,7 +25,7 @@
 }
 
 .nav-logout:hover {
-  background-color: var(--main-gray);
+  background-color: var(--hover-gray);
 }
 
 .nav-logout img {
@@ -45,7 +43,7 @@
 }
 
 .navbar-mylist:hover {
-  background-color: var(--main-gray);
+  background-color: var(--hover-gray);
 }
 
 .navbar-mylist img {
@@ -60,7 +58,6 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  /* background-color: var(--secondary-pink); */
   background-color: var(--color6);
   color: var(--main-white);
   font-weight: 500;

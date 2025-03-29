@@ -5,8 +5,8 @@ import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import "./HomePage.css";
 
 const HomePage = () => {
-  const imgPathPc = "/images/pc.svg";
-  const imgPathLaptop = "/images/laptop.svg";
+  const imgPathComputerTower = "/images/computer-tower.png";
+  const imgPathLaptop = "/images/laptop.png";
 
   return (
     <main className="home-page">
@@ -19,15 +19,19 @@ const HomePage = () => {
       </Helmet>
       <section className="home-cover">
         <h2 className="home-cover-text">
-          컴퓨터/노트북 추천은 여기서
+          컴퓨터 추천은 여기서
           <br />
-          Com, here!
+          <span>Com, here!</span>
         </h2>
         <div className="home-btn-wrapper">
           <Link to={"/estimate"}>
             <div className="home-rec-wrapper">
-              <img className="home-img" src={imgPathPc} alt="컴퓨터" />
-              <button className="home-btn-rec">컴퓨터 고르기</button>
+              <img
+                className="home-img"
+                src={imgPathComputerTower}
+                alt="조립PC"
+              />
+              <button className="home-btn-rec">조립PC 고르기</button>
             </div>
           </Link>
           <div className="home-rec-wrapper">
