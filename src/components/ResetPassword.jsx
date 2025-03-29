@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
-import api from "../hooks/useAxios";
 import Joi from "joi";
+import api from "../hooks/useAxios";
+import { SITE_URL, PAGE_TITLES } from "../constants/constants";
+import { ROUTES } from "../constants/routes";
 import "./ResetPassword.css";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
+  const imgPath = "/images/logo-white.svg";
 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -20,27 +24,27 @@ const ResetPassword = () => {
   // 비밀번호 유효성 검사 스키마
   const passwordSchema = Joi.object({
     password: Joi.string()
-          .required()
-          .pattern(
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/,
-          )
-          .messages({
-            "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
-            "string.empty": "",
-          })
-          .min(8)
-          .max(20)
-          .messages({
-            "string.min": "비밀번호는 최소 8글자 이상 입력해주세요.",
-            "string.max": "비밀번호는 최대 20글자 이하로 입력해주세요.",
-          }),
-        confirmPassword: Joi.string()
-          .valid(Joi.ref("password"))
-          .required()
-          .messages({
-            "string.empty": "",
-            "any.only": "비밀번호가 일치하지 않습니다.",
-          }),
+      .required()
+      .pattern(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/,
+      )
+      .messages({
+        "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
+        "string.empty": "",
+      })
+      .min(8)
+      .max(20)
+      .messages({
+        "string.min": "비밀번호는 최소 8글자 이상 입력해주세요.",
+        "string.max": "비밀번호는 최대 20글자 이하로 입력해주세요.",
+      }),
+    confirmPassword: Joi.string()
+      .valid(Joi.ref("password"))
+      .required()
+      .messages({
+        "string.empty": "",
+        "any.only": "비밀번호가 일치하지 않습니다.",
+      }),
   });
 
   // 입력값 변경 시 즉시 유효성 검사 실행
@@ -50,12 +54,14 @@ const ResetPassword = () => {
       password: name === "password" ? value : newPassword,
       confirmPassword: name === "confirmPassword" ? value : confirmPassword,
     };
-  
+
     if (name === "password") setNewPassword(value);
     if (name === "confirmPassword") setConfirmPassword(value);
-  
-    const validation = passwordSchema.validate(updatedData, { abortEarly: false });
-  
+
+    const validation = passwordSchema.validate(updatedData, {
+      abortEarly: false,
+    });
+
     if (validation.error) {
       const newErrors = {};
       validation.error.details.forEach((detail) => {
@@ -97,7 +103,7 @@ const ResetPassword = () => {
     // 최종 유효성 검사
     const { error } = passwordSchema.validate(
       { password: newPassword, confirmPassword: confirmPassword },
-      { abortEarly: false }
+      { abortEarly: false },
     );
 
     if (error) {
@@ -129,65 +135,101 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="reset-password">
-      <h2>비밀번호 재설정</h2>
+    <main className="reset-password-container">
+      <Helmet>
+        <title>{PAGE_TITLES.resetPassword}</title>
+        <meta property="og:title" content={PAGE_TITLES.resetPassword} />
+        <meta
+          property="og:url"
+          content={`${SITE_URL}${ROUTES.RESET_PASSWORD}`}
+        />
+        <meta name="twitter:title" content={PAGE_TITLES.resetPassword}></meta>
+        <meta
+          name="twitter:url"
+          content={`${SITE_URL}${ROUTES.RESET_PASSWORD}`}
+        ></meta>
+      </Helmet>
 
-      {!isCodeSent ? (
-        <form onSubmit={handleSubmitEmail}>
-          <div className="reset-password-input">
-            <input
-              type="email"
-              placeholder="가입한 이메일을 입력하세요"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" disabled={loading}>
-            {loading ? "로딩 중..." : "이메일 인증 코드 보내기"}
-          </button>
-        </form>
-      ) : (
-        <form onSubmit={handleSubmitPasswordReset}>
-          <div className="reset-password-input">
-            <input
-              type="text"
-              placeholder="이메일로 받은 인증 코드를 입력하세요"
-              value={authCode}
-              onChange={(e) => setAuthCode(e.target.value)}
-              required
-            />
-          </div>
-          <div className="reset-password-input">
-            <input
-              type="password"
-              name="password"
-              placeholder="새 비밀번호"
-              value={newPassword}
-              onChange={handlePasswordChange}
-              required
-            />
-            {errors.password && <span className="reset-password-error">{errors.password}</span>}
-          </div>
-          <div className="reset-password-input">
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="비밀번호 확인"
-              value={confirmPassword}
-              onChange={handlePasswordChange}
-              required
-            />
-            {errors.confirmPassword && <span className="reset-password-error">{errors.confirmPassword}</span>}
-          </div>
-          <button type="submit" disabled={loading}>
-            {loading ? "로딩 중..." : "비밀번호 재설정"}
-          </button>
-        </form>
-      )}
+      <section className="reset-password-left-side">
+        <h2>비밀번호 재설정</h2>
 
-      {message && <div className="reset-password-message">{message}</div>}
-    </div>
+        {!isCodeSent ? (
+          <form onSubmit={handleSubmitEmail}>
+            <div className="reset-password-input">
+              <input
+                type="email"
+                placeholder="가입한 이메일을 입력하세요"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" disabled={loading}>
+              {loading ? "로딩 중..." : "이메일 인증 코드 보내기"}
+            </button>
+          </form>
+        ) : (
+          <form onSubmit={handleSubmitPasswordReset}>
+            <div className="reset-password-input">
+              <input
+                type="text"
+                placeholder="이메일로 받은 인증 코드를 입력하세요"
+                value={authCode}
+                onChange={(e) => setAuthCode(e.target.value)}
+                required
+              />
+            </div>
+            <div className="reset-password-input">
+              <input
+                type="password"
+                name="password"
+                placeholder="새 비밀번호"
+                value={newPassword}
+                onChange={handlePasswordChange}
+                required
+              />
+              {errors.password && (
+                <span className="reset-password-error">{errors.password}</span>
+              )}
+            </div>
+            <div className="reset-password-input">
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="비밀번호 확인"
+                value={confirmPassword}
+                onChange={handlePasswordChange}
+                required
+              />
+              {errors.confirmPassword && (
+                <span className="reset-password-error">
+                  {errors.confirmPassword}
+                </span>
+              )}
+            </div>
+            <button type="submit" disabled={loading}>
+              {loading ? "로딩 중..." : "비밀번호 재설정"}
+            </button>
+          </form>
+        )}
+
+        {message && <div className="reset-password-message">{message}</div>}
+      </section>
+      <section className="reset-password-right-side">
+        <Link to="/">
+          <h1 className="reset-password-logo">
+            <img src={imgPath} alt="컴히얼" />
+          </h1>
+        </Link>
+        <div className="reset-password-description">
+          <p>
+            컴알못에게 가장 쉬운
+            <br />
+            PC추천 플랫폼
+          </p>
+        </div>
+      </section>
+    </main>
   );
 };
 

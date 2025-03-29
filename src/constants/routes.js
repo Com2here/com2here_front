@@ -7,4 +7,5 @@ export const ROUTES = {
   MYLIST: "/mylist",
   MYPAGE: "/mypage",
   SUPPORT: "/support",
+  RESET_PASSWORD: "/reset-password",
 };

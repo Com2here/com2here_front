@@ -16,8 +16,8 @@ const NavBar = () => {
   const [view, setView] = useState(false);
 
   // 로그아웃
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/");
   };
 
