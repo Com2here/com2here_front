@@ -2,7 +2,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import Dropdown from "./Dropdown";
-import "./NavBar.css";
+import "./Navbar.css";
 
 const NavBar = () => {
   const imgPathLogo = "/images/logo.svg";
