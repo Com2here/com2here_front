@@ -13,6 +13,7 @@ import MylistPage from "./pages/MylistPage";
 import AccountPage from "./pages/AccountPage";
 import EstimatePage from "./pages/EstimatePage";
 import ResetPassword from "./components/ResetPassword";
+import PcComparisonPage from "./pages/PcComparisonPage";
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
             <Route path="/account" element={<AccountPage />}></Route>
             <Route path="/estimate" element={<EstimatePage />}></Route>
             <Route path="/reset-password" element={<ResetPassword />}></Route>
+            <Route
+              path="/pc-comparison"
+              element={<PcComparisonPage />}
+            ></Route>
           </Routes>
         </Router>
       </AuthProvider>

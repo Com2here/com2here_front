@@ -6,7 +6,7 @@ export const PAGE_TITLES = {
   login: `로그인 | ${SITE_NAME}`,
   register: `회원가입 | ${SITE_NAME}`,
   account: `프로필 편집 | ${SITE_NAME}`,
-  estimate: `PC 견적 | ${SITE_NAME}`,
+  estimate: `조립PC 견적 | ${SITE_NAME}`,
   mylist: `관심 견적 | ${SITE_NAME}`,
   mypage: `내 컴퓨터 | ${SITE_NAME}`,
   support: `문의하기 | ${SITE_NAME}`,

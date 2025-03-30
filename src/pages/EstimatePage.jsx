@@ -1,12 +1,66 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { Range } from "react-range";
 
 import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
 import "./EstimatePage.css";
 
+const PROGRAMS = {
+  게임: ["리그오브레전드", "발로란트", "FC 24", "배틀그라운드", "서든어택"],
+  "영상 및 그래픽": [
+    "Adobe Photoshop",
+    "Adobe Illustrator",
+    "Adobe Premiere Pro",
+    "FreeCAD",
+    "Autodesk Maya",
+    "Unreal Engine",
+    "DaVinci Resolve",
+    "Blender",
+  ],
+  사무용: [
+    "Microsoft Office",
+    "한글",
+    "Excel",
+    "PowerPoint",
+    "Adobe Acrobat",
+    "Slack",
+    "Zoom",
+  ],
+  개발: [
+    "Visual Studio Code",
+    "IntelliJ IDEA",
+    "Android Studio",
+    "Unity",
+    "Unreal Engine",
+    "Docker",
+    "PyCharm",
+  ],
+};
+
 const EstimatePage = () => {
-  const [budget, setBudget] = useState(50);
+  const [budgetRange, setBudgetRange] = useState([50, 500]);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [selectedPrograms, setSelectedPrograms] = useState([]);
+
+  const handleCategoryClick = (category) => {
+    setActiveCategory(activeCategory === category ? null : category);
+  };
+
+  const handleProgramSelect = (program) => {
+    setSelectedPrograms((prev) => {
+      if (prev.includes(program)) {
+        return prev.filter((p) => p !== program);
+      }
+
+      if (prev.length >= 5) {
+        alert("최대 5개까지 선택 가능합니다.");
+        return prev;
+      }
+
+      return [...prev, program];
+    });
+  };
 
   return (
     <div className="estimate-page">
@@ -21,37 +75,109 @@ const EstimatePage = () => {
         ></meta>
       </Helmet>
       <div className="estimate-container">
-        <div className="estimate-pc-categories">
-          <p>이용 프로그램</p>
-          <button className="estimate-category selected">게임</button>
-          <button className="estimate-category">2D 영상</button>
-          <button className="estimate-category">개발</button>
-          <button className="estimate-category">사무용</button>
-        </div>
-
-        <div className="estimate-budget-section">
-          <span className="budget-label">예산</span>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={budget}
-            onChange={(e) => setBudget(Number(e.target.value))}
-            className="custom-slider"
-          />
-        </div>
-
-        <div className="pc-list">
-          {[1, 2, 3].map((item) => (
-            <div key={item} className="pc-card">
-              <div className="pc-image">PC 추천 {item}</div>
-              <div className="pc-actions">
-                <button className="buy-button">구매하기</button>
-                <button className="wishlist-button">+ 관심등록</button>
-              </div>
+        <section className="estimate-pc-usage">
+          {Object.keys(PROGRAMS).map((category) => (
+            <div key={category} className="category-container">
+              <button
+                className={`estimate-category ${activeCategory === category ? "selected" : ""}`}
+                onClick={() => handleCategoryClick(category)}
+              >
+                {category}
+              </button>
+              {activeCategory === category && (
+                <div className="program-list">
+                  {PROGRAMS[category].map((program) => (
+                    <label key={program} className="program-item">
+                      <input
+                        type="checkbox"
+                        checked={selectedPrograms.includes(program)}
+                        onChange={() => handleProgramSelect(program)}
+                      />
+                      {program}
+                    </label>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
-        </div>
+        </section>
+
+        {selectedPrograms.length > 0 && (
+          <section className="selected-programs">
+            <h3>선택된 프로그램 ({selectedPrograms.length}/5)</h3>
+            <div className="selected-programs-list">
+              {selectedPrograms.map((program) => (
+                <div key={program} className="selected-program-item">
+                  {program}
+                  <button
+                    className="remove-program"
+                    onClick={() => handleProgramSelect(program)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <section className="estimate-budget-section">
+          <div className="estimate-pc-budget-header">
+            <span className="estimate-pc-title">예산</span>
+            <span className="budget-value">
+              {budgetRange[0]}만원 ~ {budgetRange[1]}만원
+            </span>
+          </div>
+          <Range
+            step={10}
+            min={50}
+            max={500}
+            values={budgetRange}
+            onChange={(values) => setBudgetRange(values)}
+            renderTrack={({ props, children, isDragged }) => (
+              <div
+                {...props}
+                className="range-track"
+                style={{
+                  ...props.style,
+                  background: `linear-gradient(to right, 
+                    #ddd 0%,
+                    #ddd ${(budgetRange[0] - 50) / 4.5}%,
+                    #007bff ${(budgetRange[0] - 50) / 4.5}%,
+                    #007bff ${(budgetRange[1] - 50) / 4.5}%,
+                    #ddd ${(budgetRange[1] - 50) / 4.5}%,
+                    #ddd 100%)`,
+                }}
+              >
+                {children}
+              </div>
+            )}
+            renderThumb={({ props }) => (
+              <div {...props} className="range-thumb" />
+            )}
+          />
+          <div className="estimate-pc-budget-range">
+            <span>500만원</span>
+          </div>
+        </section>
+
+        {selectedPrograms.length > 0 ? (
+          <section className="pc-list">
+            {[1, 2, 3].map((item) => (
+              <div key={item} className="pc-card">
+                <div className="pc-image">PC 추천 {item}</div>
+                <div className="pc-actions">
+                  <button className="buy-button">구매하기</button>
+                  <button className="wishlist-button">+ 관심등록</button>
+                </div>
+              </div>
+            ))}
+          </section>
+        ) : (
+          <section>
+            <p>주로 사용할 프로그램을 하나 이상 선택해주세요</p>
+          </section>
+        )}
       </div>
     </div>
   );
