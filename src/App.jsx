@@ -10,6 +10,8 @@ import MyPage from "./pages/MyPage";
 import FindPasswordPage from "./pages/FindPasswordPage";
 import { AuthProvider } from "./contexts/AuthContext";
 import KakaoCallback from "./components/KakaoCallback";
+import NaverCallback from "./components/NaverCallback.jsx";
+import GoogleCallback from "./components/GoogleCallback.jsx";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/find-password" element={<FindPasswordPage />} />
         <Route path="/callback/kakao" element={<KakaoCallback />} />
+        <Route path="/callback/naver" element={<NaverCallback />} />
+        <Route path="/callback/google" element={<GoogleCallback />} />
       </Routes>
     </AuthProvider>
   );

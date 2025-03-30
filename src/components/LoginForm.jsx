@@ -18,46 +18,45 @@ const LoginForm = () => {
 
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  const handleLogin = async (code) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/v1/user/callback/kakao?code=${code}`
-      );
-      const data = await response.json();
-
-      if (data.access_token) {
-        localStorage.setItem("token", data.access_token);
-        setIsAuthenticated(true);
-        navigate("/"); // ✅ 로그인 성공 후 메인 페이지로 이동
-      } else {
-        console.error("로그인 실패:", data);
-      }
-    } catch (error) {
-      console.error("카카오 로그인 처리 에러:", error);
-    }
-  };
-
   // 카카오 로그인 URL 받아서 이동
-  const getLoginUrl = async () => {
+  const kakaoLogin = async () => {
     try {
       const response = await axios.get(
         "http://localhost:3000/api/v1/user/login/kakao/url"
       );
-      window.location.href = response.data.url; // 카카오 로그인 페이지로 이동
-      console.log(window.location.href);
+      window.location.href = response.data.data;
     } catch (error) {
       console.error("카카오 로그인 URL 가져오기 에러:", error);
     }
   };
 
-  // 카카오 로그인 후 리디렉션 처리
+  // 네이버 로그인 URL 받아서 이동
+  const naverLogin = async () => {
+    try {
+      const response = await axios.get(
+          "http://localhost:3000/api/v1/user/login/naver/url"
+      );
+      window.location.href = response.data.data;
+    } catch (error) {
+      console.error("네이버 로그인 URL 가져오기 에러:", error);
+    }
+  };
+
+  // 카카오 로그인 URL 받아서 이동
+  const googleLogin = async () => {
+    try {
+      const response = await axios.get(
+          "http://localhost:3000/api/v1/user/login/google/url"
+      );
+      window.location.href = response.data.data;
+    } catch (error) {
+      console.error("구글 로그인 URL 가져오기 에러:", error);
+    }
+  };
+
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     const code = query.get("code");
-
-    if (code) {
-      handleLogin(code);
-    }
 
     console.log("Kakao Authorization Code:", code); // 추가
   }, []);
@@ -69,9 +68,10 @@ const LoginForm = () => {
     });
   };
 
+
+  // 일반 로그인
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/user/login",
@@ -106,7 +106,7 @@ const LoginForm = () => {
     <div className="login-form">
       <fieldset className="login-oauth">
         {/* 카카오 로그인 버튼 */}
-        <a className="login-kakao-btn login-oauth-btn" onClick={getLoginUrl}>
+        <a className="login-kakao-btn login-oauth-btn" onClick={kakaoLogin}>
           <img
             className="login-kakao-logo"
             src={imgPathKakao}
@@ -117,7 +117,7 @@ const LoginForm = () => {
           </span>
         </a>
 
-        <a className="login-naver-btn login-oauth-btn" onClick={getLoginUrl}>
+        <a className="login-naver-btn login-oauth-btn" onClick={naverLogin}>
           <img
             className="login-naver-logo"
             src={imgPathNaver}
@@ -128,7 +128,7 @@ const LoginForm = () => {
           </span>
         </a>
 
-        <a className="login-google-btn login-oauth-btn" onClick={getLoginUrl}>
+        <a className="login-google-btn login-oauth-btn" onClick={googleLogin}>
           <img
             className="login-google-logo"
             src={imgPathGoogle}
