@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import React from "react";
-import "./SideBar.css";
+import "./Sidebar.css";
 
 const SideBar = () => {
   const imgPath = "/images/mypage-nav.svg";
@@ -43,12 +43,8 @@ const SideBar = () => {
               <Link to={"/account"}>
                 <li>프로필 편집</li>
               </Link>
-              <li>
-                비밀번호 변경
-              </li>
-              <li>
-                계정 삭제
-              </li>
+              <li>비밀번호 변경</li>
+              <li>계정 삭제</li>
             </>
           )}
         </ul>
