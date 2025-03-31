@@ -1,15 +1,34 @@
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+
 import "./RegisterPage.css";
 import RegisterForm from "../components/RegisterForm";
 
 const RegisterPage = () => {
+  const imgPath = "/images/logo-white.svg";
+
   return (
-    <div className="page">
+    <div className="register-page">
+      <Helmet>
+        <title>회원가입 - 컴히얼</title>
+      </Helmet>
       <div className="register-form-left-side">
-        <div className="titleWrap">회원가입</div>
+        <div className="register-title">회원가입</div>
         <RegisterForm />
       </div>
-      <div className="register-form-right-side">
-        <img src="https://img.freepik.com/free-photo/side-view-man-using-computer-home_23-2148793445.jpg?t=st=1740304818~exp=1740308418~hmac=d156a9e01539e382dfa43607d14f582b60e86cb165e392379170bb143e508e1c&w=2000" />
+      <div className="register-right-side">
+        <Link to="/">
+          <h1 className="register-page-logo">
+            <img src={imgPath} alt="컴히얼" />
+          </h1>
+        </Link>
+        <div className="register-description">
+          <p>
+            컴알못에게 가장 쉬운
+            <br />
+            PC추천 플랫폼
+          </p>
+        </div>
       </div>
     </div>
   );
