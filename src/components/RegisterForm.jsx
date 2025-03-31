@@ -115,6 +115,7 @@ const RegisterForm = () => {
       setIsEmailVerified(true);
       alert("이메일 인증이 완료되었습니다.");
       setIsModalOpen(false);
+      navigate("/login");
     } catch (error) {
       console.error("이메일 인증 실패:", error);
       alert("이메일 인증 실패");
