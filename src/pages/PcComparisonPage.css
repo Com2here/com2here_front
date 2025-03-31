@@ -1,0 +1,164 @@
+.computer-comparison {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.computer-comparison .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.computer-comparison .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.computer-comparison .section {
+  color: #666;
+}
+
+.computer-comparison .nav-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.computer-comparison .icon {
+  color: #666;
+  cursor: pointer;
+}
+
+.computer-comparison .breadcrumb {
+  padding: 10px 0;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.computer-comparison .comparison-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.computer-comparison .computer-card {
+  flex: 1;
+  max-width: 360px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.computer-comparison .image-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background: #fce8e8;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.computer-comparison .computer-image {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.computer-comparison .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #666;
+}
+
+.computer-comparison .specs-container {
+  padding: 20px;
+}
+
+.computer-comparison .spec-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.computer-comparison .spec-key {
+  font-weight: bold;
+  color: #333;
+  width: 100px;
+}
+
+.computer-comparison .spec-value {
+  color: #666;
+  flex: 1;
+  text-align: right;
+}
+
+.computer-comparison .price-section {
+  padding: 20px;
+  background: #f8f8f8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.computer-comparison .heart-icon {
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  margin-right: 10px;
+}
+
+.computer-comparison .heart-icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.computer-comparison .price-info {
+  flex: 1;
+}
+
+.computer-comparison .price-label {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}
+
+.computer-comparison .price-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.computer-comparison .buy-button {
+  padding: 8px 20px;
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.computer-comparison .buy-button:hover {
+  background: #ff5252;
+}

@@ -1,8 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
-import "./RegisterPage.css";
 import RegisterForm from "../components/RegisterForm";
+import { SITE_URL, PAGE_TITLES } from "../constants/constants";
+import { ROUTES } from "../constants/routes";
+import "./RegisterPage.css";
 
 const RegisterPage = () => {
   const imgPath = "/images/logo-white.svg";
@@ -10,7 +12,14 @@ const RegisterPage = () => {
   return (
     <div className="register-page">
       <Helmet>
-        <title>회원가입 - 컴히얼</title>
+        <title>{PAGE_TITLES.register}</title>
+        <meta property="og:title" content={PAGE_TITLES.register} />
+        <meta property="og:url" content={`${SITE_URL}${ROUTES.REGISTER}`} />
+        <meta name="twitter:title" content={PAGE_TITLES.register}></meta>
+        <meta
+          name="twitter:url"
+          content={`${SITE_URL}${ROUTES.REGISTER}`}
+        ></meta>
       </Helmet>
       <div className="register-form-left-side">
         <div className="register-title">회원가입</div>

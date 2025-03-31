@@ -1,7 +1,82 @@
 @font-face {
   font-family: "Pretendard";
+  font-weight: 900;
+  font-display: swap;
+  src:
+    local("Pretendard Black"),
+    url(./fonts/Pretendard-Black.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 800;
+  font-display: swap;
+  src:
+    local("Pretendard ExtraBold"),
+    url(./fonts/Pretendard-ExtraBold.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-display: swap;
+  src:
+    local("Pretendard Bold"),
+    url(./fonts/Pretendard-Bold.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 600;
+  font-display: swap;
+  src:
+    local("Pretendard SemiBold"),
+    url(./fonts/Pretendard-SemiBold.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 500;
+  font-display: swap;
+  src:
+    local("Pretendard Medium"),
+    url(./fonts/Pretendard-Medium.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
   font-weight: 400;
-  src: url(./fonts/PretendardVariable.ttf) format("truetype");
+  font-display: swap;
+  src:
+    local("Pretendard Regular"),
+    url(./fonts/Pretendard-Regular.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 300;
+  font-display: swap;
+  src:
+    local("Pretendard Light"),
+    url(./fonts/Pretendard-Light.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 200;
+  font-display: swap;
+  src:
+    local("Pretendard ExtraLight"),
+    url(./fonts/Pretendard-ExtraLight.woff) format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 100;
+  font-display: swap;
+  src:
+    local("Pretendard Thin"),
+    url(./fonts/Pretendard-Thin.woff) format("woff");
 }
 
 :root {
@@ -9,9 +84,14 @@
   --main-white: #fff;
   --main-black: #424242;
   --main-gray: #eff0f2;
+  --main-green: #4b9960;
   --secondary-yellow: #f2d378;
-  --secondary-black: #000;
+  --secondary-black: #1a1a1c;
   --secondary-pink: #e6b3a4;
+
+  --error-red: #ef4445;
+  --background-color: #f8f9fa;
+  --hover-gray: #e9ecef;
 
   /* 임시 색상 팔레트 */
   --color1: #e69057;
@@ -19,4 +99,96 @@
   --color3: #e65794;
   --color4: #e6a957;
   --color5: #e6b3a4;
+  --color6: #e26264;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  background-color: var(--background-color);
+  font-family: "Pretendard";
+  font-weight: 400;
+  letter-spacing: -0.02px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: normal;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+strong,
+em {
+  font-weight: inherit;
+  font-style: normal;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+dl {
+  margin: 0;
+}
+dd {
+  margin: 0;
+  display: inline;
+}
+
+figure {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+th {
+  font-weight: normal;
+}
+
+address {
+  font-style: inherit;
+}
+
+/* 스크린 리더 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f5f5f5;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.App {
+  min-height: 100vh;
 }

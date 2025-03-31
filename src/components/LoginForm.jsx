@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
-// import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
-
 import { useNavigate } from "react-router-dom";
-import "./LoginForm.css";
 import axios from "axios";
 
+import { useAuth } from "../contexts/AuthContext";
+import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
+import "./LoginForm.css";
+
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   const imgPathKakao = "/images/kakao-logo.svg";
   const imgPathNaver = "/images/naver-logo.svg";
   const imgPathGoogle = "/images/google-logo.svg";
@@ -16,7 +19,12 @@ const LoginForm = () => {
   // const [kakaoLoginUrl, setKakaoLoginUrl] = useState(""); // url유지
   // const [naverLoginUrl, setNaverLoginUrl] = useState("");
   // const [googleLoginUrl, setGoogleLoginUrl] = useState("");
-  const navigate = useNavigate();
+
+  const { login } = useAuth(); // 로그인 함수 가져오기
+
+  const handleFindPassword = () => {
+    navigate("/reset-password");
+  };
 
   const getLoginUrl = async (platform) => {
     try {
@@ -42,14 +50,23 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
+    // setLoading(true);
+    // setError(null);
 
     try {
-      const response = await api.post("/login", formData);
+      const response = await api.post("v1/user/login", formData);
+      // console.log(response.data);
 
-      // JWT 토큰 저장
-      localStorage.setItem("token", response.data.token);
+      login({
+        token: {
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
+        },
+        user: {
+          username: response.data.username,
+          email: response.data.email,
+        },
+      });
 
       console.log("로그인 성공:", response.data);
       alert("로그인 성공!");
@@ -140,7 +157,12 @@ const LoginForm = () => {
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">로그인 상태 유지</label>
             </div>
-            <span className="login-find">비밀번호 찾기</span>
+            <span
+              className="login-find"
+              onClick={handleFindPassword}
+            >
+              비밀번호를 잊어버리셨나요?
+            </span>
           </div>
         </div>
         <button className="login-submit-btn" type="submit">
