@@ -3,3 +3,20 @@
   font-weight: 400;
   src: url(./fonts/PretendardVariable.ttf) format("truetype");
 }
+
+:root {
+  --main-red: #f23a30;
+  --main-white: #fff;
+  --main-black: #424242;
+  --main-gray: #eff0f2;
+  --secondary-yellow: #f2d378;
+  --secondary-black: #000;
+  --secondary-pink: #e6b3a4;
+
+  /* 임시 색상 팔레트 */
+  --color1: #e69057;
+  --color2: #e67757;
+  --color3: #e65794;
+  --color4: #e6a957;
+  --color5: #e6b3a4;
+}

@@ -3,17 +3,20 @@ import React from "react";
 import "./NavBar.css";
 
 const NavBar = () => {
+  const imgPath = "/images/logo.svg";
+
   return (
     <div className="navbar">
-      <h1>Com here!!!!!!</h1>
-      <div className="nav-links">
-        <Link className="navbarMenu" to={"/"}>
-          홈
+      <h1>
+        <Link to={"/"}>
+          <img src={imgPath} alt="컴히얼" />
         </Link>
-        <Link className="navbarMenu" to={"/login"}>
+      </h1>
+      <div className="nav-links">
+        <Link className="navbarLogin" to={"/login"}>
           로그인
         </Link>
-        <Link className="navbarMenu" to={"/support"}>
+        <Link className="navbarSupport" to={"/support"}>
           문의하기
         </Link>
       </div>
