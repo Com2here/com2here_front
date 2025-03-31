@@ -16,8 +16,9 @@ const RegisterForm = () => {
 
   const [active, setActive] = useState(false);
   const [errors, setErrors] = useState({});
-  const [emailSent, setEmailSent] = useState(false);
-  const [emailVerified, setEmailVerified] = useState(false);
+  const [isEmailVerified, setIsEmailVerified] = useState(false); // 이메일 인증 상태
+  const [isModalOpen, setIsModalOpen] = useState(false); // 이메일 인증 모달 상태
+  const [verificationCode, setVerificationCode] = useState(""); // 인증 코드 입력값 
 
   const schema = Joi.object({
     username: Joi.string().min(1).max(30).required().messages({
@@ -46,13 +47,10 @@ const RegisterForm = () => {
         "string.min": "비밀번호는 최소 8글자 이상 입력해주세요.",
         "string.max": "비밀번호는 최대 20글자 이하로 입력해주세요.",
       }),
-    confirmPassword: Joi.string()
-      .valid(Joi.ref("password"))
-      .required()
-      .messages({
-        "string.empty": "",
-        "any.only": "비밀번호가 일치하지 않습니다.",
-      }),
+    confirmPassword: Joi.string().valid(Joi.ref("password")).required().messages({
+      "string.empty": "",
+      "any.only": "비밀번호가 일치하지 않습니다.",
+    }),
   });
 
   const handleChange = (e) => {
@@ -80,15 +78,11 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/user/register",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post("/api/v1/user/register", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       console.log("회원가입 성공:", response.data);
       alert("환영합니다!");
       navigate("/login");
@@ -98,18 +92,39 @@ const RegisterForm = () => {
     }
   };
 
-  const sendVerificationEmail = async () => {
+  const handleEmailVerification = async () => {
     try {
-      await axios.post("http://localhost:3000/api/v1/email/send", {
+      const response = await axios.post("http://localhost:3000/api/v1/email/send", {
         mail: formData.email,
-        withCredentials: true, // CORS 인증 요청 허용
       });
-      setEmailSent(true);
-      alert("이메일로 인증 링크를 보냈습니다. 확인해주세요!");
+
+      console.log("이메일 인증 코드 전송 성공:", response.data);
+      alert("이메일로 인증 코드가 전송되었습니다.");
     } catch (error) {
-      console.error("이메일 인증 요청 실패:", error);
-      alert("이메일 인증 요청에 실패했습니다.");
+      console.error("이메일 인증 코드 전송 실패:", error);
+      alert("이메일 인증 코드 전송 실패");
     }
+  };
+
+  const handleVerifyCode = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/api/v1/email/verify", {
+        mail: formData.email,
+        verifyCode: verificationCode,
+      });
+  
+      console.log("이메일 인증 성공:", response.data);
+      setIsEmailVerified(true);
+      alert("이메일 인증이 완료되었습니다.");
+      setIsModalOpen(false);
+      navigate("/login");
+    } catch (error) {
+      console.error("이메일 인증 실패:", error);
+      alert("이메일 인증 실패");
+    }
+  };
+  const handleModalClose = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -174,9 +189,7 @@ const RegisterForm = () => {
               required
             />
             {errors.confirmPassword && (
-              <span className="register-error-message">
-                {errors.confirmPassword}
-              </span>
+              <span className="register-error-message">{errors.confirmPassword}</span>
             )}
           </div>
         </div>
