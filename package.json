@@ -13,10 +13,10 @@
     "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.8.2",
     "joi": "^17.13.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-helmet": "^6.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
+    "react-range": "^1.10.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.2.0",
     "redux": "^5.0.1",
@@ -33,6 +33,7 @@
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.15.0",
     "msw": "^2.7.3",
+    "prettier": "^3.5.3",
     "vite": "^6.1.1"
   },
   "msw": {
