@@ -1,11 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { DROPDOWN_MENU } from "../constants/menuItems";
 import "./Dropdown.css";
 
 const Dropdown = ({ showDropdown, setShowDropdown, navRef }) => {
   // 드롭다운 div 요소를 위한 ref
   const dropdownRef = useRef(null);
 
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   // 드롭다운 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -31,20 +35,28 @@ const Dropdown = ({ showDropdown, setShowDropdown, navRef }) => {
     setShowDropdown(!showDropdown);
   };
 
+  // 로그아웃
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
+
   return (
     <div className="dropdown" ref={dropdownRef}>
       <div onClick={dropdownHandler}>
         {showDropdown && (
           <ul className="dropdown-menu">
-            <Link to={"/mypage"}>
-              <li>내 컴퓨터</li>
-            </Link>
-            <Link to={"/account"}>
-              <li>계정 설정</li>
-            </Link>
-            <Link to={"/support"}>
-              <li>문의하기</li>
-            </Link>
+            {DROPDOWN_MENU.map((menu) =>
+              menu.href ? (
+                <Link key={menu.id} to={menu.href}>
+                  <li>{menu.label}</li>
+                </Link>
+              ) : (
+                <li key={menu.id} onClick={handleLogout}>
+                  {menu.label}
+                </li>
+              ),
+            )}
           </ul>
         )}
       </div>

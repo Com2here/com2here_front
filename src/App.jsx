@@ -10,7 +10,6 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import MyPage from "./pages/MyPage";
 import FindPasswordPage from "./pages/FindPasswordPage";
-import { AuthProvider } from "./contexts/AuthContext";
 import KakaoCallback from "./components/KakaoCallback";
 import NaverCallback from "./components/NaverCallback.jsx";
 import GoogleCallback from "./components/GoogleCallback.jsx";
@@ -40,10 +39,7 @@ function App() {
             <Route path="/account" element={<AccountPage />}></Route>
             <Route path="/estimate" element={<EstimatePage />}></Route>
             <Route path="/reset-password" element={<ResetPassword />}></Route>
-            <Route
-              path="/pc-comparison"
-              element={<PcComparisonPage />}
-            ></Route>
+            <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
           </Routes>
         </Router>
       </AuthProvider>
