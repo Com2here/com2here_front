@@ -8,19 +8,41 @@ import "./LoginForm.css";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { login } = useAuth(); // 로그인 함수 가져오기
 
   const imgPathKakao = "/images/kakao-logo.svg";
   const imgPathNaver = "/images/naver-logo.svg";
   const imgPathGoogle = "/images/google-logo.svg";
 
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  // const [loading, setLoading] = useState(false); // 로딩
-  // const [error, setError] = useState(null); // 에러
-  // const [kakaoLoginUrl, setKakaoLoginUrl] = useState(""); // url유지
-  // const [naverLoginUrl, setNaverLoginUrl] = useState("");
-  // const [googleLoginUrl, setGoogleLoginUrl] = useState("");
+  const handleFindPassword = () => {
+    navigate("/find-password"); // 비밀번호 찾기 페이지로 이동
+  };
 
-  const { login } = useAuth(); // 로그인 함수 가져오기
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  // 카카오 로그인 URL 받아서 이동
+  const kakaoLogin = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/user/login/kakao/url"
+      );
+      window.location.href = response.data.data;
+    } catch (error) {
+      console.error("카카오 로그인 URL 가져오기 에러:", error);
+    }
+  };
+
+  // 네이버 로그인 URL 받아서 이동
+  const naverLogin = async () => {
+    try {
+      const response = await axios.get(
+          "http://localhost:3000/api/v1/user/login/naver/url"
+      );
+      window.location.href = response.data.data;
+    } catch (error) {
+      console.error("네이버 로그인 URL 가져오기 에러:", error);
+    }
+  };
 
   const handleFindPassword = () => {
     navigate("/reset-password");
@@ -29,17 +51,20 @@ const LoginForm = () => {
   const getLoginUrl = async (platform) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/user/login/${platform}/url`
+          "http://localhost:3000/api/v1/user/login/google/url"
       );
-      window.location.href = response.data.url; // 백엔드에서 받은 URL로 이동
+      window.location.href = response.data.data;
     } catch (error) {
-      console.error(`${platform} 로그인 URL 가져오기 에러:`, error);
+      console.error("구글 로그인 URL 가져오기 에러:", error);
     }
   };
 
-  const getKakaoLoginUrl = () => getLoginUrl("kakao");
-  const getNaverLoginUrl = () => getLoginUrl("naver");
-  const getGoogleLoginUrl = () => getLoginUrl("google");
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const code = query.get("code");
+
+    console.log("Kakao Authorization Code:", code); // 추가
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -48,11 +73,10 @@ const LoginForm = () => {
     });
   };
 
+
+  // 일반 로그인
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setLoading(true);
-    // setError(null);
-
     try {
       const response = await api.post("v1/user/login", formData);
       // console.log(response.data);
@@ -81,10 +105,7 @@ const LoginForm = () => {
     <div className="login-form">
       <fieldset className="login-oauth">
         {/* 카카오 로그인 버튼 */}
-        <a
-          className="login-kakao-btn login-oauth-btn"
-          onClick={getKakaoLoginUrl}
-        >
+        <a className="login-kakao-btn login-oauth-btn" onClick={kakaoLogin}>
           <img
             className="login-kakao-logo"
             src={imgPathKakao}
@@ -95,10 +116,7 @@ const LoginForm = () => {
           </span>
         </a>
 
-        <a
-          className="login-naver-btn login-oauth-btn"
-          onClick={getNaverLoginUrl}
-        >
+        <a className="login-naver-btn login-oauth-btn" onClick={naverLogin}>
           <img
             className="login-naver-logo"
             src={imgPathNaver}
@@ -109,10 +127,7 @@ const LoginForm = () => {
           </span>
         </a>
 
-        <a
-          className="login-google-btn login-oauth-btn"
-          onClick={getGoogleLoginUrl}
-        >
+        <a className="login-google-btn login-oauth-btn" onClick={googleLogin}>
           <img
             className="login-google-logo"
             src={imgPathGoogle}

@@ -17,7 +17,6 @@ const RegisterForm = () => {
   const [isEmailVerified, setIsEmailVerified] = useState(false); // 이메일 인증 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 이메일 인증 모달 상태
   const [verificationCode, setVerificationCode] = useState(""); // 인증 코드 입력값 
-
   const schema = Joi.object({
     username: Joi.string().min(1).max(30).required().messages({
       "string.empty": "",
@@ -30,7 +29,7 @@ const RegisterForm = () => {
     password: Joi.string()
       .required()
       .pattern(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]).{8,20}$/
       )
       .messages({
         "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
@@ -64,7 +63,7 @@ const RegisterForm = () => {
         setActive(false);
       } else {
         setErrors({});
-        setActive(true);
+        setActive(emailVerified);
       }
       return updatedData;
     });
@@ -72,19 +71,16 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post("/api/v1/user/register", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-
       console.log("회원가입 성공:", response.data);
       alert("환영합니다!");
       setIsModalOpen(true);
     } catch (error) {
-      console.log("상태!! ", error.response.status);
       console.error("회원가입 에러:", error);
       alert("회원가입 실패!");
     }
@@ -124,7 +120,6 @@ const RegisterForm = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-
   return (
     <div className="register-form">
       <form onSubmit={handleSubmit}>
@@ -155,6 +150,15 @@ const RegisterForm = () => {
               <span className="register-error-message">{errors.email}</span>
             )}
           </div>
+          {!emailVerified && (
+            <button
+              type="button"
+              onClick={sendVerificationEmail}
+              disabled={emailSent}
+            >
+              {emailSent ? "이메일 전송 완료" : "이메일 인증하기"}
+            </button>
+          )}
           <div className="register-input-wrap input-password">
             <input
               name="password"
