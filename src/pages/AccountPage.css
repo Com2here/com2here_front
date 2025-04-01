@@ -1,0 +1,7 @@
+.account-page {
+  display: flex;
+  flex-direction: row;
+  max-width: 1200px;
+  justify-content: space-between;
+  margin: 0 auto;
+}

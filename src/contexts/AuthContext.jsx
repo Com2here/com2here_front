@@ -1,15 +1,59 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import {
+  getAccessToken,
+  getRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+} from "../utils/token";
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+  isLoggedIn: !!getAccessToken(),
+  userInfo: {
+    token: {
+      accessToken: getAccessToken(),
+      refreshToken: getRefreshToken(),
+    },
+    user: {
+      username: localStorage.getItem("username"),
+      email: localStorage.getItem("email"),
+    },
+  },
+});
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState();
 
-  const login = () => setIsAuthenticated(true);
-  const logout = () => setIsAuthenticated(false);
+  useEffect(() => {
+    setIsLoggedIn(!!getAccessToken());
+    setUserInfo({
+      token: {
+        accessToken: getAccessToken(),
+        refreshToken: getRefreshToken(),
+      },
+      user: {
+        username: localStorage.getItem("username"),
+        email: localStorage.getItem("email"),
+      },
+    });
+  }, []);
+
+  const login = ({ token, user }) => {
+    setAccessToken(token.accessToken);
+    setRefreshToken(token.refreshToken);
+    localStorage.setItem("username", user.username);
+    localStorage.setItem("email", user.email);
+    setIsLoggedIn(true);
+    setUserInfo({ token, user });
+  };
+  const logout = () => {
+    localStorage.clear();
+    setIsLoggedIn(false);
+    setUserInfo(undefined);
+  };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, userInfo, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

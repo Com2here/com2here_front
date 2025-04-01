@@ -1,17 +1,23 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import "./NavBar.css";
+import Dropdown from "./Dropdown";
+import "./Navbar.css";
 
 const NavBar = () => {
-  const imgPath = "/images/logo.svg";
+  const imgPathLogo = "/images/logo.svg";
+  const imgPathHeart = "/images/heart.svg";
+  const imgPathLogout = "/images/logout.svg";
+
+  const navRef = useRef(null);
+
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
+  const { isLoggedIn, userInfo, logout } = useAuth();
+  const [view, setView] = useState(false);
 
   // 로그아웃
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/");
   };
 
@@ -19,26 +25,37 @@ const NavBar = () => {
     <div className="navbar">
       <h1>
         <Link to={"/"}>
-          <img src={imgPath} alt="컴히얼" />
+          <img src={imgPathLogo} alt="컴히얼" />
         </Link>
       </h1>
       <div className="nav-links">
-        {isAuthenticated ? (
+        {isLoggedIn ? (
           <>
-            <Link className="navbarLogout" to={"/"} onClick={handleLogout}>
-              로그아웃
+            <Link className="nav-logout" onClick={handleLogout}>
+              <img src={imgPathLogout} alt="로그아웃" />
             </Link>
-            <Link className="navbarMypage" to={"/mypage"}>
-              프로필
+            <Link className="navbar-mylist" to={"/mylist"}>
+              <img src={imgPathHeart} alt="찜한 견적" />
             </Link>
+            <div
+              className="nav-profile"
+              ref={navRef}
+              onClick={() => setView(!view)}
+            >
+              {userInfo.user.username}
+            </div>
+            {view && (
+              <Dropdown
+                showDropdown={view}
+                setShowDropdown={setView}
+                navRef={navRef}
+              />
+            )}
           </>
         ) : (
           <>
             <Link className="navbarLogin" to={"/login"}>
               로그인
-            </Link>
-            <Link className="navbarSupport" to={"/support"}>
-              문의하기
             </Link>
           </>
         )}

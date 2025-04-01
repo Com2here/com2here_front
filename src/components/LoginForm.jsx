@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import { useAuth } from "../contexts/AuthContext";
+import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
 import "./LoginForm.css";
 
 const LoginForm = () => {
@@ -42,8 +44,11 @@ const LoginForm = () => {
     }
   };
 
-  // 카카오 로그인 URL 받아서 이동
-  const googleLogin = async () => {
+  const handleFindPassword = () => {
+    navigate("/reset-password");
+  };
+
+  const getLoginUrl = async (platform) => {
     try {
       const response = await axios.get(
           "http://localhost:3000/api/v1/user/login/google/url"
@@ -73,29 +78,23 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/user/login",
-        formData
-      );
+      const response = await api.post("v1/user/login", formData);
+      // console.log(response.data);
 
-      console.log("응답 데이터:", response.data); // 응답 데이터 전체 확인
+      login({
+        token: {
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
+        },
+        user: {
+          username: response.data.username,
+          email: response.data.email,
+        },
+      });
 
-      // 응답 데이터에서 토큰 추출
-      const accessToken = response.data.data?.accessToken;
-      const refreshToken = response.data.data?.refreshToken;
-
-      if (accessToken && refreshToken) {
-        // JWT 토큰 저장
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-
-        console.log("로그인 성공:", response.data);
-        alert("로그인 성공!");
-        login();
-        navigate("/"); // 로그인 후 리다이렉션
-      } else {
-        throw new Error("토큰이 응답에 포함되어 있지 않습니다.");
-      }
+      console.log("로그인 성공:", response.data);
+      alert("로그인 성공!");
+      navigate("/");
     } catch (error) {
       console.error("로그인 에러:", error);
       alert("로그인 실패!");
@@ -173,8 +172,11 @@ const LoginForm = () => {
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">로그인 상태 유지</label>
             </div>
-            <span className="login-find" onClick={handleFindPassword}>
-              비밀번호 찾기
+            <span
+              className="login-find"
+              onClick={handleFindPassword}
+            >
+              비밀번호를 잊어버리셨나요?
             </span>
           </div>
         </div>
