@@ -1,0 +1,93 @@
+.find-pw-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.find-pw-left-side {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.find-pw-left-side h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.find-pw-input {
+  margin-bottom: 15px;
+}
+
+.find-pw-input input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+.find-pw-input input:focus {
+  border-color: rgba(242, 58, 48, 0.9);
+}
+
+.find-pw-left-side button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: rgba(242, 58, 48, 0.9);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.find-pw-left-side button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.find-pw-message {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+
+.find-pw-message.error {
+  color: #e74c3c;
+}
+
+.find-pw-message.success {
+  color: rgba(242, 58, 48, 0.9);
+}
+
+.find-pw-right-side {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  background: var(--main-red);
+  width: 40%;
+  height: 100vh;
+  padding-top: 40vh;
+}
+
+.find-pw-description {
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--main-gray);
+  line-height: 32px;
+  letter-spacing: 0.2rem;
+}

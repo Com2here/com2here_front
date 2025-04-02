@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { useAuth } from "../contexts/AuthContext";
+import { ROUTES } from "../constants/routes";
 import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
 import "./LoginForm.css";
 
@@ -15,47 +16,55 @@ const LoginForm = () => {
   const imgPathGoogle = "/images/google-logo.svg";
 
   const handleFindPassword = () => {
-    navigate("/find-password"); // 비밀번호 찾기 페이지로 이동
+    navigate(ROUTES.HELP.FIND_PW); // 비밀번호 찾기 페이지로 이동
   };
 
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  // 카카오 로그인 URL 받아서 이동
-  const kakaoLogin = async () => {
+  // // 카카오 로그인 URL 받아서 이동
+  // const kakaoLogin = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://localhost:3000/api/v1/user/login/kakao/url",
+  //     );
+  //     window.location.href = response.data.data;
+  //   } catch (error) {
+  //     console.error("카카오 로그인 URL 가져오기 에러:", error);
+  //   }
+  // };
+
+  // // 네이버 로그인 URL 받아서 이동
+  // const naverLogin = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://localhost:3000/api/v1/user/login/naver/url",
+  //     );
+  //     window.location.href = response.data.data;
+  //   } catch (error) {
+  //     console.error("네이버 로그인 URL 가져오기 에러:", error);
+  //   }
+  // };
+
+  // const googleLogin = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "http://localhost:3000/api/v1/user/login/google/url",
+  //     );
+  //     window.location.href = response.data.data;
+  //   } catch (error) {
+  //     console.error("구글 로그인 URL 가져오기 에러:", error);
+  //   }
+  // };
+
+  // 소셜 로그인
+  const handleOAuthLogin = async (provider) => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/user/login/kakao/url"
+        `http://localhost:3000/api/v1/user/login/${provider}/url`,
       );
       window.location.href = response.data.data;
     } catch (error) {
-      console.error("카카오 로그인 URL 가져오기 에러:", error);
-    }
-  };
-
-  // 네이버 로그인 URL 받아서 이동
-  const naverLogin = async () => {
-    try {
-      const response = await axios.get(
-          "http://localhost:3000/api/v1/user/login/naver/url"
-      );
-      window.location.href = response.data.data;
-    } catch (error) {
-      console.error("네이버 로그인 URL 가져오기 에러:", error);
-    }
-  };
-
-  const handleFindPassword = () => {
-    navigate("/reset-password");
-  };
-
-  const getLoginUrl = async (platform) => {
-    try {
-      const response = await axios.get(
-          "http://localhost:3000/api/v1/user/login/google/url"
-      );
-      window.location.href = response.data.data;
-    } catch (error) {
-      console.error("구글 로그인 URL 가져오기 에러:", error);
+      console.error(`${provider} 로그인 URL 가져오기 에러:`, error);
     }
   };
 
@@ -72,7 +81,6 @@ const LoginForm = () => {
       [e.target.name]: e.target.value,
     });
   };
-
 
   // 일반 로그인
   const handleSubmit = async (e) => {
@@ -105,7 +113,10 @@ const LoginForm = () => {
     <div className="login-form">
       <fieldset className="login-oauth">
         {/* 카카오 로그인 버튼 */}
-        <a className="login-kakao-btn login-oauth-btn" onClick={kakaoLogin}>
+        <a
+          className="login-kakao-btn login-oauth-btn"
+          onClick={() => handleOAuthLogin("kakao")}
+        >
           <img
             className="login-kakao-logo"
             src={imgPathKakao}
@@ -116,7 +127,10 @@ const LoginForm = () => {
           </span>
         </a>
 
-        <a className="login-naver-btn login-oauth-btn" onClick={naverLogin}>
+        <a
+          className="login-naver-btn login-oauth-btn"
+          onClick={() => handleOAuthLogin("naver")}
+        >
           <img
             className="login-naver-logo"
             src={imgPathNaver}
@@ -127,7 +141,10 @@ const LoginForm = () => {
           </span>
         </a>
 
-        <a className="login-google-btn login-oauth-btn" onClick={googleLogin}>
+        <a
+          className="login-google-btn login-oauth-btn"
+          onClick={() => handleOAuthLogin("google")}
+        >
           <img
             className="login-google-logo"
             src={imgPathGoogle}
@@ -172,10 +189,7 @@ const LoginForm = () => {
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">로그인 상태 유지</label>
             </div>
-            <span
-              className="login-find"
-              onClick={handleFindPassword}
-            >
+            <span className="login-find" onClick={handleFindPassword}>
               비밀번호를 잊어버리셨나요?
             </span>
           </div>
