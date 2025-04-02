@@ -139,7 +139,7 @@ const RegisterForm = () => {
           <div className="register-input-wrap input-username">
             <input
               name="username"
-              placeholder="이름"
+              placeholder="사용자 이름"
               type="text"
               value={formData.username}
               onChange={handleChange}
