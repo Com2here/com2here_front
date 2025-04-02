@@ -21,41 +21,6 @@ const LoginForm = () => {
 
   const [formData, setFormData] = useState({ email: "", password: "" });
 
-  // // 카카오 로그인 URL 받아서 이동
-  // const kakaoLogin = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:3000/api/v1/user/login/kakao/url",
-  //     );
-  //     window.location.href = response.data.data;
-  //   } catch (error) {
-  //     console.error("카카오 로그인 URL 가져오기 에러:", error);
-  //   }
-  // };
-
-  // // 네이버 로그인 URL 받아서 이동
-  // const naverLogin = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:3000/api/v1/user/login/naver/url",
-  //     );
-  //     window.location.href = response.data.data;
-  //   } catch (error) {
-  //     console.error("네이버 로그인 URL 가져오기 에러:", error);
-  //   }
-  // };
-
-  // const googleLogin = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "http://localhost:3000/api/v1/user/login/google/url",
-  //     );
-  //     window.location.href = response.data.data;
-  //   } catch (error) {
-  //     console.error("구글 로그인 URL 가져오기 에러:", error);
-  //   }
-  // };
-
   // 소셜 로그인
   const handleOAuthLogin = async (provider) => {
     try {
@@ -87,7 +52,6 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await api.post("v1/user/login", formData);
-      // console.log(response.data);
 
       login({
         token: {
