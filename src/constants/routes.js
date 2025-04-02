@@ -8,4 +8,7 @@ export const ROUTES = {
   MYPAGE: "/mypage",
   SUPPORT: "/support",
   RESET_PASSWORD: "/reset-password",
+  HELP: {
+    FIND_PW: "/help/findPw",
+  },
 };

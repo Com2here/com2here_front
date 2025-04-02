@@ -9,15 +9,13 @@ import SupportPage from "./pages/SupportPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import MyPage from "./pages/MyPage";
-import FindPasswordPage from "./pages/FindPasswordPage";
-import KakaoCallback from "./components/KakaoCallback";
-import NaverCallback from "./components/NaverCallback.jsx";
-import GoogleCallback from "./components/GoogleCallback.jsx";
 import MylistPage from "./pages/MylistPage";
 import AccountPage from "./pages/AccountPage";
 import EstimatePage from "./pages/EstimatePage";
-import ResetPassword from "./components/ResetPassword";
 import PcComparisonPage from "./pages/PcComparisonPage";
+import FindPwPage from "./pages/FindPwPage";
+
+import OAuthCallback from "./oauth/OAuthCallback.jsx";
 
 function App() {
   return (
@@ -31,15 +29,24 @@ function App() {
             <Route path="/support" element={<SupportPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/mypage" element={<MyPage />} />
-            <Route path="/find-password" element={<FindPasswordPage />} />
-            <Route path="/callback/kakao" element={<KakaoCallback />} />
-            <Route path="/callback/naver" element={<NaverCallback />} />
-            <Route path="/callback/google" element={<GoogleCallback />} />
             <Route path="/mylist" element={<MylistPage />}></Route>
             <Route path="/account" element={<AccountPage />}></Route>
             <Route path="/estimate" element={<EstimatePage />}></Route>
-            <Route path="/reset-password" element={<ResetPassword />}></Route>
             <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
+            <Route path="/help/findPw" element={<FindPwPage />}></Route>
+
+            <Route
+              path="/callback/kakao"
+              element={<OAuthCallback provider="kakao" />}
+            />
+            <Route
+              path="/callback/naver"
+              element={<OAuthCallback provider="naver" />}
+            />
+            <Route
+              path="/callback/google"
+              element={<OAuthCallback provider="google" />}
+            />
           </Routes>
         </Router>
       </AuthProvider>

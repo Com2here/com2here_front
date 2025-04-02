@@ -8,7 +8,7 @@ function Header() {
   if (
     locationNow.pathname === ROUTES.LOGIN ||
     locationNow.pathname === ROUTES.REGISTER ||
-    locationNow.pathname === ROUTES.RESET_PASSWORD
+    locationNow.pathname === ROUTES.HELP.FIND_PW
   )
     return null;
 
