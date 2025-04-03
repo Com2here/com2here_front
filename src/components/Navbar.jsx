@@ -7,6 +7,7 @@ import "./Navbar.css";
 const NavBar = () => {
   const imgPathLogo = "/images/logo.svg";
   const imgPathHeart = "/images/heart.svg";
+  const imgPathHistory = "/images/history.png";
 
   const navRef = useRef(null);
 
@@ -24,6 +25,9 @@ const NavBar = () => {
       <div className="nav-links">
         {isLoggedIn ? (
           <>
+            <div className="nav-recent">
+              <img src={imgPathHistory} alt="최근 본 견적" />
+            </div>
             <Link className="navbar-mylist" to={"/mylist"}>
               <img src={imgPathHeart} alt="찜한 견적" />
             </Link>
