@@ -20,22 +20,15 @@ const OAuthCallback = ({ provider }) => {
 
       try {
         // 서버에 인증 코드로 액세스 토큰 요청
-        const response = await api.post(`/v1/user/callback/${provider}`, {
+        const response = await api.post(`/v1/oauth/${provider}`, {
           code,
         });
 
         if (response.data.data.accessToken) {
-          login({
-            token: {
-              accessToken: response.data.data.accessToken,
-              refreshToken: response.data.data.refreshToken,
-            },
-            user: {
-              email: response.data.data.email,
-              username: response.data.data.username,
-            },
-          });
-
+          localStorage.setItem("accessToken", response.data.data.accessToken);
+          localStorage.setItem("refreshToken", response.data.data.refreshToken);
+          localStorage.setItem("email", response.data.data.email);
+          localStorage.setItem("username", response.data.data.username);
           navigate("/");
         } else {
           console.error(`${provider} 로그인 실패:`, response.data);
