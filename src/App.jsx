@@ -12,8 +12,14 @@ import MyPage from "./pages/MyPage";
 import MylistPage from "./pages/MylistPage";
 import AccountPage from "./pages/AccountPage";
 import EstimatePage from "./pages/EstimatePage";
-import ResetPassword from "./components/ResetPassword";
 import PcComparisonPage from "./pages/PcComparisonPage";
+import FindPwPage from "./pages/FindPwPage";
+
+import KakaoCallback from "./oauth/KakaoCallback.jsx";
+import NaverCallback from "./oauth/NaverCallback.jsx";
+import GoogleCallback from "./oauth/GoogleCallback.jsx";
+// import FindPasswordPage from "./pages/FindPasswordPage";
+// import ResetPassword from "./components/ResetPassword";
 
 function App() {
   return (
@@ -30,11 +36,14 @@ function App() {
             <Route path="/mylist" element={<MylistPage />}></Route>
             <Route path="/account" element={<AccountPage />}></Route>
             <Route path="/estimate" element={<EstimatePage />}></Route>
-            <Route path="/reset-password" element={<ResetPassword />}></Route>
-            <Route
-              path="/pc-comparison"
-              element={<PcComparisonPage />}
-            ></Route>
+            <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
+            <Route path="/help/findPw" element={<FindPwPage />}></Route>
+
+            <Route path="/callback/kakao" element={<KakaoCallback />} />
+            <Route path="/callback/naver" element={<NaverCallback />} />
+            <Route path="/callback/google" element={<GoogleCallback />} />
+            {/* <Route path="/find-password" element={<FindPasswordPage />} /> */}
+            {/* <Route path="/reset-password" element={<ResetPassword />}></Route> */}
           </Routes>
         </Router>
       </AuthProvider>

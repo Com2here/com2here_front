@@ -10,5 +10,5 @@ export const PAGE_TITLES = {
   mylist: `관심 견적 | ${SITE_NAME}`,
   mypage: `내 컴퓨터 | ${SITE_NAME}`,
   support: `문의하기 | ${SITE_NAME}`,
-  resetPassword: `비밀번호 재설정 | ${SITE_NAME}`,
+  findPw: `비밀번호 찾기 | ${SITE_NAME}`,
 };
