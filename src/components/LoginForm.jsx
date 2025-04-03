@@ -91,12 +91,12 @@ const LoginForm = () => {
 
       login({
         token: {
-          accessToken: response.data.accessToken,
-          refreshToken: response.data.refreshToken,
+          accessToken: response.data.data.accessToken,
+          refreshToken: response.data.data.refreshToken,
         },
         user: {
-          username: response.data.username,
-          email: response.data.email,
+          username: response.data.data.username,
+          email: response.data.data.email,
         },
       });
 
