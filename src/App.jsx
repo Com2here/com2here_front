@@ -15,11 +15,7 @@ import EstimatePage from "./pages/EstimatePage";
 import PcComparisonPage from "./pages/PcComparisonPage";
 import FindPwPage from "./pages/FindPwPage";
 
-import KakaoCallback from "./oauth/KakaoCallback.jsx";
-import NaverCallback from "./oauth/NaverCallback.jsx";
-import GoogleCallback from "./oauth/GoogleCallback.jsx";
-// import FindPasswordPage from "./pages/FindPasswordPage";
-// import ResetPassword from "./components/ResetPassword";
+import OAuthCallback from "./oauth/OAuthCallback.jsx";
 
 function App() {
   return (
@@ -39,11 +35,18 @@ function App() {
             <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
             <Route path="/help/findPw" element={<FindPwPage />}></Route>
 
-            <Route path="/callback/kakao" element={<KakaoCallback />} />
-            <Route path="/callback/naver" element={<NaverCallback />} />
-            <Route path="/callback/google" element={<GoogleCallback />} />
-            {/* <Route path="/find-password" element={<FindPasswordPage />} /> */}
-            {/* <Route path="/reset-password" element={<ResetPassword />}></Route> */}
+            <Route
+              path="/callback/kakao"
+              element={<OAuthCallback provider="kakao" />}
+            />
+            <Route
+              path="/callback/naver"
+              element={<OAuthCallback provider="naver" />}
+            />
+            <Route
+              path="/callback/google"
+              element={<OAuthCallback provider="google" />}
+            />
           </Routes>
         </Router>
       </AuthProvider>
