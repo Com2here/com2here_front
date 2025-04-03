@@ -25,10 +25,16 @@ const OAuthCallback = ({ provider }) => {
         });
 
         if (response.data.data.accessToken) {
-          localStorage.setItem("accessToken", response.data.data.accessToken);
-          localStorage.setItem("refreshToken", response.data.data.refreshToken);
-          localStorage.setItem("email", response.data.data.email);
-          localStorage.setItem("username", response.data.data.username);
+          login({
+            token: {
+              accessToken: response.data.data.accessToken,
+              refreshToken: response.data.data.refreshToken,
+            },
+            user: {
+              email: response.data.data.email,
+              username: response.data.data.username,
+            },
+          });
           navigate("/");
         } else {
           console.error(`${provider} 로그인 실패:`, response.data);
