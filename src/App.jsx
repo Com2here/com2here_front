@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "./contexts/AuthContext";
 
-import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
 import SupportPage from "./pages/SupportPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -50,6 +51,7 @@ function App() {
               element={<OAuthCallback provider="google" />}
             />
           </Routes>
+          <Footer></Footer>
         </Router>
       </AuthProvider>
     </HelmetProvider>
