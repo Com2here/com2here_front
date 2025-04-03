@@ -18,7 +18,7 @@ const KakaoCallback = () => {
       try {
         // 서버에 인증 코드로 액세스 토큰 요청
         const response = await axios.post(
-          "http://localhost:3000/api/v1/user/callback/kakao",
+          "http://localhost:3000/api/v1/oauth/kakao",
           { code },
         );
         if (response.data.data.accessToken) {

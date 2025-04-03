@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { ROUTES } from "../constants/routes";
 import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
 import "./LoginForm.css";
+import { ApiProvider } from "@reduxjs/toolkit/query/react";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -59,9 +60,13 @@ const LoginForm = () => {
   // 소셜 로그인
   const handleOAuthLogin = async (provider) => {
     try {
-      const response = await axios.get(
-        `http://localhost:3000/api/v1/user/login/${provider}/url`,
-      );
+      const response = await api.get(`v1/oauth/${provider}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // 받은 URL로 이동
       window.location.href = response.data.data;
     } catch (error) {
       console.error(`${provider} 로그인 URL 가져오기 에러:`, error);
