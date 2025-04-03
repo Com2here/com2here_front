@@ -95,7 +95,7 @@ const RegisterForm = () => {
   const handleEmailVerification = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/email/send",
+        "http://localhost:3000/api/v1/email/authcode",
         {
           mail: formData.email,
         },
@@ -205,7 +205,7 @@ const RegisterForm = () => {
             active ? "active-register-submit-btn" : "register-submit-btn"
           }
           type="submit"
-          disabled={!active}
+          // disabled={!active}
           onClick={handleEmailVerification}
         >
           회원가입
