@@ -110,6 +110,7 @@ body,
   font-family: "Pretendard";
   font-weight: 400;
   letter-spacing: -0.02px;
+  min-height: calc(100vh - 70px);
 }
 
 h1,
@@ -191,4 +192,8 @@ body {
 
 .App {
   min-height: 100vh;
+}
+
+.main-content {
+  min-height: calc(100vh - 120px);
 }

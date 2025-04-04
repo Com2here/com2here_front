@@ -20,7 +20,9 @@ const Footer = () => {
                 <img src={imgPathInstagram} alt="인스타그램 로고" />
               </li>
               <li>
-                <img src={imgPathGithub} alt="깃허브 로고" />
+                <Link to="https://github.com/Com2here">
+                  <img src={imgPathGithub} alt="깃허브 로고" />
+                </Link>
               </li>
               <li>
                 <img
@@ -31,17 +33,21 @@ const Footer = () => {
               </li>
             </ul>
             <ul className="footer-info">
-              <li>E: support@comhere.com</li>
+              <Link to="mailto:support@comhere.com">
+                <li>E: support@comhere.com</li>
+              </Link>
               <li>Copyright © 2025 컴히얼. All rights reserved.</li>
             </ul>
           </div>
         </div>
         <div className="footer-right">
-            <ul>
-                <li>팀 소개</li>
-                <li>서비스 의견 남기기</li>
-                <li>개인정보 처리방침</li>
-            </ul>
+          <ul>
+            <li>팀 소개</li>
+            <Link to="https://forms.gle/Hvyjjy2dfuG5Uaz69">
+              <li>서비스 의견 남기기</li>
+            </Link>
+            <li>개인정보 처리방침</li>
+          </ul>
         </div>
       </div>
     </footer>

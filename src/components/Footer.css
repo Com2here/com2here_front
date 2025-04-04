@@ -48,17 +48,25 @@ img.footer-notion {
   letter-spacing: -0.02em;
 }
 
+.footer-info a:hover {
+  text-decoration: underline;
+}
+
 .footer-right {
   display: flex;
   width: 50%;
   margin: 0 15px;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 14rem;
+  padding-right: 13rem;
 }
 
 .footer-right ul {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.footer-right ul a:hover {
+  text-decoration: underline;
 }

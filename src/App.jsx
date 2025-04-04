@@ -25,9 +25,10 @@ function App() {
       <AuthProvider>
         <Router>
           <Header></Header>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
+          <div className="main-content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
             <Route path="/support" element={<SupportPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/mypage" element={<MyPage />} />
@@ -38,19 +39,20 @@ function App() {
             <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
             <Route path="/help/findPw" element={<FindPwPage />}></Route>
 
-            <Route
-              path="/callback/kakao"
-              element={<OAuthCallback provider="kakao" />}
-            />
-            <Route
-              path="/callback/naver"
-              element={<OAuthCallback provider="naver" />}
-            />
-            <Route
-              path="/callback/google"
-              element={<OAuthCallback provider="google" />}
-            />
-          </Routes>
+              <Route
+                path="/callback/kakao"
+                element={<OAuthCallback provider="kakao" />}
+              />
+              <Route
+                path="/callback/naver"
+                element={<OAuthCallback provider="naver" />}
+              />
+              <Route
+                path="/callback/google"
+                element={<OAuthCallback provider="google" />}
+              />
+            </Routes>
+          </div>
           <Footer></Footer>
         </Router>
       </AuthProvider>
