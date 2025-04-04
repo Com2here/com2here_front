@@ -44,7 +44,9 @@ const SideBar = () => {
                 <li>프로필 편집</li>
               </Link>
               <li>비밀번호 변경</li>
-              <li>계정 삭제</li>
+              <Link to={"/account/delete"}>
+                <li>계정 삭제</li>
+              </Link>
             </>
           )}
         </ul>

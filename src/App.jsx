@@ -16,6 +16,7 @@ import PcComparisonPage from "./pages/PcComparisonPage";
 import FindPwPage from "./pages/FindPwPage";
 
 import OAuthCallback from "./oauth/OAuthCallback.jsx";
+import AccountDeletePage from "./pages/AccountDeletePage.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/mylist" element={<MylistPage />}></Route>
             <Route path="/account" element={<AccountPage />}></Route>
+            <Route path="/account/delete" element={<AccountDeletePage />}></Route>
             <Route path="/estimate" element={<EstimatePage />}></Route>
             <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
             <Route path="/help/findPw" element={<FindPwPage />}></Route>
