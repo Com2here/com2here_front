@@ -64,7 +64,7 @@ const LoginForm = () => {
           refreshToken: response.data.data.refreshToken,
         },
         user: {
-          username: response.data.data.username,
+          nickname: response.data.data.nickname,
           email: response.data.data.email,
         },
       });
