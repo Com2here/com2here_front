@@ -152,9 +152,10 @@ const EstimatePage = () => {
                 {children}
               </div>
             )}
-            renderThumb={({ props }) => (
-              <div {...props} className="range-thumb" />
-            )}
+            renderThumb={({ props }) => {
+              const { key, ...restProps } = props;
+              return <div key={key} {...restProps} className="range-thumb" />;
+            }}
           />
           <div className="estimate-pc-budget-range">
             <span>500만원</span>
