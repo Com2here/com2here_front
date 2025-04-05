@@ -17,7 +17,7 @@
 .sidebar-nav > ul {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: calc(100vh - 200px);
   background-color: var(--main-black);
   color: var(--main-white);
   text-align: center;

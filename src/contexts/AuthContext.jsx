@@ -14,7 +14,7 @@ const AuthContext = createContext({
       refreshToken: getRefreshToken(),
     },
     user: {
-      username: localStorage.getItem("username"),
+      nickname: localStorage.getItem("nickname"),
       email: localStorage.getItem("email"),
     },
   },
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         refreshToken: getRefreshToken(),
       },
       user: {
-        username: localStorage.getItem("username"),
+        nickname: localStorage.getItem("nickname"),
         email: localStorage.getItem("email"),
       },
     });
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
   const login = ({ token, user }) => {
     setAccessToken(token.accessToken);
     setRefreshToken(token.refreshToken);
-    localStorage.setItem("username", user.username);
+    localStorage.setItem("nickname", user.nickname);
     localStorage.setItem("email", user.email);
     setIsLoggedIn(true);
     setUserInfo({ token, user });
