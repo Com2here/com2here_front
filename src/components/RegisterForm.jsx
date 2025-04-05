@@ -7,7 +7,7 @@ import "./RegisterForm.css";
 const RegisterForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
+    nickname: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -18,7 +18,7 @@ const RegisterForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 이메일 인증 모달 상태
   const [verificationCode, setVerificationCode] = useState(""); // 인증 코드 입력값
   const schema = Joi.object({
-    username: Joi.string().min(1).max(30).required().messages({
+    nickname: Joi.string().min(1).max(30).required().messages({
       "string.empty": "",
       "string.max": "30글자 이하로 입력해주세요.",
     }),
@@ -141,12 +141,12 @@ const RegisterForm = () => {
               name="username"
               placeholder="사용자 이름"
               type="text"
-              value={formData.username}
+              value={formData.nickname}
               onChange={handleChange}
               required
             />
-            {errors.username && (
-              <span className="register-error-message">{errors.username}</span>
+            {errors.nickname && (
+              <span className="register-error-message">{errors.nickname}</span>
             )}
           </div>
           <div className="register-input-wrap input-id">

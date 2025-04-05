@@ -30,7 +30,7 @@ const ProfileEdit = () => {
             <div className="profile-edit-info">
               <div className="register-input-wrap input-username">
                 <input
-                  name="username"
+                  name="nickname"
                   placeholder="이름"
                   type="text"
                   //   value={userInfo.user.username}

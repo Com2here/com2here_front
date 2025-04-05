@@ -36,7 +36,7 @@ const NavBar = () => {
               ref={navRef}
               onClick={() => setView(!view)}
             >
-              {userInfo.user.username}
+              {userInfo.user.nickname}
             </div>
             {view && (
               <Dropdown

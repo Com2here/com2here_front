@@ -32,7 +32,7 @@ const OAuthCallback = ({ provider }) => {
             },
             user: {
               email: response.data.data.email,
-              username: response.data.data.username,
+              nickname: response.data.data.nickname,
             },
           });
           navigate("/");

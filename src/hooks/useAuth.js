@@ -5,11 +5,11 @@ const useAuth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const login = async (username, password) => {
+  const login = async (nickname, password) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await api.post("/login", { username, password });
+      const response = await api.post("/login", { nickname, password });
       localStorage.setItem("token", response.data.token); // JWT 저장
       return response.data;
     } catch (err) {
