@@ -39,7 +39,7 @@ const PROGRAMS = {
 };
 
 const EstimatePage = () => {
-  const [budgetRange, setBudgetRange] = useState([50, 500]);
+  const [budgetRange, setBudgetRange] = useState([100, 2000]);
   const [activeCategory, setActiveCategory] = useState(null);
   const [selectedPrograms, setSelectedPrograms] = useState([]);
 
@@ -130,8 +130,8 @@ const EstimatePage = () => {
           </div>
           <Range
             step={10}
-            min={50}
-            max={500}
+            min={100}
+            max={2000}
             values={budgetRange}
             onChange={(values) => setBudgetRange(values)}
             renderTrack={({ props, children, isDragged }) => (
@@ -142,10 +142,10 @@ const EstimatePage = () => {
                   ...props.style,
                   background: `linear-gradient(to right, 
                     #ddd 0%,
-                    #ddd ${(budgetRange[0] - 50) / 4.5}%,
-                    #007bff ${(budgetRange[0] - 50) / 4.5}%,
-                    #007bff ${(budgetRange[1] - 50) / 4.5}%,
-                    #ddd ${(budgetRange[1] - 50) / 4.5}%,
+                    #ddd ${(budgetRange[0] - 100) / 19}%,
+                    #007bff ${(budgetRange[0] - 100) / 19}%,
+                    #007bff ${(budgetRange[1] - 100) / 19}%,
+                    #ddd ${(budgetRange[1] - 100) / 19}%,
                     #ddd 100%)`,
                 }}
               >
@@ -158,7 +158,7 @@ const EstimatePage = () => {
             }}
           />
           <div className="estimate-pc-budget-range">
-            <span>500만원</span>
+            <span>2000만원</span>
           </div>
         </section>
 
