@@ -18,43 +18,50 @@ import FindPwPage from "./pages/FindPwPage";
 
 import OAuthCallback from "./oauth/OAuthCallback.jsx";
 import AccountDeletePage from "./pages/AccountDeletePage.jsx";
-
+import ScrollToTop from "./utils/scrollToTop.js";
 function App() {
   return (
     <HelmetProvider>
       <AuthProvider>
-        <Router>
-          <Header></Header>
-          <div className="main-content">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/login" element={<LoginPage />} />
-            <Route path="/support" element={<SupportPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/mylist" element={<MylistPage />}></Route>
-            <Route path="/account" element={<AccountPage />}></Route>
-            <Route path="/account/delete" element={<AccountDeletePage />}></Route>
-            <Route path="/estimate" element={<EstimatePage />}></Route>
-            <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
-            <Route path="/help/findPw" element={<FindPwPage />}></Route>
+          <Router>
+          <ScrollToTop />
+            <Header></Header>
+            <div className="main-content">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/support" element={<SupportPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/mypage" element={<MyPage />} />
+                <Route path="/mylist" element={<MylistPage />}></Route>
+                <Route path="/account" element={<AccountPage />}></Route>
+                <Route
+                  path="/account/delete"
+                  element={<AccountDeletePage />}
+                ></Route>
+                <Route path="/estimate" element={<EstimatePage />}></Route>
+                <Route
+                  path="/pc-comparison"
+                  element={<PcComparisonPage />}
+                ></Route>
+                <Route path="/help/findPw" element={<FindPwPage />}></Route>
 
-              <Route
-                path="/callback/kakao"
-                element={<OAuthCallback provider="kakao" />}
-              />
-              <Route
-                path="/callback/naver"
-                element={<OAuthCallback provider="naver" />}
-              />
-              <Route
-                path="/callback/google"
-                element={<OAuthCallback provider="google" />}
-              />
-            </Routes>
-          </div>
-          <Footer></Footer>
-        </Router>
+                <Route
+                  path="/callback/kakao"
+                  element={<OAuthCallback provider="kakao" />}
+                />
+                <Route
+                  path="/callback/naver"
+                  element={<OAuthCallback provider="naver" />}
+                />
+                <Route
+                  path="/callback/google"
+                  element={<OAuthCallback provider="google" />}
+                />
+              </Routes>
+            </div>
+            <Footer></Footer>
+          </Router>
       </AuthProvider>
     </HelmetProvider>
   );
