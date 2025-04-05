@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import MyChatbot from "../components/MyChatbot";
+
 import HomePage from "../pages/HomePage";
 import SupportPage from "../pages/SupportPage";
 import LoginPage from "../pages/LoginPage";
@@ -14,7 +16,6 @@ import AccountDeletePage from "../pages/AccountDeletePage";
 import EstimatePage from "../pages/EstimatePage";
 import PcComparisonPage from "../pages/PcComparisonPage";
 import FindPwPage from "../pages/FindPwPage";
-
 import OAuthCallback from "../oauth/OAuthCallback.jsx";
 import ScrollToTop from "../utils/scrollToTop.js";
 
@@ -50,6 +51,7 @@ export const Router = () => {
             element={<OAuthCallback provider="google" />}
           />
         </Routes>
+        <MyChatbot />
       </div>
       <Footer></Footer>
     </BrowserRouter>
