@@ -8,7 +8,7 @@ import "react-chatbot-kit/build/main.css";
 import "./MyChatbot.css";
 
 const MyChatbot = () => {
-  const imgPathBubble = "../../public/images/bubble.svg";
+  const imgPathBubble = "/images/bubble.svg";
 
   const [showBot, setShowBot] = useState(false);
 
