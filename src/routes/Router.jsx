@@ -18,6 +18,7 @@ import PcComparisonPage from "../pages/PcComparisonPage";
 import FindPwPage from "../pages/FindPwPage";
 import OAuthCallback from "../oauth/OAuthCallback.jsx";
 import ScrollToTop from "../utils/scrollToTop.js";
+import PasswordChangePage from "../pages/PasswordChangePage.jsx";
 
 export const Router = () => {
   return (
@@ -34,6 +35,7 @@ export const Router = () => {
           <Route path="/mylist" element={<MylistPage />}></Route>
           <Route path="/account" element={<AccountPage />}></Route>
           <Route path="/account/delete" element={<AccountDeletePage />}></Route>
+          <Route path="/account/password" element={<PasswordChangePage />}></Route>
           <Route path="/estimate" element={<EstimatePage />}></Route>
           <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
           <Route path="/help/findPw" element={<FindPwPage />}></Route>
