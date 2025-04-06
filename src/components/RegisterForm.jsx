@@ -141,7 +141,7 @@ const RegisterForm = () => {
               name="username"
               placeholder="사용자 이름"
               type="text"
-              value={formData.nickname}
+              value={formData.username}
               onChange={handleChange}
               required
             />
