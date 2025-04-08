@@ -85,7 +85,7 @@ const RegisterForm = () => {
         },
       });
       console.log("회원가입 성공:", response.data);
-      alert("환영합니다!");
+      await handleEmailVerification(); // 회원가입 성공 후 이메일 인증 코드 전송
       setIsModalOpen(true);
     } catch (error) {
       console.error("회원가입 에러:", error);
@@ -206,8 +206,7 @@ const RegisterForm = () => {
             active ? "active-register-submit-btn" : "register-submit-btn"
           }
           type="submit"
-          disabled={active}
-          onClick={handleEmailVerification}
+          disabled={!active}
         >
           회원가입
         </button>
