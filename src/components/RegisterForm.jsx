@@ -69,7 +69,8 @@ const RegisterForm = () => {
         setActive(false);
       } else {
         setErrors({});
-        setActive(isEmailVerified);
+        // setActive(isEmailVerified);
+        setActive(true);
       }
       return updatedData;
     });
@@ -136,12 +137,12 @@ const RegisterForm = () => {
     <div className="register-form">
       <form onSubmit={handleSubmit}>
         <div className="register-input-container">
-          <div className="register-input-wrap input-username">
+          <div className="register-input-wrap input-nickname">
             <input
-              name="username"
+              name="nickname"
               placeholder="사용자 이름"
               type="text"
-              value={formData.username}
+              value={formData.nickname}
               onChange={handleChange}
               required
             />
@@ -205,7 +206,7 @@ const RegisterForm = () => {
             active ? "active-register-submit-btn" : "register-submit-btn"
           }
           type="submit"
-          // disabled={!active}
+          disabled={active}
           onClick={handleEmailVerification}
         >
           회원가입

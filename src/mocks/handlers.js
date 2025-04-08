@@ -15,6 +15,7 @@ export const handlers = [
     if (email === "test@example.com" && password === "password123") {
       return HttpResponse.json(
         {
+          code: 501,
           token: "mock_jwt_token_12345",
           user: {
             id: 1,

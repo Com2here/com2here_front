@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import { useAuth } from "../contexts/AuthContext";
 import { ROUTES } from "../constants/routes";
+import { LOGIN_ERROR_MESSAGES } from "../constants/errors";
 import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
 import "./LoginForm.css";
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
+// import { ApiProvider } from "@reduxjs/toolkit/query/react";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const LoginForm = () => {
       // 받은 URL로 이동
       window.location.href = response.data.data;
     } catch (error) {
-      console.error(`${provider} 로그인 URL 가져오기 에러:`, error);
+      // console.error(`${provider} 로그인 URL 가져오기 에러:`, error);
     }
   };
 
@@ -42,7 +42,7 @@ const LoginForm = () => {
     const query = new URLSearchParams(window.location.search);
     const code = query.get("code");
 
-    console.log("Kakao Authorization Code:", code); // 추가
+    // console.log("Kakao Authorization Code:", code); // 추가
   }, []);
 
   const handleChange = (e) => {
@@ -55,26 +55,27 @@ const LoginForm = () => {
   // 일반 로그인
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await api.post("v1/user/login", formData);
     try {
-      const response = await api.post("v1/user/login", formData);
-
-      login({
-        token: {
-          accessToken: response.data.data.accessToken,
-          refreshToken: response.data.data.refreshToken,
-        },
-        user: {
-          nickname: response.data.data.nickname,
-          email: response.data.data.email,
-        },
-      });
-
-      console.log("로그인 성공:", response.data);
-      alert("로그인 성공!");
-      navigate("/");
+      if (response.status === 200) {
+        login({
+          token: {
+            accessToken: response.data.data.accessToken,
+            refreshToken: response.data.data.refreshToken,
+          },
+          user: {
+            nickname: response.data.data.nickname,
+            email: response.data.data.email,
+          },
+        });
+        alert("로그인 성공!");
+        navigate("/");
+      }
     } catch (error) {
-      console.error("로그인 에러:", error);
-      alert("로그인 실패!");
+      const errorCode = response.data.code;
+      const errorMessage =
+        LOGIN_ERROR_MESSAGES[errorCode] || "알 수 없는 오류가 발생했습니다.";
+      alert(errorMessage);
     }
   };
 
