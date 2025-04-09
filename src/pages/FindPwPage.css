@@ -65,8 +65,11 @@
   color: #333;
 }
 
-.find-pw-message.error {
-  color: #e74c3c;
+.find-pw-error {
+  color: var(--error-red);
+  padding-left: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 .find-pw-message.success {
