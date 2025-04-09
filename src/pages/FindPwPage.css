@@ -46,15 +46,16 @@
   padding: 12px;
   font-size: 16px;
   background-color: rgba(242, 58, 48, 0.9);
-  color: #fff;
+  color: var(--main-white);
   border: none;
-  border-radius: 4px;
+  border-radius: 12px;
   cursor: pointer;
+  height: 39px;
 }
 
 .find-pw-left-side button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  background-color: rgba(242, 58, 48, 0.7);
+  cursor: default;
 }
 
 .find-pw-message {

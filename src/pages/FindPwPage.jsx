@@ -17,6 +17,7 @@ const FindPwPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [authCode, setAuthCode] = useState("");
   const [errors, setErrors] = useState({});
+  const [active, setActive] = useState(false);
 
   const imgPath = "/images/logo-white.svg";
 
@@ -67,8 +68,10 @@ const FindPwPage = () => {
         newErrors[detail.path[0]] = detail.message;
       });
       setErrors(newErrors);
+      setActive(false);
     } else {
       setErrors({});
+      setActive(true);
     }
   };
 
@@ -106,12 +109,6 @@ const FindPwPage = () => {
       { abortEarly: false },
     );
 
-    // const [password, confirmPassword] = e.target.elements;
-    // if (password.value !== confirmPassword.value) {
-    //   setMessage("비밀번호가 일치하지 않습니다.");
-    //   return;
-    // }
-
     if (error) {
       const errorMessages = {};
       error.details.forEach((detail) => {
@@ -122,20 +119,18 @@ const FindPwPage = () => {
       return;
     }
 
+    const response = await api.post("/v1/email/password/reset", {
+      mail: email,
+      code: authCode,
+      password: newPassword,
+      confirmPassword: confirmPassword,
+    });
+    console.log(response.data);
     try {
-      await api.post("/v1/email/password/reset", {
-        mail: email,
-        code: authCode,
-        password: newPassword,
-        confirmPassword: confirmPassword,
-      });
-      //   const response = await axios.post(
-      //     "http://localhost:3000/api/v1/email/password/reset", // 비밀번호 재설정 API
-      //     { mail, password: password.value },
-      //   );
-
-      setMessage("비밀번호가 성공적으로 변경되었습니다.");
-      navigate(ROUTES.LOGIN); // 비밀번호 변경 후 로그인 페이지로 리디렉션
+      if (response.code === 200) {
+        setMessage("비밀번호가 성공적으로 변경되었습니다.");
+        navigate(ROUTES.LOGIN); // 비밀번호 변경 후 로그인 페이지로 리디렉션
+      }
     } catch (error) {
       console.error("비밀번호 변경 실패:", error);
       setMessage("비밀번호 변경 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -212,8 +207,8 @@ const FindPwPage = () => {
                 <span className="find-pw-error">{errors.confirmPassword}</span>
               )}
             </div>
-            <button type="submit" disabled={loading}>
-              {loading ? "로딩 중..." : "비밀번호 재설정"}
+            <button type="submit" disabled={!active}>
+              비밀번호 재설정
             </button>
           </form>
         )}
