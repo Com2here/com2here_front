@@ -5,6 +5,7 @@ import api from "../hooks/useAxios";
 import { ROUTES } from "../constants/routes";
 import { Helmet } from "react-helmet-async";
 import { SITE_URL, PAGE_TITLES } from "../constants/constants";
+import { FIND_PW_ERROR_MESSAGES } from "../constants/errors";
 import "./FindPwPage.css";
 
 const FindPwPage = () => {
@@ -26,7 +27,7 @@ const FindPwPage = () => {
     password: Joi.string()
       .required()
       .pattern(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]).{8,20}$/,
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?~]).{8,20}$/,
       )
       .messages({
         "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
@@ -125,11 +126,17 @@ const FindPwPage = () => {
       password: newPassword,
       confirmPassword: confirmPassword,
     });
-    console.log(response.data);
     try {
-      if (response.code === 200) {
-        setMessage("비밀번호가 성공적으로 변경되었습니다.");
+      if (response.data.code === 200) {
+        alert("비밀번호가 성공적으로 변경되었습니다.");
         navigate(ROUTES.LOGIN); // 비밀번호 변경 후 로그인 페이지로 리디렉션
+      } else {
+        const errorCode = response.data.code;
+        const errorMessage =
+          FIND_PW_ERROR_MESSAGES[errorCode] ||
+          "알 수 없는 오류가 발생했습니다.";
+        alert(errorMessage);
+        console.log(response.data);
       }
     } catch (error) {
       console.error("비밀번호 변경 실패:", error);

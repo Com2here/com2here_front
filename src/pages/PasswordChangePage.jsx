@@ -13,7 +13,7 @@ const PasswordChangePage = () => {
   const passwordSchema = Joi.object({
     password: Joi.string()
       .required()
-      .pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,20}$/)
+      .pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]).{8,20}$/)
       .messages({
         "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
         "string.empty": "비밀번호를 입력해주세요.",
