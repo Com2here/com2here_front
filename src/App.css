@@ -190,6 +190,12 @@ body {
   font-family: "Noto Sans KR", sans-serif;
 }
 
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 .App {
   min-height: 100vh;
 }
