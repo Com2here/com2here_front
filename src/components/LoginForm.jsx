@@ -6,7 +6,6 @@ import { ROUTES } from "../constants/routes";
 import { LOGIN_ERROR_MESSAGES } from "../constants/errors";
 import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
 import "./LoginForm.css";
-// import { ApiProvider } from "@reduxjs/toolkit/query/react";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -66,6 +65,7 @@ const LoginForm = () => {
           user: {
             nickname: response.data.data.nickname,
             email: response.data.data.email,
+            role: response.data.data.role,
           },
         });
         alert("로그인 성공!");
