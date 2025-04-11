@@ -212,7 +212,7 @@ const FindPwPage = () => {
                   required
                 />
                 <div className="find-pw-right">
-                  <button onClick={() => toggleVisible("password")}>
+                  <button type="button" onClick={() => toggleVisible("password")}>
                     <img
                       src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
                       alt="비밀번호 보기"
@@ -235,7 +235,7 @@ const FindPwPage = () => {
                   required
                 />
                 <div className="find-pw-right">
-                  <button onClick={() => toggleVisible("confirmPassword")}>
+                  <button type="button" onClick={() => toggleVisible("confirmPassword")}>
                     <img
                       src={
                         isConfirmPasswordVisible ? imgPathEyeSlash : imgPathEye

@@ -139,7 +139,7 @@ const PasswordChangePage = () => {
               required
             />
             <div className="pw-change-right">
-              <button onClick={() => toggleVisible("password")}>
+              <button type="button" onClick={() => toggleVisible("password")}>
                 <img
                   src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
                   alt="비밀번호 보기"
@@ -159,7 +159,7 @@ const PasswordChangePage = () => {
               required
             />
             <div className="pw-change-right">
-              <button onClick={() => toggleVisible("newPassword")}>
+              <button type="button" onClick={() => toggleVisible("newPassword")}>
                 <img
                   src={isNewPasswordVisible ? imgPathEyeSlash : imgPathEye}
                   alt="비밀번호 보기"
@@ -182,7 +182,7 @@ const PasswordChangePage = () => {
               required
             />
             <div className="pw-change-right">
-              <button onClick={() => toggleVisible("confirmPassword")}>
+              <button type="button" onClick={() => toggleVisible("confirmPassword")}>
                 <img
                   src={isConfirmPasswordVisible ? imgPathEyeSlash : imgPathEye}
                   alt="비밀번호 보기"
