@@ -161,7 +161,7 @@ const LoginForm = () => {
               required
             />
             <div className="login-pw-right">
-              <button onClick={togglePassword}>
+              <button type="button" onClick={togglePassword}>
                 <img
                   src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
                   alt="비밀번호 보기"
