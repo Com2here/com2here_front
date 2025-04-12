@@ -91,3 +91,38 @@
     background-color: rgba(242, 58, 48, 1);
     transform: scale(1.03);
 }
+
+.email-verification-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 1000;
+}
+
+.email-verification-modal input {
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 80%;
+    font-size: 14px;
+}
+
+.email-verification-modal button {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: rgba(242, 58, 48, 0.7);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.email-verification-modal button:hover {
+    background-color: rgba(242, 58, 48, 0.7);
+    color: rgba(242, 58, 48, 0.9);
+}

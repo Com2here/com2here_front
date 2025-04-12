@@ -1,36 +1,43 @@
 import { useState, useEffect } from "react";
 import "./ProfileEdit.css";
 import { useAuth } from "../contexts/AuthContext";
+import api from "../hooks/useAxios";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ProfileEdit = () => {
   const imgPathProfile = "/images/profile.svg";
   const { userInfo } = useAuth();
+  const navigate = useNavigate();
+
+  const [verificationCode, setVerificationCode] = useState("");
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [formData, setFormData] = useState({
     nickname: "",
     email: "",
   });
 
+  const [originalEmail, setOriginalEmail] = useState(""); // 기존 이메일 저장
   const [isEditable, setIsEditable] = useState(false); // 편집 가능 여부
 
-  // 로컬스토리지나 userInfo에서 초기 데이터 불러오기
   useEffect(() => {
     const storedNickname = localStorage.getItem("nickname");
     const storedEmail = localStorage.getItem("email");
 
-    setFormData({
-      nickname: storedNickname || userInfo?.nickname || "",
-      email: storedEmail || userInfo?.email || "",
-    });
+    const nickname = storedNickname || userInfo?.nickname || "";
+    const email = storedEmail || userInfo?.email || "";
+
+    setFormData({ nickname, email });
+    setOriginalEmail(email);
   }, [userInfo]);
 
-  // input 변경 핸들러
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 프로필 업데이트 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
@@ -48,15 +55,20 @@ const ProfileEdit = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert("프로필이 성공적으로 수정되었습니다!");
-        console.log("서버 응답:", result);
-
-        // 수정된 데이터 localStorage에 저장
         localStorage.setItem("nickname", formData.nickname);
         localStorage.setItem("email", formData.email);
 
-        // 다시 읽기 전용으로 전환
         setIsEditable(false);
+
+        if (formData.email !== originalEmail) {
+          alert("프로필이 성공적으로 수정되었습니다! 이메일로 전송된 인증 code를 입력해주세요.");
+          setIsModalOpen(true);
+          handleEmailVerification(); // 인증 코드 자동 발송
+        } else {
+          alert("프로필이 성공적으로 수정되었습니다.");
+        }
+
+        setOriginalEmail(formData.email);
       } else {
         alert("프로필 수정 실패: " + result.message);
         console.error("오류 응답:", result);
@@ -67,7 +79,38 @@ const ProfileEdit = () => {
     }
   };
 
-  // 편집 모드 전환
+  const handleEmailVerification = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/api/v1/email/authcode", {
+        mail: formData.email,
+      });
+
+      console.log("이메일 인증 코드 전송 성공:", response.data);
+      alert("이메일로 인증 코드가 전송되었습니다.");
+    } catch (error) {
+      console.error("이메일 인증 코드 전송 실패:", error);
+      alert("이메일 인증 코드 전송 실패");
+    }
+  };
+
+  const handleVerifyCode = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/api/v1/email/verify", {
+        mail: formData.email,
+        verifyCode: verificationCode,
+      });
+
+      console.log("이메일 인증 성공:", response.data);
+      setIsEmailVerified(true);
+      alert("이메일 인증이 완료되었습니다.");
+      setIsModalOpen(false);
+      navigate("/account");
+    } catch (error) {
+      console.error("이메일 인증 실패:", error);
+      alert("이메일 인증 실패");
+    }
+  };
+
   const toggleEdit = () => {
     setIsEditable(true);
   };
@@ -109,15 +152,6 @@ const ProfileEdit = () => {
                   required
                 />
               </div>
-
-              {/*<div className="email-verified-status">*/}
-              {/*  <p>*/}
-              {/*    이메일 인증 상태:{" "}*/}
-              {/*    <strong style={{ color: userInfo?.verified ? "green" : "red" }}>*/}
-              {/*      {userInfo?.verified ? "인증됨" : "미인증"}*/}
-              {/*    </strong>*/}
-              {/*  </p>*/}
-              {/*</div>*/}
             </div>
           </div>
 
@@ -125,13 +159,28 @@ const ProfileEdit = () => {
             {isEditable && <button type="submit">프로필 업데이트</button>}
           </div>
         </form>
-        {!isEditable ? (
+
+        {!isEditable && (
           <div className="profile-edit-toggle-btn">
             <button type="button" onClick={toggleEdit}>
               프로필 수정
             </button>
           </div>
-        ) : null}
+        )}
+
+        {/* 인증 모달 */}
+        {isModalOpen && (
+          <div className="email-verification-modal">
+            <h3>인증 코드 확인</h3>
+            <input
+              type="text"
+              placeholder="인증 코드 입력"
+              value={verificationCode}
+              onChange={(e) => setVerificationCode(e.target.value)}
+            />
+            <button onClick={handleVerifyCode}>인증 확인</button>
+          </div>
+        )}
       </div>
     </div>
   );
