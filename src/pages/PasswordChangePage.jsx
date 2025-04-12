@@ -16,6 +16,7 @@ const PasswordChangePage = () => {
   const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
+  const [active, setActive] = useState(false);
 
   const passwordSchema = Joi.object({
     password: Joi.string()
@@ -25,7 +26,7 @@ const PasswordChangePage = () => {
       )
       .messages({
         "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
-        "string.empty": "비밀번호를 입력해주세요.",
+        "string.empty": "",
       })
       .min(8)
       .max(20)
@@ -37,7 +38,7 @@ const PasswordChangePage = () => {
       .valid(Joi.ref("password"))
       .required()
       .messages({
-        "string.empty": "비밀번호 확인을 입력해주세요.",
+        "string.empty": "",
         "any.only": "비밀번호가 일치하지 않습니다.",
       }),
   });
@@ -59,8 +60,10 @@ const PasswordChangePage = () => {
         }
       });
       setValidationErrors(errors);
+      setActive(false);
     } else {
       setValidationErrors({});
+      setActive(true);
     }
   }, [newPwd, confirmPwd]);
 
@@ -159,7 +162,10 @@ const PasswordChangePage = () => {
               required
             />
             <div className="pw-change-right">
-              <button type="button" onClick={() => toggleVisible("newPassword")}>
+              <button
+                type="button"
+                onClick={() => toggleVisible("newPassword")}
+              >
                 <img
                   src={isNewPasswordVisible ? imgPathEyeSlash : imgPathEye}
                   alt="비밀번호 보기"
@@ -182,7 +188,10 @@ const PasswordChangePage = () => {
               required
             />
             <div className="pw-change-right">
-              <button type="button" onClick={() => toggleVisible("confirmPassword")}>
+              <button
+                type="button"
+                onClick={() => toggleVisible("confirmPassword")}
+              >
                 <img
                   src={isConfirmPasswordVisible ? imgPathEyeSlash : imgPathEye}
                   alt="비밀번호 보기"
@@ -197,7 +206,7 @@ const PasswordChangePage = () => {
 
         <button
           type="submit"
-          disabled={Object.keys(validationErrors).length > 0}
+          disabled={!active}
         >
           비밀번호 변경
         </button>
