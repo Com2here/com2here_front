@@ -56,14 +56,38 @@
 .profile-edit-info div {
     padding-bottom: 12px;
 }
-.profile-edit-btn-wrapper {
+/*.profile-edit-btn-wrapper {*/
+/*    display: flex;*/
+/*    justify-content: left;*/
+/*    padding-left: 100px;*/
+/*}*/
+
+/*.profile-edit-btn-wrapper button {*/
+/*    width: 80%;*/
+/*    height: 44px;*/
+/*    cursor: pointer;*/
+/*}*/
+
+.profile-edit-toggle-btn {
     display: flex;
-    justify-content: left;
-    padding-left: 100px;
+    justify-content: center; /* 가운데 정렬로 변경 */
+    margin-top: 1.5rem;
 }
 
-.profile-edit-btn-wrapper button {
-    width: 80%;
-    height: 44px;
+.profile-edit-toggle-btn button {
+    padding: 10px 30px;
+    background-color: rgba(242, 58, 48, 0.9);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.profile-edit-toggle-btn button:hover {
+    background-color: rgba(242, 58, 48, 1);
+    transform: scale(1.03);
 }
