@@ -102,11 +102,14 @@ const PasswordChangePage = () => {
         },
       );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        alert(
-          `비밀번호 변경 실패: ${errorData.message || response.statusText}`,
-        );
+      const responseData = await response.json();
+
+      if (responseData.code !== 200) {
+        if (responseData.code === 2603) {
+          alert("현재 비밀번호가 일치하지 않습니다.");
+        } else {
+          alert(`비밀번호 변경 실패: ${responseData.message || "알 수 없는 오류입니다."}`);
+        }
         return;
       }
 
