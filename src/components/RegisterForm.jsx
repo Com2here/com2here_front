@@ -84,12 +84,31 @@ const RegisterForm = () => {
           "Content-Type": "application/json",
         },
       });
+
+      if (response.data.code === 2100) {
+        alert("사용중인 이메일입니다.");
+        return;
+      }
+
       console.log("회원가입 성공:", response.data);
-      await handleEmailVerification(); // 회원가입 성공 후 이메일 인증 코드 전송
+
+      // 회원가입 성공 후 이메일 인증 코드 전송
+      await handleEmailVerification();
       setIsModalOpen(true);
     } catch (error) {
-      console.error("회원가입 에러:", error);
-      alert("회원가입 실패!");
+      if (error.response && error.response.data) {
+        const { code, message } = error.response.data;
+
+        // 이미 가입된 이메일 처리
+        if (code === 2100) {
+          alert("사용중인 이메일입니다.");
+        } else {
+          alert("회원가입 실패!");
+        }
+      } else {
+        console.error("회원가입 에러:", error);
+        alert("회원가입 실패!");
+      }
     }
   };
 
