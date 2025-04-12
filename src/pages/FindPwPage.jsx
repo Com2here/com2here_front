@@ -88,16 +88,25 @@ const FindPwPage = () => {
     setMessage("");
 
     try {
-      await api.post("/v1/email/authcode", {
+      const response = await api.post("/v1/email/authcode", {
         mail: email,
       });
 
-      setMessage("인증 코드가 이메일로 전송되었습니다.");
-      //   setMessage("비밀번호 재설정 링크가 이메일로 발송되었습니다.");
-      setIsCodeSent(true); // 전송 후 상태 변경
+      // 응답 코드가 200인 경우 성공 처리
+      if (response.data.code === 200) {
+        setMessage("인증 코드가 이메일로 전송되었습니다.");
+        alert("인증 코드가 이메일로 전송되었습니다.");
+        setIsCodeSent(true);
+      } else if (response.data.code === 2106) {
+        // 존재하지 않는 이메일
+        setMessage("가입된 이메일이 없습니다.");
+      } else {
+        // 기타 오류
+        setMessage("이메일 인증 요청에 실패했습니다. 다시 시도해주세요.");
+      }
     } catch (error) {
       console.error("이메일 인증 실패:", error);
-      setMessage("이메일 인증 요청에 실패했습니다. 다시 시도해주세요.");
+      setMessage("이메일 인증 요청 중 오류가 발생했습니다.");
     } finally {
       setLoading(false);
     }
