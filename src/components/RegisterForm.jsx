@@ -6,6 +6,9 @@ import "./RegisterForm.css";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const imgPathEye = "/images/eye.svg";
+  const imgPathEyeSlash = "/images/eye-slash.svg";
+
   const [formData, setFormData] = useState({
     nickname: "",
     email: "",
@@ -17,6 +20,10 @@ const RegisterForm = () => {
   const [isEmailVerified, setIsEmailVerified] = useState(false); // 이메일 인증 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 이메일 인증 모달 상태
   const [verificationCode, setVerificationCode] = useState(""); // 인증 코드 입력값
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
+
   const schema = Joi.object({
     nickname: Joi.string().min(1).max(30).required().messages({
       "string.empty": "",
@@ -152,6 +159,15 @@ const RegisterForm = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
+
+  const toggleVisible = (target) => {
+    if (target === "password") {
+      setIsPasswordVisible(!isPasswordVisible);
+    } else if (target === "confirmPassword") {
+      setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+    }
+  };
+
   return (
     <div className="register-form">
       <form onSubmit={handleSubmit}>
@@ -192,27 +208,49 @@ const RegisterForm = () => {
             </button>
           )} */}
           <div className="register-input-wrap input-password">
-            <input
-              name="password"
-              placeholder="비밀번호"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <div>
+              <input
+                name="password"
+                placeholder="비밀번호"
+                type={isPasswordVisible ? "text" : "password"}
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              <div className="register-pw-right">
+                <button type="button" onClick={() => toggleVisible("password")}>
+                  <img
+                    src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
+                    alt="비밀번호 보기"
+                  />
+                </button>
+              </div>
+            </div>
             {errors.password && (
               <span className="register-error-message">{errors.password}</span>
             )}
           </div>
           <div className="register-input-wrap input-password">
-            <input
-              name="confirmPassword"
-              placeholder="비밀번호 확인"
-              type="password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
+            <div>
+              <input
+                name="confirmPassword"
+                placeholder="비밀번호 확인"
+                type={isConfirmPasswordVisible ? "text" : "password"}
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+              <div className="register-pw-right">
+                <button type="button" onClick={() => toggleVisible("confirmPassword")}>
+                  <img
+                    src={
+                      isConfirmPasswordVisible ? imgPathEyeSlash : imgPathEye
+                    }
+                    alt="비밀번호 보기"
+                  />
+                </button>
+              </div>
+            </div>
             {errors.confirmPassword && (
               <span className="register-error-message">
                 {errors.confirmPassword}

@@ -10,17 +10,22 @@ import "./FindPwPage.css";
 
 const FindPwPage = () => {
   const navigate = useNavigate();
+  const imgPathEye = "/images/eye.svg";
+  const imgPathEyeSlash = "/images/eye-slash.svg";
+  const imgPath = "/images/logo-white.svg";
+
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isCodeSent, setIsCodeSent] = useState(false); // 전송 상태 저장
+  const [isCodeSent, setIsCodeSent] = useState(true); // 전송 상태 저장
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [authCode, setAuthCode] = useState("");
   const [errors, setErrors] = useState({});
   const [active, setActive] = useState(false);
-
-  const imgPath = "/images/logo-white.svg";
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
 
   // 비밀번호 유효성 검사 스키마
   const passwordSchema = Joi.object({
@@ -155,6 +160,14 @@ const FindPwPage = () => {
     }
   };
 
+  const toggleVisible = (target) => {
+    if (target === "password") {
+      setIsPasswordVisible(!isPasswordVisible);
+    } else if (target === "confirmPassword") {
+      setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+    }
+  };
+
   return (
     <main className="find-pw-container">
       <Helmet>
@@ -198,27 +211,49 @@ const FindPwPage = () => {
               />
             </div>
             <div className="find-pw-input">
-              <input
-                type="password"
-                name="password"
-                placeholder="새 비밀번호"
-                value={newPassword}
-                onChange={handleCheckPassword}
-                required
-              />
+              <div className="find-pw-input-wrap">
+                <input
+                  type={isPasswordVisible ? "text" : "password"}
+                  name="password"
+                  placeholder="새 비밀번호"
+                  value={newPassword}
+                  onChange={handleCheckPassword}
+                  required
+                />
+                <div className="find-pw-right">
+                  <button type="button" onClick={() => toggleVisible("password")}>
+                    <img
+                      src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
+                      alt="비밀번호 보기"
+                    />
+                  </button>
+                </div>
+              </div>
               {errors.password && (
                 <span className="find-pw-error">{errors.password}</span>
               )}
             </div>
             <div className="find-pw-input">
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="비밀번호 확인"
-                value={confirmPassword}
-                onChange={handleCheckPassword}
-                required
-              />
+              <div className="find-pw-input-wrap">
+                <input
+                  type={isConfirmPasswordVisible ? "text" : "password"}
+                  name="confirmPassword"
+                  placeholder="비밀번호 확인"
+                  value={confirmPassword}
+                  onChange={handleCheckPassword}
+                  required
+                />
+                <div className="find-pw-right">
+                  <button type="button" onClick={() => toggleVisible("confirmPassword")}>
+                    <img
+                      src={
+                        isConfirmPasswordVisible ? imgPathEyeSlash : imgPathEye
+                      }
+                      alt="비밀번호 보기"
+                    />
+                  </button>
+                </div>
+              </div>
               {errors.confirmPassword && (
                 <span className="find-pw-error">{errors.confirmPassword}</span>
               )}

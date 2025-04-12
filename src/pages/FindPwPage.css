@@ -41,6 +41,30 @@
   border-color: rgba(242, 58, 48, 0.9);
 }
 
+.find-pw-input-wrap {
+  position: relative;
+}
+
+.find-pw-right {
+  display: flex;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  align-items: center;
+  justify-content: center;
+  width: 2.125rem;
+}
+
+.find-pw-right > button:hover {
+  background-color: var(--hover-gray);
+}
+
+.find-pw-right img {
+  width: 1.165rem;
+  cursor: pointer;
+}
+
 .find-pw-left-side button {
   width: 100%;
   padding: 12px;
@@ -56,6 +80,19 @@
 .find-pw-left-side button:disabled {
   background-color: rgba(242, 58, 48, 0.7);
   cursor: default;
+}
+
+.find-pw-right > button {
+  border-radius: 0.5rem;
+  line-height: 1;
+  display: flex;
+  width: 1.75rem;
+  height: 1.75rem;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
 }
 
 .find-pw-message {

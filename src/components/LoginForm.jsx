@@ -14,12 +14,15 @@ const LoginForm = () => {
   const imgPathKakao = "/images/kakao-logo.svg";
   const imgPathNaver = "/images/naver-logo.svg";
   const imgPathGoogle = "/images/google-logo.svg";
+  const imgPathEye = "/images/eye.svg";
+  const imgPathEyeSlash = "/images/eye-slash.svg";
 
   const handleFindPassword = () => {
     navigate(ROUTES.HELP.FIND_PW); // 비밀번호 찾기 페이지로 이동
   };
 
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   // 소셜 로그인
   const handleOAuthLogin = async (provider) => {
@@ -77,6 +80,10 @@ const LoginForm = () => {
         LOGIN_ERROR_MESSAGES[errorCode] || "알 수 없는 오류가 발생했습니다.";
       alert(errorMessage);
     }
+  };
+
+  const togglePassword = () => {
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
   return (
@@ -147,12 +154,20 @@ const LoginForm = () => {
           <div className="login-input-wrap input-password">
             <input
               placeholder="비밀번호"
-              type="password"
+              type={isPasswordVisible ? "text" : "password"}
               name="password"
               value={formData.password}
               onChange={handleChange}
               required
             />
+            <div className="login-pw-right">
+              <button type="button" onClick={togglePassword}>
+                <img
+                  src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
+                  alt="비밀번호 보기"
+                />
+              </button>
+            </div>
           </div>
           <div className="login-feat">
             <div className="login-remember">

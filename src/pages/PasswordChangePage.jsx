@@ -4,19 +4,29 @@ import Joi from "joi";
 import "./PasswordChangePage.css";
 
 const PasswordChangePage = () => {
+  const navigate = useNavigate();
+  const imgPathEye = "/images/eye.svg";
+  const imgPathEyeSlash = "/images/eye-slash.svg";
+
   const [currentPwd, setCurrentPwd] = useState("");
   const [newPwd, setNewPwd] = useState("");
   const [confirmPwd, setConfirmPwd] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
-  const navigate = useNavigate();
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
+  const [active, setActive] = useState(false);
 
   const passwordSchema = Joi.object({
     password: Joi.string()
       .required()
-      .pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]).{8,20}$/)
+      .pattern(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]).{8,20}$/,
+      )
       .messages({
         "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
-        "string.empty": "비밀번호를 입력해주세요.",
+        "string.empty": "",
       })
       .min(8)
       .max(20)
@@ -28,7 +38,7 @@ const PasswordChangePage = () => {
       .valid(Joi.ref("password"))
       .required()
       .messages({
-        "string.empty": "비밀번호 확인을 입력해주세요.",
+        "string.empty": "",
         "any.only": "비밀번호가 일치하지 않습니다.",
       }),
   });
@@ -37,7 +47,7 @@ const PasswordChangePage = () => {
   useEffect(() => {
     const { error } = passwordSchema.validate(
       { password: newPwd, confirmPassword: confirmPwd },
-      { abortEarly: false }
+      { abortEarly: false },
     );
 
     if (error) {
@@ -50,8 +60,10 @@ const PasswordChangePage = () => {
         }
       });
       setValidationErrors(errors);
+      setActive(false);
     } else {
       setValidationErrors({});
+      setActive(true);
     }
   }, [newPwd, confirmPwd]);
 
@@ -73,23 +85,28 @@ const PasswordChangePage = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      const response = await fetch("http://localhost:3000/api/v1/user/password/change", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+      const response = await fetch(
+        "http://localhost:3000/api/v1/user/password/change",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            email,
+            currentPassword: currentPwd,
+            newPassword: newPwd,
+            confirmPassword: confirmPwd,
+          }),
         },
-        body: JSON.stringify({
-          email,
-          currentPassword: currentPwd,
-          newPassword: newPwd,
-          confirmPassword: confirmPwd,
-        }),
-      });
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
-        alert(`비밀번호 변경 실패: ${errorData.message || response.statusText}`);
+        alert(
+          `비밀번호 변경 실패: ${errorData.message || response.statusText}`,
+        );
         return;
       }
 
@@ -101,28 +118,61 @@ const PasswordChangePage = () => {
     }
   };
 
+  const toggleVisible = (target) => {
+    if (target === "password") {
+      setIsPasswordVisible(!isPasswordVisible);
+    } else if (target === "newPassword") {
+      setIsNewPasswordVisible(!isNewPasswordVisible);
+    } else if (target === "confirmPassword") {
+      setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+    }
+  };
+
   return (
     <div className="password-change-container">
       <h2>비밀번호 변경</h2>
       <form onSubmit={handleSubmit} className="password-change-form">
         <label>
           현재 비밀번호
-          <input
-            type="password"
-            value={currentPwd}
-            onChange={(e) => setCurrentPwd(e.target.value)}
-            required
-          />
+          <div className="pw-change-input-wrap">
+            <input
+              type={isPasswordVisible ? "text" : "password"}
+              value={currentPwd}
+              onChange={(e) => setCurrentPwd(e.target.value)}
+              required
+            />
+            <div className="pw-change-right">
+              <button type="button" onClick={() => toggleVisible("password")}>
+                <img
+                  src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
+                  alt="비밀번호 보기"
+                />
+              </button>
+            </div>
+          </div>
         </label>
 
         <label>
           새 비밀번호
-          <input
-            type="password"
-            value={newPwd}
-            onChange={(e) => setNewPwd(e.target.value)}
-            required
-          />
+          <div className="pw-change-input-wrap">
+            <input
+              type={isNewPasswordVisible ? "text" : "password"}
+              value={newPwd}
+              onChange={(e) => setNewPwd(e.target.value)}
+              required
+            />
+            <div className="pw-change-right">
+              <button
+                type="button"
+                onClick={() => toggleVisible("newPassword")}
+              >
+                <img
+                  src={isNewPasswordVisible ? imgPathEyeSlash : imgPathEye}
+                  alt="비밀번호 보기"
+                />
+              </button>
+            </div>
+          </div>
           {validationErrors.password && (
             <div className="error-text">{validationErrors.password}</div>
           )}
@@ -130,18 +180,34 @@ const PasswordChangePage = () => {
 
         <label>
           새 비밀번호 확인
-          <input
-            type="password"
-            value={confirmPwd}
-            onChange={(e) => setConfirmPwd(e.target.value)}
-            required
-          />
+          <div className="pw-change-input-wrap">
+            <input
+              type={isConfirmPasswordVisible ? "text" : "password"}
+              value={confirmPwd}
+              onChange={(e) => setConfirmPwd(e.target.value)}
+              required
+            />
+            <div className="pw-change-right">
+              <button
+                type="button"
+                onClick={() => toggleVisible("confirmPassword")}
+              >
+                <img
+                  src={isConfirmPasswordVisible ? imgPathEyeSlash : imgPathEye}
+                  alt="비밀번호 보기"
+                />
+              </button>
+            </div>
+          </div>
           {validationErrors.confirmPassword && (
             <div className="error-text">{validationErrors.confirmPassword}</div>
           )}
         </label>
 
-        <button type="submit" disabled={Object.keys(validationErrors).length > 0}>
+        <button
+          type="submit"
+          disabled={!active}
+        >
           비밀번호 변경
         </button>
       </form>
