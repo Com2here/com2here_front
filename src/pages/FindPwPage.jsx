@@ -17,7 +17,7 @@ const FindPwPage = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isCodeSent, setIsCodeSent] = useState(true); // 전송 상태 저장
+  const [isCodeSent, setIsCodeSent] = useState(false); // 전송 상태 저장
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [authCode, setAuthCode] = useState("");
