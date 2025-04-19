@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import LoginForm from "../components/LoginForm";
 import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-import "./LoginPage.css";
+import "../styles/LoginPage.css";
 
 const LoginPage = () => {
   const imgPath = "/images/logo-white.svg";

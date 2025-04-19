@@ -4,7 +4,7 @@ import ProfileEdit from "../components/ProfileEdit";
 import SideBar from "../components/Sidebar";
 import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-import "./AccountPage.css";
+import "../styles/AccountPage.css";
 
 const AccountPage = () => {
   return (

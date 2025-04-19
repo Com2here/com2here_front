@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Joi from "joi";
-import "./RegisterForm.css";
+import "../styles/RegisterForm.css";
 
 const RegisterForm = () => {
   const navigate = useNavigate();

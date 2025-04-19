@@ -6,7 +6,7 @@ import { ROUTES } from "../constants/routes";
 import { Helmet } from "react-helmet-async";
 import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import { FIND_PW_ERROR_MESSAGES } from "../constants/errors";
-import "./FindPwPage.css";
+import "../styles/FindPwPage.css";
 
 const FindPwPage = () => {
   const navigate = useNavigate();

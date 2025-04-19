@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./ProfileEdit.css";
+import "../styles/ProfileEdit.css";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios";
 import axios from "axios";

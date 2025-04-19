@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 import SideBar from "../components/Sidebar";
 import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-import "./MyPage.css";
+import "../styles/MyPage.css";
 
 const MyPage = () => {
   return (

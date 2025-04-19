@@ -5,7 +5,7 @@ import config from "../../bot/config.js";
 import MessageParser from "../../bot/MessageParser.jsx";
 import ActionProvider from "../../bot/ActionProvider.jsx";
 import "react-chatbot-kit/build/main.css";
-import "./MyChatbot.css";
+import "../styles/MyChatbot.css";
 
 const MyChatbot = () => {
   const imgPathBubble = "/images/bubble.svg";
