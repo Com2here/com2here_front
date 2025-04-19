@@ -1,5 +1,5 @@
 import React from "react";
-import "./PcComparisonPage.css";
+import "../styles/PcComparisonPage.css";
 
 const PcComparisonPage = () => {
   const computers = [

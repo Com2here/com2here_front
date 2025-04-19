@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import React from "react";
-import "./Sidebar.css";
+import "../styles/Sidebar.css";
 
 const SideBar = () => {
   const imgPath = "/images/mypage-nav.svg";

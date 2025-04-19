@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/App.css";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "./contexts/AuthContext";
 

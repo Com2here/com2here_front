@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./Footer.css";
+import "../styles/Footer.css";
 
 const Footer = () => {
   const imgPathLogo = "/images/logo-bg.png";

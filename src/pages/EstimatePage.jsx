@@ -4,7 +4,7 @@ import { Range } from "react-range";
 
 import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-import "./EstimatePage.css";
+import "../styles/EstimatePage.css";
 
 const PROGRAMS = {
   게임: ["리그오브레전드", "발로란트", "FC 24", "배틀그라운드", "서든어택"],

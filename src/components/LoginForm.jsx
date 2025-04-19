@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { ROUTES } from "../constants/routes";
 import { LOGIN_ERROR_MESSAGES } from "../constants/errors";
 import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
-import "./LoginForm.css";
+import "../styles/LoginForm.css";
 
 const LoginForm = () => {
   const navigate = useNavigate();
