@@ -1,7 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Joi from "joi";
+import api from "../hooks/useAxios";
+import { REGISTER_ERROR_MESSAGES } from "../constants/errors";
 import "../styles/RegisterForm.css";
 
 const RegisterForm = () => {
@@ -86,32 +87,26 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/v1/user/register", formData, {
+      const response = await api.post("v1/user/register", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
+      const code = response.data.code;
+      console.log(response.data);
 
-      if (response.data.code === 2100) {
-        alert("사용중인 이메일입니다.");
+      if (code === 200) {
+        // 회원가입 성공 후 이메일 인증 코드 전송
+        await handleEmailVerification();
+        setIsModalOpen(true);
+      } else if (code in REGISTER_ERROR_MESSAGES) {
+        alert(REGISTER_ERROR_MESSAGES[code]);
         return;
       }
-
-      console.log("회원가입 성공:", response.data);
-
-      // 회원가입 성공 후 이메일 인증 코드 전송
-      await handleEmailVerification();
-      setIsModalOpen(true);
     } catch (error) {
       if (error.response && error.response.data) {
         const { code, message } = error.response.data;
-
-        // 이미 가입된 이메일 처리
-        if (code === 2100) {
-          alert("사용중인 이메일입니다.");
-        } else {
-          alert("회원가입 실패!");
-        }
+        alert("회원가입 실패!");
       } else {
         console.error("회원가입 에러:", error);
         alert("회원가입 실패!");
@@ -121,12 +116,9 @@ const RegisterForm = () => {
 
   const handleEmailVerification = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/email/authcode",
-        {
-          mail: formData.email,
-        },
-      );
+      const response = await api.post("v1/email/authcode", {
+        mail: formData.email,
+      });
 
       console.log("이메일 인증 코드 전송 성공:", response.data);
       alert("이메일로 인증 코드가 전송되었습니다.");
@@ -138,13 +130,10 @@ const RegisterForm = () => {
 
   const handleVerifyCode = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/email/verify",
-        {
-          mail: formData.email,
-          verifyCode: verificationCode,
-        },
-      );
+      const response = await api.post("v1/email/verify", {
+        mail: formData.email,
+        verifyCode: verificationCode,
+      });
 
       console.log("이메일 인증 성공:", response.data);
       setIsEmailVerified(true);
@@ -241,7 +230,10 @@ const RegisterForm = () => {
                 required
               />
               <div className="register-pw-right">
-                <button type="button" onClick={() => toggleVisible("confirmPassword")}>
+                <button
+                  type="button"
+                  onClick={() => toggleVisible("confirmPassword")}
+                >
                   <img
                     src={
                       isConfirmPasswordVisible ? imgPathEyeSlash : imgPathEye
