@@ -40,48 +40,36 @@ const ProfileEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const accessToken = localStorage.getItem("accessToken");
 
     try {
-      const response = await fetch("http://localhost:3000/api/v1/user/update", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await api.patch("/v1/user/update", formData);
 
-      const result = await response.json();
+      const result = response.data;
 
-      if (response.ok) {
-        localStorage.setItem("nickname", formData.nickname);
-        localStorage.setItem("email", formData.email);
+      localStorage.setItem("nickname", formData.nickname);
+      localStorage.setItem("email", formData.email);
 
-        setIsEditable(false);
+      setIsEditable(false);
 
-        if (formData.email !== originalEmail) {
-          alert("프로필이 성공적으로 수정되었습니다! 이메일로 전송된 인증 code를 입력해주세요.");
-          setIsModalOpen(true);
-          handleEmailVerification(); // 인증 코드 자동 발송
-        } else {
-          alert("프로필이 성공적으로 수정되었습니다.");
-        }
-
-        setOriginalEmail(formData.email);
+      if (formData.email !== originalEmail) {
+        alert("프로필이 성공적으로 수정되었습니다! 이메일로 전송된 인증 code를 입력해주세요.");
+        setIsModalOpen(true);
+        handleEmailVerification(); // 인증 코드 자동 발송
       } else {
-        alert("프로필 수정 실패: " + result.message);
-        console.error("오류 응답:", result);
+        alert("프로필이 성공적으로 수정되었습니다.");
       }
+
+      setOriginalEmail(formData.email);
     } catch (error) {
       console.error("프로필 수정 중 오류 발생:", error);
       alert("서버 오류가 발생했습니다.");
     }
   };
 
+
   const handleEmailVerification = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/email/authcode", {
+      const response = await api.post("/v1/email/authcode", {
         mail: formData.email,
       });
 
@@ -95,7 +83,7 @@ const ProfileEdit = () => {
 
   const handleVerifyCode = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/email/verify", {
+      const response = await api.post("/v1/email/verify", {
         mail: formData.email,
         verifyCode: verificationCode,
       });
