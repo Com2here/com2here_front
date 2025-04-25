@@ -1,11 +1,10 @@
 import { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios";
 
 const OAuthCallback = ({ provider }) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { login } = useAuth();
 
   useEffect(() => {

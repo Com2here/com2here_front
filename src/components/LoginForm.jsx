@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
 import { ROUTES } from "../constants/routes";
-import { LOGIN_ERROR_MESSAGES } from "../constants/errors";
+import {
+  LOGIN_ERROR_MESSAGES,
+  OAUTH_ERROR_MESSAGES,
+} from "../constants/errors";
 import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
 import "../styles/LoginForm.css";
 
@@ -33,10 +36,16 @@ const LoginForm = () => {
         },
       });
 
-      // 받은 URL로 이동
-      window.location.href = response.data.data;
+      const code = response.data.code;
+
+      if (code === 200) {
+        // 받은 URL로 이동
+        window.location.href = response.data.data;
+      } else if (code in OAUTH_ERROR_MESSAGES) {
+        alert(OAUTH_ERROR_MESSAGES[code]);
+      }
     } catch (error) {
-      // console.error(`${provider} 로그인 URL 가져오기 에러:`, error);
+      alert("로그인에 실패했습니다. 다시 시도해주세요.");
     }
   };
 
