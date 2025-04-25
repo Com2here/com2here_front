@@ -25,3 +25,9 @@ export const OAUTH_ERROR_MESSAGES = {
   2400: "존재하지 않는 제공자입니다.",
   500: "서버 오류가 발생했습니다",
 };
+
+export const OAUTH_CALLBACK_ERROR_MESSAGES = {
+  400: "잘못된 요청입니다.",
+  2400: "존재하지 않는 제공자입니다.",
+  500: "서버 오류가 발생했습니다",
+};

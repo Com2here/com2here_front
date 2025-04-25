@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { OAUTH_CALLBACK_ERROR_MESSAGES } from "../constants/errors";
 import api from "../hooks/useAxios";
 
 const OAuthCallback = ({ provider }) => {
@@ -23,20 +24,24 @@ const OAuthCallback = ({ provider }) => {
           code,
         });
 
-        if (response.data.data.accessToken) {
-          login({
-            token: {
-              accessToken: response.data.data.accessToken,
-              refreshToken: response.data.data.refreshToken,
-            },
-            user: {
-              email: response.data.data.email,
-              nickname: response.data.data.nickname,
-            },
-          });
-          navigate("/");
-        } else {
-          console.error(`${provider} 로그인 실패:`, response.data);
+        if (response.data.code === 200) {
+          if (response.data.data.accessToken) {
+            login({
+              token: {
+                accessToken: response.data.data.accessToken,
+                refreshToken: response.data.data.refreshToken,
+              },
+              user: {
+                email: response.data.data.email,
+                nickname: response.data.data.nickname,
+              },
+            });
+            navigate("/");
+          } else {
+            console.error(`${provider} 로그인 실패:`, response.data);
+          }
+        } else if (response.data.code in OAUTH_CALLBACK_ERROR_MESSAGES) {
+          alert(OAUTH_CALLBACK_ERROR_MESSAGES[response.data.code]);
         }
       } catch (error) {
         console.error(`${provider} 로그인 처리 중 오류:`, error);
