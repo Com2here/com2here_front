@@ -1,14 +1,18 @@
-import { useState, useEffect } from "react";
 import "../styles/ProfileEdit.css";
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { User } from "../services/userApi";
 
 const ProfileEdit = () => {
   const imgPathProfile = "/images/profile.svg";
-  const { userInfo } = useAuth();
   const navigate = useNavigate();
+
+  // const { userInfo } = useAuth();
+  const { data: user, isLoading, error } = User();
 
   const [verificationCode, setVerificationCode] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(false);
@@ -23,15 +27,14 @@ const ProfileEdit = () => {
   const [isEditable, setIsEditable] = useState(false); // 편집 가능 여부
 
   useEffect(() => {
-    const storedNickname = localStorage.getItem("nickname");
-    const storedEmail = localStorage.getItem("email");
-
-    const nickname = storedNickname || userInfo?.nickname || "";
-    const email = storedEmail || userInfo?.email || "";
-
-    setFormData({ nickname, email });
-    setOriginalEmail(email);
-  }, [userInfo]);
+    if (user?.data) {
+      setFormData({
+        nickname: user.data.nickname || "",
+        email: user.data.email || "",
+      });
+      setOriginalEmail(user.data.email || "");
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +55,9 @@ const ProfileEdit = () => {
       setIsEditable(false);
 
       if (formData.email !== originalEmail) {
-        alert("프로필이 성공적으로 수정되었습니다! 이메일로 전송된 인증 code를 입력해주세요.");
+        alert(
+          "프로필이 성공적으로 수정되었습니다! 이메일로 전송된 인증 code를 입력해주세요.",
+        );
         setIsModalOpen(true);
         handleEmailVerification(); // 인증 코드 자동 발송
       } else {
@@ -65,7 +70,6 @@ const ProfileEdit = () => {
       alert("서버 오류가 발생했습니다.");
     }
   };
-
 
   const handleEmailVerification = async () => {
     try {
@@ -102,6 +106,9 @@ const ProfileEdit = () => {
   const toggleEdit = () => {
     setIsEditable(true);
   };
+
+  // if (isLoading) return "로딩중..";
+  // if (error) return "에러발생..";
 
   return (
     <div className="profile-edit">
