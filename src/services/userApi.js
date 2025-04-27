@@ -1,14 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { MYPAGE_PROFILE_ERROR_MESSAGES } from "../constants/errors";
 import api from "../hooks/useAxios";
 
 // 서버에서 프로필 불러오기
 const getUser = async () => {
   try {
     const response = await api.get("/v1/user/show");
-    return response.data;
+    const code = response.data.code;
+    if (code === 200) {
+      return response.data;
+    } else if (code in MYPAGE_PROFILE_ERROR_MESSAGES) {
+      alert(MYPAGE_PROFILE_ERROR_MESSAGES[code]);
+      if (code !== 500) {
+        throw new Error("Relogin required");
+      }
+    }
   } catch (error) {
-    console.error("Error fetching user:", error);
+    if (error.message !== "Relogin required") {
+      alert("알 수 없는 오류가 발생했습니다.");
+      console.error(error);
+    }
     throw error;
   }
 };
@@ -19,7 +31,7 @@ export const User = () => {
     queryFn: getUser,
     refetchOnWindowFocus: true,
     staleTime: 5 * 60 * 1000, // 5분
-    retry: 2,
+    retry: 0,
     cacheTime: 10 * 60 * 1000, // 10분
   });
 };

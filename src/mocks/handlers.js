@@ -1,13 +1,13 @@
 import { http, HttpResponse } from "msw";
 
 export const handlers = [
-  http.post("/api/v1/oauth/kakao", async ({ request }) => {
-    const { code } = await request.json();
+  http.get("/api/v1/user/show", () => {
+    // const { code } = await request.json();
     return HttpResponse.json(
       {
-        code: 500,
+        code: 401,
       },
-      { status: 200 },
+      { status: 400 },
     );
   }),
 ];

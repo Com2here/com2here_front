@@ -3,6 +3,7 @@ import "../styles/ProfileEdit.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { ROUTES } from "../constants/routes";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios";
 import { User } from "../services/userApi";
@@ -10,8 +11,8 @@ import { User } from "../services/userApi";
 const ProfileEdit = () => {
   const imgPathProfile = "/images/profile.svg";
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
-  // const { userInfo } = useAuth();
   const { data: user, isLoading, error } = User();
 
   const [verificationCode, setVerificationCode] = useState("");
@@ -35,6 +36,16 @@ const ProfileEdit = () => {
       setOriginalEmail(user.data.email || "");
     }
   }, [user]);
+
+  // 프로필 조회 오류 처리 및 로그인 화면 리디렉션
+  useEffect(() => {
+    if (error) {
+      if (error.message === "Relogin required") {
+        logout();
+        navigate(ROUTES.LOGIN);
+      }
+    }
+  }, [error]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,7 +107,7 @@ const ProfileEdit = () => {
       setIsEmailVerified(true);
       alert("이메일 인증이 완료되었습니다.");
       setIsModalOpen(false);
-      navigate("/account");
+      navigate(ROUTES.ACCOUNT);
     } catch (error) {
       console.error("이메일 인증 실패:", error);
       alert("이메일 인증 실패");
