@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "../styles/AccountDeletePage.css";
+import api from "../hooks/useAxios";
 
 const AccountDeletePage = () => {
   const navigate = useNavigate();
