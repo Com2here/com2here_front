@@ -21,3 +21,21 @@ export const DROPDOWN_MENU = [
     label: "로그아웃",
   },
 ];
+
+export const ACCOUNT_MENU = [
+  {
+    id: "profile",
+    label: "프로필 편집",
+    href: ROUTES.ACCOUNT.PROFILE,
+  },
+  {
+    id: "changePw",
+    label: "비밀번호 변경",
+    href: ROUTES.ACCOUNT.CHANGE_PW,
+  },
+  {
+    id: "delete",
+    label: "계정 삭제",
+    href: ROUTES.ACCOUNT.DELETE,
+  },
+];
