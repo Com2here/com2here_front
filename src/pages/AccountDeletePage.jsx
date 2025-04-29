@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "../styles/AccountDeletePage.css";
+import api from "../hooks/useAxios";
 
 const AccountDeletePage = () => {
   const navigate = useNavigate();
@@ -18,30 +19,12 @@ const AccountDeletePage = () => {
       return;
     }
 
-    const accessToken = localStorage.getItem("accessToken");
-    console.log("토큰 확인:", accessToken); // token 불러와지는지 확인
-
     try {
-      console.log("보내는 요청:", {
-        method: "DELETE",
-        url: "http://localhost:3000/api/v1/user/delete",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({ password }),
+      const response = await api.delete("/v1/user/delete", {
+        data: { password },
       });
 
-      const response = await fetch("http://localhost:3000/api/v1/user/delete", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({ password }),
-      });
-
-      const result = await response.json();
+      const result = response.data;
       console.log("서버 응답:", result);
 
       if (result.code === 200) {

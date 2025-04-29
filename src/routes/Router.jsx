@@ -1,28 +1,27 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 import MyChatbot from "../components/MyChatbot";
-
-import HomePage from "../pages/HomePage";
-import SupportPage from "../pages/SupportPage";
-import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
-import MyPage from "../pages/MyPage";
-import MylistPage from "../pages/MylistPage";
-import AccountPage from "../pages/AccountPage";
-import AccountDeletePage from "../pages/AccountDeletePage";
-import EstimatePage from "../pages/EstimatePage";
-import PcComparisonPage from "../pages/PcComparisonPage";
-import FindPwPage from "../pages/FindPwPage";
 import OAuthCallback from "../oauth/OAuthCallback.jsx";
-import ScrollToTop from "../utils/scrollToTop.js";
+import AccountDeletePage from "../pages/AccountDeletePage";
+import AccountPage from "../pages/AccountPage";
+import EstimatePage from "../pages/EstimatePage";
+import FindPwPage from "../pages/FindPwPage";
+import HomePage from "../pages/HomePage";
+import LoginPage from "../pages/LoginPage";
+import MylistPage from "../pages/MylistPage";
+import MyPage from "../pages/MyPage";
 import PasswordChangePage from "../pages/PasswordChangePage.jsx";
+import PcComparisonPage from "../pages/PcComparisonPage";
+import RegisterPage from "../pages/RegisterPage";
+import SupportPage from "../pages/SupportPage";
+import ScrollToTop from "../utils/scrollToTop.js";
 
 export const Router = () => {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <Header></Header>
       <div className="main-content">
@@ -56,6 +55,6 @@ export const Router = () => {
         <MyChatbot />
       </div>
       <Footer></Footer>
-    </BrowserRouter>
+    </>
   );
 };

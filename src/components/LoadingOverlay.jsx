@@ -1,5 +1,6 @@
-import { useLoading } from "../contexts/LoadingContext";
 import ClipLoader from "react-spinners/ClipLoader";
+
+import { useLoading } from "../contexts/LoadingContext";
 
 const LoadingOverlay = () => {
   const { isLoading } = useLoading();

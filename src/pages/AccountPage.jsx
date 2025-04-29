@@ -1,10 +1,11 @@
+import "../styles/AccountPage.css";
+
 import { Helmet } from "react-helmet-async";
 
 import ProfileEdit from "../components/ProfileEdit";
 import SideBar from "../components/Sidebar";
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
+import { PAGE_TITLES,SITE_URL } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-import "../styles/AccountPage.css";
 
 const AccountPage = () => {
   return (
