@@ -1,7 +1,5 @@
 .profile-edit {
-  width: calc(100% - 369px);
-  /* max-width: 1200px; */
-  /* margin: 0 auto; */
+  width: calc(100% - 19vw);
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
