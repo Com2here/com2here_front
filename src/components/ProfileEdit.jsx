@@ -118,75 +118,83 @@ const ProfileEdit = () => {
     setIsEditable(true);
   };
 
-  // if (isLoading) return "로딩중..";
-  // if (error) return "에러발생..";
-
   return (
     <div className="profile-edit">
-      <h1>프로필 편집</h1>
-      <div className="profile-edit-form">
-        <form className="profile-edit-form" onSubmit={handleSubmit}>
-          <div className="profile-edit-contents">
-            <div className="profile-edit-img">
-              <div className="profile-edit-upload">
-                <img src={imgPathProfile} alt="프로필 사진" />
+      <div className="profile-header">
+        <h2>내 프로필</h2>
+        <button className="profile-logout-btn">
+          <span className="text top">로그아웃</span>
+          <span className="text bottom">로그아웃</span>
+        </button>
+      </div>
+      <div className="profile-edit-wrapper">
+        <h3>
+          프로필 편집
+        </h3>
+        <div>
+          <form className="profile-edit-form" onSubmit={handleSubmit}>
+            <div className="profile-edit-contents">
+              <div className="profile-edit-img">
+                <div className="profile-edit-upload">
+                  <img src={imgPathProfile} alt="프로필 사진" />
+                </div>
+                <p>프로필 사진 변경</p>
               </div>
-              <p>프로필 사진 변경</p>
+
+              <div className="profile-edit-info">
+                <div className="register-input-wrap input-username">
+                  <input
+                    name="nickname"
+                    placeholder="이름"
+                    type="text"
+                    value={formData.nickname}
+                    onChange={handleChange}
+                    readOnly={!isEditable}
+                    required
+                  />
+                </div>
+
+                <div className="register-input-wrap input-id">
+                  <input
+                    name="email"
+                    placeholder="이메일"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    readOnly={!isEditable}
+                    required
+                  />
+                </div>
+              </div>
             </div>
 
-            <div className="profile-edit-info">
-              <div className="register-input-wrap input-username">
-                <input
-                  name="nickname"
-                  placeholder="이름"
-                  type="text"
-                  value={formData.nickname}
-                  onChange={handleChange}
-                  readOnly={!isEditable}
-                  required
-                />
-              </div>
-
-              <div className="register-input-wrap input-id">
-                <input
-                  name="email"
-                  placeholder="이메일"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  readOnly={!isEditable}
-                  required
-                />
-              </div>
+            <div className="profile-edit-toggle-btn">
+              {isEditable && <button type="submit">프로필 업데이트</button>}
             </div>
-          </div>
+          </form>
 
-          <div className="profile-edit-toggle-btn">
-            {isEditable && <button type="submit">프로필 업데이트</button>}
-          </div>
-        </form>
+          {!isEditable && (
+            <div className="profile-edit-toggle-btn">
+              <button type="button" onClick={toggleEdit}>
+                프로필 수정
+              </button>
+            </div>
+          )}
 
-        {!isEditable && (
-          <div className="profile-edit-toggle-btn">
-            <button type="button" onClick={toggleEdit}>
-              프로필 수정
-            </button>
-          </div>
-        )}
-
-        {/* 인증 모달 */}
-        {isModalOpen && (
-          <div className="email-verification-modal">
-            <h3>인증 코드 확인</h3>
-            <input
-              type="text"
-              placeholder="인증 코드 입력"
-              value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
-            />
-            <button onClick={handleVerifyCode}>인증 확인</button>
-          </div>
-        )}
+          {/* 인증 모달 */}
+          {isModalOpen && (
+            <div className="email-verification-modal">
+              <h3>인증 코드 확인</h3>
+              <input
+                type="text"
+                placeholder="인증 코드 입력"
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
+              />
+              <button onClick={handleVerifyCode}>인증 확인</button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
