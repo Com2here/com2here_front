@@ -9,7 +9,7 @@ export const DROPDOWN_MENU = [
   {
     id: "account",
     label: "계정 설정",
-    href: ROUTES.ACCOUNT,
+    href: ROUTES.ACCOUNT.PROFILE,
   },
   {
     id: "support",
