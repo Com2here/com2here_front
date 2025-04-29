@@ -1,4 +1,5 @@
 import "../styles/AccountDeletePage.css";
+import api from "../hooks/useAxios";
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
