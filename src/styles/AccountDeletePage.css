@@ -26,7 +26,6 @@
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    margin-bottom: 20px;
     outline: none;
     transition: 0.3s;
 }
@@ -69,3 +68,40 @@
 .cancel-button:hover {
     background: #999;
 }
+
+.account-delete-input-password {
+    position: relative;
+    margin-bottom: 1.25rem;
+  }
+  
+  .account-delete-pw-right {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.125rem;
+  }
+  
+  .account-delete-pw-right > button {
+    border-radius: 0.5rem;
+    line-height: 1;
+    display: flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .account-delete-pw-right > button:hover {
+    background-color: var(--hover-gray);
+  }
+  
+  .account-delete-pw-right img {
+    width: 1.165rem;
+    cursor: pointer;
+  }
