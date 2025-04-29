@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Joi from "joi";
 import "../styles/PasswordChangePage.css";
+
+import Joi from "joi";
+import React, { useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import api from "../hooks/useAxios.js";
 
 const PasswordChangePage = () => {
   const navigate = useNavigate();
@@ -83,26 +86,14 @@ const PasswordChangePage = () => {
     }
 
     try {
-      const accessToken = localStorage.getItem("accessToken");
+      const response = await api.patch("/v1/user/password/change", {
+        email,
+        currentPassword: currentPwd,
+        newPassword: newPwd,
+        confirmPassword: confirmPwd,
+      });
 
-      const response = await fetch(
-        "http://localhost:3000/api/v1/user/password/change",
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            email,
-            currentPassword: currentPwd,
-            newPassword: newPwd,
-            confirmPassword: confirmPwd,
-          }),
-        },
-      );
-
-      const responseData = await response.json();
+      const responseData = response.data;
 
       if (responseData.code !== 200) {
         if (responseData.code === 2603) {
