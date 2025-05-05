@@ -18,6 +18,7 @@ import PcComparisonPage from "../pages/PcComparisonPage";
 import RegisterPage from "../pages/RegisterPage";
 import SupportPage from "../pages/SupportPage";
 import ScrollToTop from "../utils/scrollToTop.js";
+import LoginCallbackPage from "../components/LoginCallbackPage.jsx";
 
 export const Router = () => {
   return (
@@ -38,6 +39,7 @@ export const Router = () => {
           <Route path="/estimate" element={<EstimatePage />}></Route>
           <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
           <Route path="/help/findPw" element={<FindPwPage />}></Route>
+          <Route path="/login/callback" element={<LoginCallbackPage />} />
 
           <Route
             path="/callback/kakao"

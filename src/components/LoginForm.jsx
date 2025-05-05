@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import "../styles/LoginForm.css";
+
+import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "../contexts/AuthContext";
-import { ROUTES } from "../constants/routes";
 import {
-  LOGIN_ERROR_MESSAGES,
-  OAUTH_ERROR_MESSAGES,
+  LOGIN_ERROR_MESSAGES
 } from "../constants/errors";
+import { ROUTES } from "../constants/routes";
+import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
-import "../styles/LoginForm.css";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -27,34 +27,17 @@ const LoginForm = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  // 소셜 로그인
   const handleOAuthLogin = async (provider) => {
     try {
-      const response = await api.get(`v1/oauth/${provider}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const code = response.data.code;
-
-      if (code === 200) {
-        // 받은 URL로 이동
+      const response = await api.get(`v1/oauth/${provider}`);
+      if (response.data.code === 200) {
         window.location.href = response.data.data;
-      } else if (code in OAUTH_ERROR_MESSAGES) {
-        alert(OAUTH_ERROR_MESSAGES[code]);
       }
     } catch (error) {
-      alert("로그인에 실패했습니다. 다시 시도해주세요.");
+      alert("소셜 로그인 중 오류가 발생했습니다.");
     }
   };
 
-  useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const code = query.get("code");
-
-    // console.log("Kakao Authorization Code:", code); // 추가
-  }, []);
 
   const handleChange = (e) => {
     setFormData({
