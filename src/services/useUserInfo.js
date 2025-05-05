@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { MYPAGE_PROFILE_ERROR_MESSAGES } from "../constants/errors";
 import api from "../hooks/useAxios";
 
-// 서버에서 프로필 불러오기
-const getUser = async () => {
+// 프로필 조회
+const useUserProfile = async () => {
   try {
     const response = await api.get("/v1/user/show");
     const code = response.data.code;
@@ -28,7 +28,7 @@ const getUser = async () => {
 export const User = () => {
   return useQuery({
     queryKey: ["user"],
-    queryFn: getUser,
+    queryFn: useUserProfile,
     refetchOnWindowFocus: true,
     staleTime: 5 * 60 * 1000, // 5분
     retry: 0,

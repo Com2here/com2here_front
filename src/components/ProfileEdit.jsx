@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios";
-import { User } from "../services/userApi";
+import { useProfileMutation } from "../services/useInfoMutation";
+import { User } from "../services/useUserInfo";
 
 const ProfileEdit = () => {
   const imgPathProfile = "/images/profile.svg";
@@ -14,18 +15,17 @@ const ProfileEdit = () => {
   const { logout } = useAuth();
 
   const { data: user, isLoading, error } = User();
+  const { mutate: updateProfile } = useProfileMutation();
 
   const [verificationCode, setVerificationCode] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [originalEmail, setOriginalEmail] = useState(""); // 기존 이메일 저장
+  const [isEditable, setIsEditable] = useState(false); // 편집 가능 여부
   const [formData, setFormData] = useState({
     nickname: "",
     email: "",
   });
-
-  const [originalEmail, setOriginalEmail] = useState(""); // 기존 이메일 저장
-  const [isEditable, setIsEditable] = useState(false); // 편집 가능 여부
 
   useEffect(() => {
     if (user?.data) {
@@ -55,17 +55,17 @@ const ProfileEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await api.patch("/v1/user/update", formData);
+    const emailChanged = formData.email !== originalEmail;
 
-      const result = response.data;
+    try {
+      const result = await updateProfile(formData);
 
       localStorage.setItem("nickname", formData.nickname);
       localStorage.setItem("email", formData.email);
 
       setIsEditable(false);
 
-      if (formData.email !== originalEmail) {
+      if (emailChanged) {
         alert(
           "프로필이 성공적으로 수정되었습니다! 이메일로 전송된 인증 code를 입력해주세요.",
         );
@@ -128,9 +128,7 @@ const ProfileEdit = () => {
         </button>
       </div>
       <div className="profile-edit-wrapper">
-        <h3>
-          프로필 편집
-        </h3>
+        <h3>프로필 편집</h3>
         <div>
           <form className="profile-edit-form" onSubmit={handleSubmit}>
             <div className="profile-edit-contents">
