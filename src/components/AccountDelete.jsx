@@ -3,6 +3,8 @@ import "../styles/AccountDelete.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { ACCOUNT_DELETE_ERROR_MESSAGES } from "../constants/errors";
+import { ROUTES } from "../constants/routes";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios";
 
@@ -40,11 +42,21 @@ const AccountDelete = () => {
         logout();
         navigate("/");
       } else {
-        alert(`삭제 실패: ${result.message || "알 수 없는 오류"}`);
+        alert(
+          `삭제 실패: ${ACCOUNT_DELETE_ERROR_MESSAGES[result.code] || "알 수 없는 오류"}`,
+        );
+        if (
+          result.code === 2002 ||
+          result.code === 2005 ||
+          result.code === 2106
+        ) {
+          logout();
+          navigate(ROUTES.LOGIN);
+        }
       }
     } catch (error) {
       console.error("삭제 요청 중 오류 발생:", error);
-      alert("서버 오류로 계정 삭제에 실패했습니다.");
+      alert("알 수 없는 오류로 계정 삭제에 실패했습니다.");
     }
   };
 
