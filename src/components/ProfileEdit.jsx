@@ -55,17 +55,20 @@ const ProfileEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const emailChanged = formData.email !== originalEmail;
+    const payload = {};
+    if (formData.nickname !== user.data.nickname) {
+      payload.nickname = formData.nickname;
+    }
+    if (formData.email !== user.data.email) {
+      payload.email = formData.email;
+    }
 
     try {
-      const result = await updateProfile(formData);
-
-      localStorage.setItem("nickname", formData.nickname);
-      localStorage.setItem("email", formData.email);
+      await updateProfile(payload);
 
       setIsEditable(false);
 
-      if (emailChanged) {
+      if (payload.email) {
         alert(
           "프로필이 성공적으로 수정되었습니다! 이메일로 전송된 인증 code를 입력해주세요.",
         );
