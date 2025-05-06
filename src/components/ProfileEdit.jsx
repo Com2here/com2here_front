@@ -71,8 +71,6 @@ const ProfileEdit = () => {
         );
         setIsModalOpen(true);
         handleEmailVerification(); // 인증 코드 자동 발송
-      } else {
-        alert("프로필이 성공적으로 수정되었습니다.");
       }
 
       setOriginalEmail(formData.email);

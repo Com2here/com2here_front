@@ -15,7 +15,7 @@ export const useProfileMutation = () => {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      alert("성공적으로 저장되었어요!");
+      alert("프로필이 성공적으로 수정되었습니다.");
     },
     onError: (error) => {
       console.error("프로필 수정 실패: ", error);
