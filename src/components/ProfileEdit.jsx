@@ -137,7 +137,16 @@ const ProfileEdit = () => {
                 <div className="profile-edit-upload">
                   <img src={imgPathProfile} alt="프로필 사진" />
                 </div>
-                <p>프로필 사진 변경</p>
+                <label htmlFor="profileImg" className="profile-img-label">
+                  프로필 이미지 업로드
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="profileImg"
+                  // onChange={postProfileImg}
+                  className="profile-img-input"
+                />
               </div>
 
               <div className="profile-edit-info">
