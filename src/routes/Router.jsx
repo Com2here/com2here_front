@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import LoginCallbackPage from "../components/LoginCallbackPage.jsx";
 import MyChatbot from "../components/MyChatbot";
 import OAuthCallback from "../oauth/OAuthCallback.jsx";
 import AccountDeletePage from "../pages/AccountDeletePage";

@@ -1,5 +1,4 @@
 import "../styles/AccountDeletePage.css";
-import api from "../hooks/useAxios";
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -65,13 +64,13 @@ const AccountDeletePage = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <div className="account-delete-pw-right">
-              <button type="button" onClick={togglePassword}>
-                <img
-                  src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
-                  alt="비밀번호 보기"
-                />
-              </button>
-            </div>
+          <button type="button" onClick={togglePassword}>
+            <img
+              src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
+              alt="비밀번호 보기"
+            />
+          </button>
+        </div>
       </div>
       <div className="button-group">
         <button className="delete-button" onClick={handleDelete}>
