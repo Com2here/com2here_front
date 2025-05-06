@@ -10,6 +10,7 @@ const SideBar = () => {
   const imgPath = "/images/mypage-nav.svg";
 
   const locationNow = useLocation();
+  const isAccountPage = locationNow.pathname.startsWith("/account");
 
   return (
     <div className="sidebar">
@@ -19,7 +20,7 @@ const SideBar = () => {
             <p className="sidebar-nav-title">나의 컴퓨터</p>
           </Link>
         )}
-        {locationNow.pathname === ROUTES.ACCOUNT.PROFILE && (
+        {isAccountPage && (
           <Link to={ROUTES.ACCOUNT.PROFILE}>
             <p className="sidebar-nav-title">계정 설정</p>
           </Link>
@@ -42,7 +43,7 @@ const SideBar = () => {
                 </li>
               </>
             )}
-            {locationNow.pathname === ROUTES.ACCOUNT.PROFILE && (
+            {isAccountPage && (
               <>
                 {ACCOUNT_MENU.map((menu) => (
                   <li key={menu.id}>

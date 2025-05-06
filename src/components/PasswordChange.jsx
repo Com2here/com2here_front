@@ -1,12 +1,12 @@
-import "../styles/PasswordChangePage.css";
+import "../styles/PasswordChange.css";
 
 import Joi from "joi";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import api from "../hooks/useAxios.js";
 
-const PasswordChangePage = () => {
+const PasswordChange = () => {
   const navigate = useNavigate();
   const imgPathEye = "/images/eye.svg";
   const imgPathEyeSlash = "/images/eye-slash.svg";
@@ -99,7 +99,9 @@ const PasswordChangePage = () => {
         if (responseData.code === 2603) {
           alert("현재 비밀번호가 일치하지 않습니다.");
         } else {
-          alert(`비밀번호 변경 실패: ${responseData.message || "알 수 없는 오류입니다."}`);
+          alert(
+            `비밀번호 변경 실패: ${responseData.message || "알 수 없는 오류입니다."}`,
+          );
         }
         return;
       }
@@ -198,10 +200,7 @@ const PasswordChangePage = () => {
           )}
         </label>
 
-        <button
-          type="submit"
-          disabled={!active}
-        >
+        <button type="submit" disabled={!active}>
           비밀번호 변경
         </button>
       </form>
@@ -209,4 +208,4 @@ const PasswordChangePage = () => {
   );
 };
 
-export default PasswordChangePage;
+export default PasswordChange;

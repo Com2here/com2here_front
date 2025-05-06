@@ -1,4 +1,4 @@
-import "../styles/AccountDeletePage.css";
+import "../styles/AccountDelete.css";
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios";
 
-const AccountDeletePage = () => {
+const AccountDelete = () => {
   const imgPathEye = "/images/eye.svg";
   const imgPathEyeSlash = "/images/eye-slash.svg";
 
@@ -84,4 +84,4 @@ const AccountDeletePage = () => {
   );
 };
 
-export default AccountDeletePage;
+export default AccountDelete;
