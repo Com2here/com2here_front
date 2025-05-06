@@ -2,7 +2,11 @@ export const ROUTES = {
   HOME: "/",
   LOGIN: "/login",
   REGISTER: "/register",
-  ACCOUNT: "/account",
+  ACCOUNT: {
+    PROFILE: "/account/profile",
+    CHANGE_PW: "/account/changePw",
+    DELETE: "/account/delete",
+  },
   ESTIMATE: "/estimate",
   MYLIST: "/mylist",
   MYPAGE: "/mypage",

@@ -84,14 +84,15 @@
   --main-white: #fff;
   --main-black: #424242;
   --main-gray: #eff0f2;
-  --main-green: #4b9960;
   --secondary-yellow: #f2d378;
   --secondary-black: #1a1a1c;
   --secondary-pink: #e6b3a4;
+  --secondary-gray: #b0b2b5;
 
   --error-red: #ef4445;
   --background-color: #f8f9fa;
   --hover-gray: #e9ecef;
+  --btn-red: rgba(242, 58, 48, 0.9);
 
   /* 임시 색상 팔레트 */
   --color1: #e69057;
@@ -100,6 +101,8 @@
   --color4: #e6a957;
   --color5: #e6b3a4;
   --color6: #e26264;
+  --color-7: #fce8e8;
+  --color-8: #f1dcd5;
 }
 
 html,
@@ -111,6 +114,7 @@ body,
   font-weight: 400;
   letter-spacing: -0.02px;
   min-height: calc(100vh - 70px);
+  color: var(--main-black);
 }
 
 h1,

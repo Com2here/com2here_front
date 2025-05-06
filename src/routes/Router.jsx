@@ -3,9 +3,9 @@ import { Route, Routes } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import LoginCallbackPage from "../components/LoginCallbackPage.jsx";
 import MyChatbot from "../components/MyChatbot";
 import OAuthCallback from "../oauth/OAuthCallback.jsx";
-import AccountDeletePage from "../pages/AccountDeletePage";
 import AccountPage from "../pages/AccountPage";
 import EstimatePage from "../pages/EstimatePage";
 import FindPwPage from "../pages/FindPwPage";
@@ -13,12 +13,10 @@ import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import MylistPage from "../pages/MylistPage";
 import MyPage from "../pages/MyPage";
-import PasswordChangePage from "../pages/PasswordChangePage.jsx";
 import PcComparisonPage from "../pages/PcComparisonPage";
 import RegisterPage from "../pages/RegisterPage";
 import SupportPage from "../pages/SupportPage";
 import ScrollToTop from "../utils/scrollToTop.js";
-import LoginCallbackPage from "../components/LoginCallbackPage.jsx";
 
 export const Router = () => {
   return (
@@ -33,9 +31,7 @@ export const Router = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mylist" element={<MylistPage />}></Route>
-          <Route path="/account" element={<AccountPage />}></Route>
-          <Route path="/account/delete" element={<AccountDeletePage />}></Route>
-          <Route path="/account/password" element={<PasswordChangePage />}></Route>
+          <Route path="/account/*" element={<AccountPage />}></Route>
           <Route path="/estimate" element={<EstimatePage />}></Route>
           <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
           <Route path="/help/findPw" element={<FindPwPage />}></Route>
