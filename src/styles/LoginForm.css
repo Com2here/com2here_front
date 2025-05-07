@@ -104,6 +104,10 @@
   width: 33vw;
 }
 
+.input-password {
+  position: relative;
+}
+
 .input-id > input,
 .input-password > input {
   width: 100%;
@@ -111,6 +115,38 @@
   border: 1px solid rgba(117, 117, 117, 0.7);
   border-radius: 12px;
   padding: 0 16px;
+}
+
+.login-pw-right {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.125rem;
+}
+
+.login-pw-right > button {
+  border-radius: 0.5rem;
+  line-height: 1;
+  display: flex;
+  width: 1.75rem;
+  height: 1.75rem;
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-pw-right > button:hover {
+  background-color: var(--hover-gray);
+}
+
+.login-pw-right img {
+  width: 1.165rem;
+  cursor: pointer;
 }
 
 .login-feat {
@@ -156,7 +192,7 @@
   justify-content: center;
   text-align: center;
   font-size: 1rem;
-  background-color: rgba(242, 58, 48, 0.9);
+  background-color: var(--btn-red);
   color: var(--main-white);
   border: none;
   border-radius: 12px;

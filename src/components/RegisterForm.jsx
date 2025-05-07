@@ -1,11 +1,15 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Joi from "joi";
-import "./RegisterForm.css";
+import api from "../hooks/useAxios";
+import { REGISTER_ERROR_MESSAGES } from "../constants/errors";
+import "../styles/RegisterForm.css";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const imgPathEye = "/images/eye.svg";
+  const imgPathEyeSlash = "/images/eye-slash.svg";
+
   const [formData, setFormData] = useState({
     nickname: "",
     email: "",
@@ -17,6 +21,10 @@ const RegisterForm = () => {
   const [isEmailVerified, setIsEmailVerified] = useState(false); // 이메일 인증 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 이메일 인증 모달 상태
   const [verificationCode, setVerificationCode] = useState(""); // 인증 코드 입력값
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
+
   const schema = Joi.object({
     nickname: Joi.string().min(1).max(30).required().messages({
       "string.empty": "",
@@ -32,7 +40,7 @@ const RegisterForm = () => {
     password: Joi.string()
       .required()
       .pattern(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]).{8,20}$/,
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?~]).{8,20}$/,
       )
       .messages({
         "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
@@ -69,7 +77,8 @@ const RegisterForm = () => {
         setActive(false);
       } else {
         setErrors({});
-        setActive(isEmailVerified);
+        // setActive(isEmailVerified);
+        setActive(true);
       }
       return updatedData;
     });
@@ -78,28 +87,38 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/v1/user/register", formData, {
+      const response = await api.post("v1/user/register", formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log("회원가입 성공:", response.data);
-      alert("환영합니다!");
-      setIsModalOpen(true);
+      const code = response.data.code;
+      console.log(response.data);
+
+      if (code === 200) {
+        // 회원가입 성공 후 이메일 인증 코드 전송
+        await handleEmailVerification();
+        setIsModalOpen(true);
+      } else if (code in REGISTER_ERROR_MESSAGES) {
+        alert(REGISTER_ERROR_MESSAGES[code]);
+        return;
+      }
     } catch (error) {
-      console.error("회원가입 에러:", error);
-      alert("회원가입 실패!");
+      if (error.response && error.response.data) {
+        const { code, message } = error.response.data;
+        alert("회원가입 실패!");
+      } else {
+        console.error("회원가입 에러:", error);
+        alert("회원가입 실패!");
+      }
     }
   };
 
   const handleEmailVerification = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/email/authcode",
-        {
-          mail: formData.email,
-        },
-      );
+      const response = await api.post("v1/email/authcode", {
+        mail: formData.email,
+      });
 
       console.log("이메일 인증 코드 전송 성공:", response.data);
       alert("이메일로 인증 코드가 전송되었습니다.");
@@ -111,13 +130,10 @@ const RegisterForm = () => {
 
   const handleVerifyCode = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/email/verify",
-        {
-          mail: formData.email,
-          verifyCode: verificationCode,
-        },
-      );
+      const response = await api.post("v1/email/verify", {
+        mail: formData.email,
+        verifyCode: verificationCode,
+      });
 
       console.log("이메일 인증 성공:", response.data);
       setIsEmailVerified(true);
@@ -132,13 +148,22 @@ const RegisterForm = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
+
+  const toggleVisible = (target) => {
+    if (target === "password") {
+      setIsPasswordVisible(!isPasswordVisible);
+    } else if (target === "confirmPassword") {
+      setIsConfirmPasswordVisible(!isConfirmPasswordVisible);
+    }
+  };
+
   return (
     <div className="register-form">
       <form onSubmit={handleSubmit}>
         <div className="register-input-container">
-          <div className="register-input-wrap input-username">
+          <div className="register-input-wrap input-nickname">
             <input
-              name="username"
+              name="nickname"
               placeholder="사용자 이름"
               type="text"
               value={formData.nickname}
@@ -172,27 +197,52 @@ const RegisterForm = () => {
             </button>
           )} */}
           <div className="register-input-wrap input-password">
-            <input
-              name="password"
-              placeholder="비밀번호"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <div>
+              <input
+                name="password"
+                placeholder="비밀번호"
+                type={isPasswordVisible ? "text" : "password"}
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              <div className="register-pw-right">
+                <button type="button" onClick={() => toggleVisible("password")}>
+                  <img
+                    src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
+                    alt="비밀번호 보기"
+                  />
+                </button>
+              </div>
+            </div>
             {errors.password && (
               <span className="register-error-message">{errors.password}</span>
             )}
           </div>
           <div className="register-input-wrap input-password">
-            <input
-              name="confirmPassword"
-              placeholder="비밀번호 확인"
-              type="password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
+            <div>
+              <input
+                name="confirmPassword"
+                placeholder="비밀번호 확인"
+                type={isConfirmPasswordVisible ? "text" : "password"}
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+              <div className="register-pw-right">
+                <button
+                  type="button"
+                  onClick={() => toggleVisible("confirmPassword")}
+                >
+                  <img
+                    src={
+                      isConfirmPasswordVisible ? imgPathEyeSlash : imgPathEye
+                    }
+                    alt="비밀번호 보기"
+                  />
+                </button>
+              </div>
+            </div>
             {errors.confirmPassword && (
               <span className="register-error-message">
                 {errors.confirmPassword}
@@ -205,8 +255,7 @@ const RegisterForm = () => {
             active ? "active-register-submit-btn" : "register-submit-btn"
           }
           type="submit"
-          // disabled={!active}
-          onClick={handleEmailVerification}
+          disabled={!active}
         >
           회원가입
         </button>

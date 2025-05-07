@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 
 import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-import "./MylistPage.css";
+import "../styles/MylistPage.css";
 
 const MylistPage = () => {
   return (

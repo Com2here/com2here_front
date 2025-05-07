@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import "../styles/LoginForm.css";
 
-import { useAuth } from "../contexts/AuthContext";
+import { useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import {
+  LOGIN_ERROR_MESSAGES
+} from "../constants/errors";
 import { ROUTES } from "../constants/routes";
+import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
-import "./LoginForm.css";
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -15,35 +17,27 @@ const LoginForm = () => {
   const imgPathKakao = "/images/kakao-logo.svg";
   const imgPathNaver = "/images/naver-logo.svg";
   const imgPathGoogle = "/images/google-logo.svg";
+  const imgPathEye = "/images/eye.svg";
+  const imgPathEyeSlash = "/images/eye-slash.svg";
 
   const handleFindPassword = () => {
     navigate(ROUTES.HELP.FIND_PW); // 비밀번호 찾기 페이지로 이동
   };
 
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  // 소셜 로그인
   const handleOAuthLogin = async (provider) => {
     try {
-      const response = await api.get(`v1/oauth/${provider}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      // 받은 URL로 이동
-      window.location.href = response.data.data;
+      const response = await api.get(`v1/oauth/${provider}`);
+      if (response.data.code === 200) {
+        window.location.href = response.data.data;
+      }
     } catch (error) {
-      console.error(`${provider} 로그인 URL 가져오기 에러:`, error);
+      alert("소셜 로그인 중 오류가 발생했습니다.");
     }
   };
 
-  useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const code = query.get("code");
-
-    console.log("Kakao Authorization Code:", code); // 추가
-  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -55,27 +49,33 @@ const LoginForm = () => {
   // 일반 로그인
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await api.post("v1/user/login", formData);
     try {
-      const response = await api.post("v1/user/login", formData);
-
-      login({
-        token: {
-          accessToken: response.data.data.accessToken,
-          refreshToken: response.data.data.refreshToken,
-        },
-        user: {
-          nickname: response.data.data.nickname,
-          email: response.data.data.email,
-        },
-      });
-
-      console.log("로그인 성공:", response.data);
-      alert("로그인 성공!");
-      navigate("/");
+      if (response.status === 200) {
+        login({
+          token: {
+            accessToken: response.data.data.accessToken,
+            refreshToken: response.data.data.refreshToken,
+          },
+          user: {
+            nickname: response.data.data.nickname,
+            email: response.data.data.email,
+            role: response.data.data.role,
+          },
+        });
+        alert("로그인 성공!");
+        navigate("/");
+      }
     } catch (error) {
-      console.error("로그인 에러:", error);
-      alert("로그인 실패!");
+      const errorCode = response.data.code;
+      const errorMessage =
+        LOGIN_ERROR_MESSAGES[errorCode] || "알 수 없는 오류가 발생했습니다.";
+      alert(errorMessage);
     }
+  };
+
+  const togglePassword = () => {
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
   return (
@@ -146,12 +146,20 @@ const LoginForm = () => {
           <div className="login-input-wrap input-password">
             <input
               placeholder="비밀번호"
-              type="password"
+              type={isPasswordVisible ? "text" : "password"}
               name="password"
               value={formData.password}
               onChange={handleChange}
               required
             />
+            <div className="login-pw-right">
+              <button type="button" onClick={togglePassword}>
+                <img
+                  src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
+                  alt="비밀번호 보기"
+                />
+              </button>
+            </div>
           </div>
           <div className="login-feat">
             <div className="login-remember">

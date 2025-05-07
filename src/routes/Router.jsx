@@ -1,27 +1,26 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
+import LoginCallbackPage from "../components/LoginCallbackPage.jsx";
 import MyChatbot from "../components/MyChatbot";
-
-import HomePage from "../pages/HomePage";
-import SupportPage from "../pages/SupportPage";
-import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
-import MyPage from "../pages/MyPage";
-import MylistPage from "../pages/MylistPage";
-import AccountPage from "../pages/AccountPage";
-import AccountDeletePage from "../pages/AccountDeletePage";
-import EstimatePage from "../pages/EstimatePage";
-import PcComparisonPage from "../pages/PcComparisonPage";
-import FindPwPage from "../pages/FindPwPage";
 import OAuthCallback from "../oauth/OAuthCallback.jsx";
+import AccountPage from "../pages/AccountPage";
+import EstimatePage from "../pages/EstimatePage";
+import FindPwPage from "../pages/FindPwPage";
+import HomePage from "../pages/HomePage";
+import LoginPage from "../pages/LoginPage";
+import MylistPage from "../pages/MylistPage";
+import MyPage from "../pages/MyPage";
+import PcComparisonPage from "../pages/PcComparisonPage";
+import RegisterPage from "../pages/RegisterPage";
+import SupportPage from "../pages/SupportPage";
 import ScrollToTop from "../utils/scrollToTop.js";
 
 export const Router = () => {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <Header></Header>
       <div className="main-content">
@@ -32,11 +31,11 @@ export const Router = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/mylist" element={<MylistPage />}></Route>
-          <Route path="/account" element={<AccountPage />}></Route>
-          <Route path="/account/delete" element={<AccountDeletePage />}></Route>
+          <Route path="/account/*" element={<AccountPage />}></Route>
           <Route path="/estimate" element={<EstimatePage />}></Route>
           <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
           <Route path="/help/findPw" element={<FindPwPage />}></Route>
+          <Route path="/login/callback" element={<LoginCallbackPage />} />
 
           <Route
             path="/callback/kakao"
@@ -54,6 +53,6 @@ export const Router = () => {
         <MyChatbot />
       </div>
       <Footer></Footer>
-    </BrowserRouter>
+    </>
   );
 };

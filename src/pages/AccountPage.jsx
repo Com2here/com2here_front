@@ -1,10 +1,14 @@
-import { Helmet } from "react-helmet-async";
+import "../styles/AccountPage.css";
 
+import { Helmet } from "react-helmet-async";
+import { Route, Routes } from "react-router-dom";
+
+import AccountDelete from "../components/AccountDelete";
+import PasswordChange from "../components/PasswordChange";
 import ProfileEdit from "../components/ProfileEdit";
 import SideBar from "../components/Sidebar";
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
+import { PAGE_TITLES, SITE_URL } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-import "./AccountPage.css";
 
 const AccountPage = () => {
   return (
@@ -20,7 +24,11 @@ const AccountPage = () => {
         ></meta>
       </Helmet>
       <SideBar />
-      <ProfileEdit />
+      <Routes>
+        <Route path="/profile" element={<ProfileEdit />}></Route>
+        <Route path="/changePw" element={<PasswordChange />}></Route>
+        <Route path="/delete" element={<AccountDelete />}></Route>
+      </Routes>
     </div>
   );
 };

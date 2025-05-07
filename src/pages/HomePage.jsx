@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import { SITE_URL, PAGE_TITLES } from "../constants/constants";
-import "./HomePage.css";
+import "../styles/HomePage.css";
 
 const HomePage = () => {
   const imgPathComputerTower = "/images/computer-tower.png";

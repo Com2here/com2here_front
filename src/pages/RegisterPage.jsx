@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import RegisterForm from "../components/RegisterForm";
 import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-import "./RegisterPage.css";
+import "../styles/RegisterPage.css";
 
 const RegisterPage = () => {
   const imgPath = "/images/logo-white.svg";

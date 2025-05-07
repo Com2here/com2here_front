@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./Footer.css";
+import "../styles/Footer.css";
 
 const Footer = () => {
   const imgPathLogo = "/images/logo-bg.png";
@@ -17,7 +17,9 @@ const Footer = () => {
           <div className="footer-left-content">
             <ul className="footer-socials">
               <li>
-                <img src={imgPathInstagram} alt="인스타그램 로고" />
+                <Link to="https://www.instagram.com/comhereplz">
+                  <img src={imgPathInstagram} alt="인스타그램 로고" />
+                </Link>
               </li>
               <li>
                 <Link to="https://github.com/Com2here">

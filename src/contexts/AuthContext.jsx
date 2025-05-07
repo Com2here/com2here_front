@@ -16,6 +16,7 @@ const AuthContext = createContext({
     user: {
       nickname: localStorage.getItem("nickname"),
       email: localStorage.getItem("email"),
+      role: localStorage.getItem("role"),
     },
   },
 });
@@ -34,6 +35,7 @@ export const AuthProvider = ({ children }) => {
       user: {
         nickname: localStorage.getItem("nickname"),
         email: localStorage.getItem("email"),
+        role: localStorage.getItem("role"),
       },
     });
   }, []);
@@ -43,6 +45,7 @@ export const AuthProvider = ({ children }) => {
     setRefreshToken(token.refreshToken);
     localStorage.setItem("nickname", user.nickname);
     localStorage.setItem("email", user.email);
+    localStorage.setItem("role", user.role);
     setIsLoggedIn(true);
     setUserInfo({ token, user });
   };

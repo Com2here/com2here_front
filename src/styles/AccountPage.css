@@ -1,7 +1,7 @@
 .account-page {
   display: flex;
-  flex-direction: row;
-  max-width: 1200px;
   justify-content: space-between;
   margin: 0 auto;
+  padding: 0 7.5vw;
+  padding-top: 40px;
 }

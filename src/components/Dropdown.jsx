@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { DROPDOWN_MENU } from "../constants/menuItems";
-import "./Dropdown.css";
+import "../styles/Dropdown.css";
 
 const Dropdown = ({ showDropdown, setShowDropdown, navRef }) => {
   // 드롭다운 div 요소를 위한 ref
