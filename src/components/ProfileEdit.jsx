@@ -10,7 +10,7 @@ import { useProfileMutation } from "../services/useInfoMutation";
 import { User } from "../services/useUserInfo";
 
 const ProfileEdit = () => {
-  const imgPathProfile = "/images/profile.svg";
+  const imgPathProfile = "/images/default-profile.svg";
   const navigate = useNavigate();
   const { logout } = useAuth();
 
