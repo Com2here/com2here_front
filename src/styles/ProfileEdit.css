@@ -98,10 +98,6 @@
   background-color: rgba(var(--color-primary-rgb), 0.1);
 }
 
-.profile-edit-upload img {
-  width: 4rem;
-}
-
 .profile-edit-info {
   display: flex;
   flex-direction: column;

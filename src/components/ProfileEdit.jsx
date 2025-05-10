@@ -1,6 +1,6 @@
 import "../styles/ProfileEdit.css";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ROUTES } from "../constants/routes";
@@ -17,11 +17,15 @@ const ProfileEdit = () => {
   const { data: user, isLoading, error } = User();
   const { mutate: updateProfile } = useProfileMutation();
 
+  const fileDOM = useRef(null);
+  const preview = useRef(null);
+
   const [verificationCode, setVerificationCode] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [originalEmail, setOriginalEmail] = useState(""); // 기존 이메일 저장
   const [isEditable, setIsEditable] = useState(false); // 편집 가능 여부
+  const [isImgUploaded, setIsImgUploaded] = useState(false);
   const [formData, setFormData] = useState({
     nickname: "",
     email: "",
@@ -46,6 +50,22 @@ const ProfileEdit = () => {
       }
     }
   }, [error]);
+
+  useEffect(() => {
+    if (fileDOM.current && preview.current) {
+      fileDOM.current.addEventListener("change", () => {
+        const imgSrc = URL.createObjectURL(fileDOM.current.files[0]);
+        preview.current.src = imgSrc;
+        setIsImgUploaded(true);
+      });
+    }
+
+    return () => {
+      if (fileDOM.current) {
+        fileDOM.current.removeEventListener("change", () => {});
+      }
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -135,7 +155,16 @@ const ProfileEdit = () => {
             <div className="profile-edit-contents">
               <div className="profile-edit-img">
                 <div className="profile-edit-upload">
-                  <img src={imgPathProfile} alt="프로필 사진" />
+                  <img
+                    src={imgPathProfile}
+                    ref={preview}
+                    alt="프로필 사진"
+                    style={{
+                      width: isImgUploaded ? "100%" : "4rem",
+                      height: isImgUploaded ? "100%" : "4rem",
+                      objectFit: isImgUploaded ? "cover" : "contain",
+                    }}
+                  />
                 </div>
                 <label htmlFor="profileImg" className="profile-img-label">
                   프로필 이미지 업로드
@@ -145,6 +174,7 @@ const ProfileEdit = () => {
                   accept="image/*"
                   id="profileImg"
                   // onChange={postProfileImg}
+                  ref={fileDOM}
                   className="profile-img-input"
                 />
               </div>
