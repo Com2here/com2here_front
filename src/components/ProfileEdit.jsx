@@ -53,22 +53,6 @@ const ProfileEdit = () => {
     }
   }, [error]);
 
-  useEffect(() => {
-    if (fileDOM.current && preview.current) {
-      fileDOM.current.addEventListener("change", () => {
-        const imgSrc = URL.createObjectURL(fileDOM.current.files[0]);
-        preview.current.src = imgSrc;
-        setIsImgUploaded(true);
-      });
-    }
-
-    return () => {
-      if (fileDOM.current) {
-        fileDOM.current.removeEventListener("change", () => {});
-      }
-    };
-  }, []);
-
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
