@@ -29,6 +29,7 @@ const ProfileEdit = () => {
   const [formData, setFormData] = useState({
     nickname: "",
     email: "",
+    profileImage: null,
   });
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const ProfileEdit = () => {
       setFormData({
         nickname: user.data.nickname || "",
         email: user.data.email || "",
+        profileImage: user.data.profileImage || null,
       });
       setOriginalEmail(user.data.email || "");
     }
@@ -67,6 +69,19 @@ const ProfileEdit = () => {
     };
   }, []);
 
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const imgSrc = URL.createObjectURL(file);
+      if (preview.current) preview.current.src = imgSrc;
+      setIsImgUploaded(true);
+      setFormData((prev) => ({
+        ...prev,
+        profileImage: file,
+      }));
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -75,20 +90,28 @@ const ProfileEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = {};
+    const form = new FormData();
+
     if (formData.nickname !== user.data.nickname) {
-      payload.nickname = formData.nickname;
+      form.append("nickname", formData.nickname);
     }
     if (formData.email !== user.data.email) {
-      payload.email = formData.email;
+      form.append("email", formData.email);
+    }
+    if (formData.profileImage !== user.data.profileImageUrl) {
+      form.append("profileImage", formData.profileImage);
+    }
+
+    for (let pair of form.entries()) {
+      console.log(pair[0] + ":", pair[1]);
     }
 
     try {
-      await updateProfile(payload);
+      await updateProfile(form);
 
       setIsEditable(false);
 
-      if (payload.email) {
+      if (form.has("email")) {
         alert(
           "프로필이 성공적으로 수정되었습니다! 이메일로 전송된 인증 code를 입력해주세요.",
         );
@@ -173,8 +196,8 @@ const ProfileEdit = () => {
                   type="file"
                   accept="image/*"
                   id="profileImg"
-                  // onChange={postProfileImg}
-                  ref={fileDOM}
+                  onChange={handleFileChange}
+                  // ref={fileDOM}
                   className="profile-img-input"
                 />
               </div>

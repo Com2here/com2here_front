@@ -1,10 +1,18 @@
 import axios from "axios";
+
+import { useAuth } from "../contexts/AuthContext";
 import {
   getAccessToken,
   getRefreshToken,
   setAccessToken,
   setRefreshToken,
 } from "../utils/token";
+
+/**
+ * Axios 기반의 API 클라이언트 설정 파일입니다.
+ * 공통 헤더, 인터셉터 등을 설정하며,
+ * accessToken/refreshToken 자동 처리 및 401 오류 시 재발급 로직을 포함합니다.
+ */
 
 const api = axios.create({
   baseURL: "/api",
@@ -24,6 +32,10 @@ api.interceptors.request.use((config) => {
   }
   if (refreshToken) {
     config.headers["Refresh"] = refreshToken;
+  }
+
+  if (config.url === "/v1/user/update") {
+    delete config.headers["Content-Type"];
   }
 
   return config;
@@ -53,6 +65,8 @@ api.interceptors.response.use(
           return api(originalRequest);
         }
       } catch (refreshTokenError) {
+        const { logout } = useAuth();
+
         // 어떤 에러라도 로그아웃 처리
         console.error(
           "로그아웃 처리. 토큰 갱신 중 오류 발생:",
