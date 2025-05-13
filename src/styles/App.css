@@ -97,7 +97,7 @@ body,
   letter-spacing: -0.015rem;
   min-height: calc(100vh - 70px);
   color: var(--main-white);
-  background: var(--background-color);
+  background: var(--bg-primary);
 }
 
 body {
@@ -108,7 +108,10 @@ body {
 
 :root {
   /* Color */
-  --background-color: linear-gradient(to bottom, #101126, #2a2c3f);
+  --bg-primary: linear-gradient(to bottom, #101126, #2a2c3f);
+  --color-primary: #05f2f2; /* 쨍한 색 */
+  /* --color-primary: #3cc9c2; 덜 쨍한 색 */
+  --color-primary-rgb: 5, 242, 242;
 
   --main-red: #f23a30;
   --main-white: #fff;

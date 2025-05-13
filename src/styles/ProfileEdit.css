@@ -61,7 +61,7 @@
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  background-color: var(--color-8);
+  /* background-color: #2a2a3a; */
   border-radius: 10px;
   row-gap: 2rem;
 }
@@ -90,17 +90,12 @@
   display: flex;
   position: relative;
   border-radius: 50%;
-  width: 128px;
-  height: 128px;
+  width: 8rem;
+  height: 8rem;
   overflow: hidden;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--main-gray);
-  background-color: var(--main-black);
-}
-
-.profile-edit-upload img {
-  height: 110%;
+  background-color: rgba(var(--color-primary-rgb), 0.1);
 }
 
 .profile-edit-info {
