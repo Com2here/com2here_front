@@ -17,14 +17,12 @@ const ProfileEdit = () => {
   const { data: user, isLoading, error } = User();
   const { mutate: updateProfile } = useProfileMutation();
 
-  const fileDOM = useRef(null);
   const preview = useRef(null);
 
   const [verificationCode, setVerificationCode] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [originalEmail, setOriginalEmail] = useState(""); // 기존 이메일 저장
-  const [isEditable, setIsEditable] = useState(false); // 편집 가능 여부
   const [isImgUploaded, setIsImgUploaded] = useState(false);
   const [formData, setFormData] = useState({
     nickname: "",
@@ -93,8 +91,6 @@ const ProfileEdit = () => {
     try {
       await updateProfile(form);
 
-      setIsEditable(false);
-
       if (form.has("email")) {
         alert(
           "프로필이 성공적으로 수정되었습니다! 이메일로 전송된 인증 code를 입력해주세요.",
@@ -142,10 +138,6 @@ const ProfileEdit = () => {
     }
   };
 
-  const toggleEdit = () => {
-    setIsEditable(true);
-  };
-
   return (
     <div className="profile-edit">
       <div className="profile-header">
@@ -181,7 +173,6 @@ const ProfileEdit = () => {
                   accept="image/*"
                   id="profileImg"
                   onChange={handleFileChange}
-                  // ref={fileDOM}
                   className="profile-img-input"
                 />
               </div>
@@ -194,7 +185,6 @@ const ProfileEdit = () => {
                     type="text"
                     value={formData.nickname}
                     onChange={handleChange}
-                    readOnly={!isEditable}
                     required
                   />
                 </div>
@@ -206,25 +196,16 @@ const ProfileEdit = () => {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    readOnly={!isEditable}
                     required
                   />
                 </div>
               </div>
             </div>
 
-            <div className="profile-edit-toggle-btn">
-              {isEditable && <button type="submit">프로필 업데이트</button>}
+            <div className="profile-edit-btn">
+              <button type="submit">프로필 업데이트</button>
             </div>
           </form>
-
-          {!isEditable && (
-            <div className="profile-edit-toggle-btn">
-              <button type="button" onClick={toggleEdit}>
-                프로필 수정
-              </button>
-            </div>
-          )}
 
           {/* 인증 모달 */}
           {isModalOpen && (

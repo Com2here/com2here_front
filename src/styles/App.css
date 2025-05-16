@@ -96,7 +96,7 @@ body,
   font-weight: 400;
   letter-spacing: -0.015rem;
   min-height: calc(100vh - 70px);
-  color: var(--main-white);
+  color: var(--text-primary);
   background: var(--bg-primary);
 }
 
@@ -112,6 +112,8 @@ body {
   --color-primary: #05f2f2; /* 쨍한 색 */
   /* --color-primary: #3cc9c2; 덜 쨍한 색 */
   --color-primary-rgb: 5, 242, 242;
+  --text-primary: #fff;
+  --text-dark: #161722;
 
   --main-red: #f23a30;
   --main-white: #fff;
