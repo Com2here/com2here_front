@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import "../styles/Navbar.css";
+
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { useAuth } from "../contexts/AuthContext";
 import Dropdown from "./Dropdown";
-import "../styles/Navbar.css";
 
 const NavBar = () => {
   const imgPathLogo = "/images/logo.svg";
@@ -17,11 +19,12 @@ const NavBar = () => {
 
   return (
     <div className="navbar">
-      <h1>
+      <div className="nav-logo">
         <Link to={"/"}>
-          <img src={imgPathLogo} alt="컴히얼" />
+          <img src={imgPathLogo} alt="컴히얼 로고" />
+          <h1>컴히얼</h1>
         </Link>
-      </h1>
+      </div>
       <div className="nav-links">
         {isLoggedIn ? (
           <>

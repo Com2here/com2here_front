@@ -89,6 +89,16 @@ html {
     url(../fonts/Pretendard-Thin.woff) format("woff");
 }
 
+@font-face {
+  font-family: "Hakgyoansim Samulham";
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src:
+    local("Hakgyoansim Samulham"),
+    url(../fonts/HakgyoansimSamulham.otf) format("opentype");
+}
+
 html,
 body,
 #root {

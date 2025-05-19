@@ -3,7 +3,7 @@
   margin: 0 auto;
   align-items: center;
   width: 100vw;
-  height: 70px;
+  height: 4.4rem;
   padding: 15px 7.5vw;
 }
 
@@ -77,4 +77,18 @@
 
 .navbarLogin:hover {
   opacity: 80%;
+}
+
+.nav-logo img {
+  height: 2rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.nav-logo h1 {
+  display: inline-block;
+  font-family: "Hakgyoansim Samulham", "Noto Sans KR", sans-serif;
+  font-size: 1.8rem;
+  transform: translateY(3px);
+  color: var(--color-primary);
 }
