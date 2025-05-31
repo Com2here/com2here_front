@@ -14,6 +14,9 @@ const ProfileEdit = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
 
+  const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
+
   const { data: user, isLoading, error } = User();
   const { mutate: updateProfile } = useProfileMutation();
 
@@ -31,13 +34,18 @@ const ProfileEdit = () => {
   });
 
   useEffect(() => {
-    if (user?.data) {
+    if (user) {
       setFormData({
-        nickname: user.data.nickname || "",
-        email: user.data.email || "",
-        profileImage: user.data.profileImage || null,
+        nickname: user.nickname || "",
+        email: user.email || "",
+        profileImage: null, // 초기엔 업로드된 파일 없음
       });
-      setOriginalEmail(user.data.email || "");
+      setImgUrl(
+        user.profileImageUrl
+          ? `http://localhost:3000${user.profileImageUrl}`
+          : imgPathProfile
+      );
+      setOriginalEmail(user.email || "");
     }
   }, [user]);
 
@@ -55,7 +63,7 @@ const ProfileEdit = () => {
     const file = e.target.files?.[0];
     if (file) {
       const imgSrc = URL.createObjectURL(file);
-      if (preview.current) preview.current.src = imgSrc;
+      setImgUrl(imgSrc);
       setIsImgUploaded(true);
       setFormData((prev) => ({
         ...prev,
@@ -63,6 +71,7 @@ const ProfileEdit = () => {
       }));
     }
   };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,13 +83,16 @@ const ProfileEdit = () => {
 
     const form = new FormData();
 
-    if (formData.nickname !== user.data.nickname) {
+    console.log("profileImage is File?", formData.profileImage instanceof File);
+    console.log("profileImage:", formData.profileImage);
+
+    if (formData.nickname !== user.nickname) {
       form.append("nickname", formData.nickname);
     }
-    if (formData.email !== user.data.email) {
+    if (formData.email !== user.email) {
       form.append("email", formData.email);
     }
-    if (formData.profileImage !== user.data.profileImageUrl) {
+    if (formData.profileImage instanceof File) {
       form.append("profileImage", formData.profileImage);
     }
 
@@ -155,15 +167,16 @@ const ProfileEdit = () => {
               <div className="profile-edit-img">
                 <div className="profile-edit-upload">
                   <img
-                    src={imgPathProfile}
-                    ref={preview}
-                    alt="프로필 사진"
+                    src={imgUrl || imgPathProfile}
+                    alt="프로필 이미지"
                     style={{
-                      width: isImgUploaded ? "100%" : "4rem",
-                      height: isImgUploaded ? "100%" : "4rem",
-                      objectFit: isImgUploaded ? "cover" : "contain",
+                      width: "6rem",
+                      height: "6rem",
+                      objectFit: "cover",
+                      borderRadius: "50%",
                     }}
                   />
+
                 </div>
                 <label htmlFor="profileImg" className="profile-img-label">
                   프로필 이미지 업로드
