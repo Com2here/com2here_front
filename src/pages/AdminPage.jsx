@@ -1,12 +1,15 @@
 import "../styles/AdminPage.css";
+import "../styles/AdminNav.css";
 
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import axios from "../hooks/useAxios";
 import api from "../hooks/useAxios";
 import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
@@ -262,7 +265,22 @@ const AdminPage = () => {
 
   return (
     <div className="admin-page">
-      <h1>프로그램별 사양 정보 관리</h1>
+      <h1>관리자 페이지</h1>
+
+      <nav className="admin-nav">
+        <Link
+          to="/admin"
+          className={`admin-nav-link ${location.pathname === "/admin" ? "active" : ""}`}
+        >
+          프로그램 사양 관리
+        </Link>
+        <Link
+          to="/admin/products"
+          className={`admin-nav-link ${location.pathname === "/admin/products" ? "active" : ""}`}
+        >
+          상품 정보 관리
+        </Link>
+      </nav>
 
       {error && <div className="error-message">{error}</div>}
 

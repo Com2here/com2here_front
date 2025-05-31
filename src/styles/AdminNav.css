@@ -1,0 +1,39 @@
+.admin-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.admin-nav-link {
+  padding: 0.75rem 1.5rem;
+  color: #495057;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.admin-nav-link:hover {
+  background: #e9ecef;
+  color: #228be6;
+}
+
+.admin-nav-link.active {
+  background: #228be6;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .admin-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .admin-nav-link {
+    text-align: center;
+  }
+}
