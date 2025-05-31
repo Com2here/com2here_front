@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
+import AdminPageGuard from "../components/AdminPageGuard.jsx";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LoginCallbackPage from "../components/LoginCallbackPage.jsx";
@@ -31,7 +32,7 @@ export const Router = () => {
           <Route path="/support" element={<SupportPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin" element={<AdminPageGuard />} />
           <Route path="/mylist" element={<MylistPage />}></Route>
           <Route path="/account/*" element={<AccountPage />}></Route>
           <Route path="/estimate" element={<EstimatePage />}></Route>
