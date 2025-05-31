@@ -15,4 +15,8 @@ export const ROUTES = {
   HELP: {
     FIND_PW: "/help/findPw",
   },
+  ADMIN: {
+    SOFTWARE: "/admin/software",
+    PRODUCTS: "/admin/products",
+  },
 };

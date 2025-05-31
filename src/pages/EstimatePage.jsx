@@ -105,7 +105,7 @@ const EstimatePage = () => {
 
         {selectedPrograms.length > 0 && (
           <section className="selected-programs">
-            <h3>선택된 프로그램 ({selectedPrograms.length}/5)</h3>
+            <h3>선택된 소프트웨어 ({selectedPrograms.length}/5)</h3>
             <div className="selected-programs-list">
               {selectedPrograms.map((program) => (
                 <div key={program} className="selected-program-item">
@@ -177,7 +177,7 @@ const EstimatePage = () => {
           </section>
         ) : (
           <section>
-            <p>주로 사용할 프로그램을 하나 이상 선택해주세요</p>
+            <p>주로 사용할 소프트웨어를 하나 이상 선택해주세요</p>
           </section>
         )}
       </div>

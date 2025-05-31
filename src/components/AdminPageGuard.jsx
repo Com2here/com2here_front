@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
+import { ROUTES } from "../constants/routes.js";
 import api from "../hooks/useAxios";
-import AdminPage from "../pages/AdminPage.jsx";
+import AdminSoftwarePage from "../pages/AdminSoftwarePage.jsx";
 
 const AdminPageGuard = () => {
   const [user, setUser] = useState(null);
@@ -17,14 +18,14 @@ const AdminPageGuard = () => {
 
         if (userData.role !== "ADMIN") {
           alert("접근 권한이 없습니다.");
-          navigate("/");
+          navigate(ROUTES.HOME);
         } else {
           setUser(userData);
         }
       } catch (err) {
         console.error(err);
         alert("로그인이 필요합니다.");
-        navigate("/login");
+        navigate(ROUTES.LOGIN);
       } finally {
         setChecking(false);
       }
@@ -36,7 +37,7 @@ const AdminPageGuard = () => {
   if (checking) return <div>권한 확인 중...</div>;
   if (!user) return null;
 
-  return <AdminPage />;
+  return <Outlet />;
 };
 
 export default AdminPageGuard;

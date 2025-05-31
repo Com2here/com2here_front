@@ -4,6 +4,8 @@ import "../styles/AdminNav.css";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import { ROUTES } from "../constants/routes";
+
 const AdminProductPage = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -118,13 +120,13 @@ const AdminProductPage = () => {
 
       <nav className="admin-nav">
         <Link
-          to="/admin"
-          className={`admin-nav-link ${location.pathname === "/admin" ? "active" : ""}`}
+          to={ROUTES.ADMIN.SOFTWARE}
+          className={`admin-nav-link ${location.pathname === "/admin/software" ? "active" : ""}`}
         >
-          프로그램 사양 관리
+          소프트웨어 사양 관리
         </Link>
         <Link
-          to="/admin/products"
+          to={ROUTES.ADMIN.PRODUCTS}
           className={`admin-nav-link ${location.pathname === "/admin/products" ? "active" : ""}`}
         >
           상품 정보 관리

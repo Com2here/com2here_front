@@ -1,14 +1,14 @@
-import "../styles/AdminPage.css";
+import "../styles/AdminSoftwarePage.css";
 import "../styles/AdminNav.css";
 
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
-import axios from "../hooks/useAxios";
-import api from "../hooks/useAxios";
 import { useNavigate } from "react-router-dom";
 
-const AdminPage = () => {
+import { ROUTES } from "../constants/routes";
+import api from "../hooks/useAxios";
+
+const AdminSoftwarePage = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -77,13 +77,14 @@ const AdminPage = () => {
       });
     } catch (err) {
       console.error("Error fetching recommendations:", err);
-      setError(err.response?.data?.message || "프로그램 목록을 불러오는데 실패했습니다.");
+      setError(
+        err.response?.data?.message ||
+          "소프트웨어 목록을 불러오는데 실패했습니다.",
+      );
     } finally {
       setLoading(false);
     }
   };
-
-
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -121,14 +122,14 @@ const AdminPage = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("정말로 이 프로그램 정보를 삭제하시겠습니까?")) {
+    if (!window.confirm("정말로 이 소프트웨어 정보를 삭제하시겠습니까?")) {
       return;
     }
 
     setLoading(true);
     try {
-      await axios.delete(`/v1/admin/computers/delete/${id}`);
-      setSuccessMessage("프로그램 정보가 성공적으로 삭제되었습니다.");
+      await api.delete(`/v1/admin/computers/delete/${id}`);
+      setSuccessMessage("소프트웨어 정보가 성공적으로 삭제되었습니다.");
       fetchRecommendations(pagination.currentPage);
     } catch (err) {
       setError(err.response?.data?.message || "삭제 중 오류가 발생했습니다.");
@@ -153,11 +154,11 @@ const AdminPage = () => {
     try {
       if (editingId) {
         await api.patch(`/v1/admin/computers/update/${editingId}`, payload);
-        setSuccessMessage("프로그램 정보가 성공적으로 수정되었습니다.");
+        setSuccessMessage("소프트웨어 정보가 성공적으로 수정되었습니다.");
         setEditingId(null);
       } else {
         await api.post("/v1/admin/computers/add", payload);
-        setSuccessMessage("새 프로그램 정보가 성공적으로 등록되었습니다.");
+        setSuccessMessage("새 소프트웨어 정보가 성공적으로 등록되었습니다.");
       }
 
       setFormData(initialFormData);
@@ -269,13 +270,13 @@ const AdminPage = () => {
 
       <nav className="admin-nav">
         <Link
-          to="/admin"
-          className={`admin-nav-link ${location.pathname === "/admin" ? "active" : ""}`}
+          to={ROUTES.ADMIN.SOFTWARE}
+          className={`admin-nav-link ${location.pathname === "/admin/software" ? "active" : ""}`}
         >
-          프로그램 사양 관리
+          소프트웨어 사양 관리
         </Link>
         <Link
-          to="/admin/products"
+          to={ROUTES.ADMIN.PRODUCTS}
           className={`admin-nav-link ${location.pathname === "/admin/products" ? "active" : ""}`}
         >
           상품 정보 관리
@@ -290,7 +291,7 @@ const AdminPage = () => {
 
       <div className="admin-content">
         <section className="recommendations-form-section">
-          <h2>{editingId ? "프로그램 정보 수정" : "새 프로그램 등록"}</h2>
+          <h2>{editingId ? "소프트웨어 정보 수정" : "새 소프트웨어 등록"}</h2>
           <form onSubmit={handleSubmit} className="recommendation-form">
             <div className="form-group">
               <label htmlFor="purpose">용도</label>
@@ -310,7 +311,7 @@ const AdminPage = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="mainProgram">프로그램명</label>
+              <label htmlFor="mainProgram">소프트웨어명</label>
               <input
                 type="text"
                 id="mainProgram"
@@ -366,13 +367,13 @@ const AdminPage = () => {
         </section>
 
         <section className="recommendations-list-section">
-          <h2>프로그램 목록</h2>
+          <h2>소프트웨어 목록</h2>
 
           <div className="recommendations-controls">
             <div className="search-box">
               <input
                 type="text"
-                placeholder="용도, 프로그램, 사양으로 검색..."
+                placeholder="용도, 소프트웨어, 사양으로 검색..."
                 value={searchTerm}
                 onChange={handleSearch}
                 className="search-input"
@@ -444,8 +445,8 @@ const AdminPage = () => {
           ) : (
             <p className="no-recommendations">
               {searchTerm || filterBy !== "all"
-                ? "검색 조건에 맞는 프로그램 정보가 없습니다."
-                : "등록된 프로그램 정보가 없습니다."}
+                ? "검색 조건에 맞는 소프트웨어 정보가 없습니다."
+                : "등록된 소프트웨어 정보가 없습니다."}
             </p>
           )}
         </section>
@@ -454,4 +455,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default AdminSoftwarePage;

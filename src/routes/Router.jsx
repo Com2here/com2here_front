@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import AdminPageGuard from "../components/AdminPageGuard.jsx";
@@ -8,8 +7,8 @@ import LoginCallbackPage from "../components/LoginCallbackPage.jsx";
 import MyChatbot from "../components/MyChatbot";
 import OAuthCallback from "../oauth/OAuthCallback.jsx";
 import AccountPage from "../pages/AccountPage";
-import AdminPage from "../pages/AdminPage";
 import AdminProductPage from "../pages/AdminProductPage";
+import AdminSoftwarePage from "../pages/AdminSoftwarePage";
 import EstimatePage from "../pages/EstimatePage";
 import FindPwPage from "../pages/FindPwPage";
 import HomePage from "../pages/HomePage";
@@ -33,8 +32,6 @@ export const Router = () => {
           <Route path="/support" element={<SupportPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/admin" element={<AdminPageGuard />} />
-          <Route path="/admin/products" element={<AdminProductPage />} />
           <Route path="/mylist" element={<MylistPage />}></Route>
           <Route path="/account/*" element={<AccountPage />}></Route>
           <Route path="/estimate" element={<EstimatePage />}></Route>
@@ -54,6 +51,12 @@ export const Router = () => {
             path="/callback/google"
             element={<OAuthCallback provider="google" />}
           />
+
+          <Route path="/admin" element={<AdminPageGuard />}>
+            <Route path="software" element={<AdminSoftwarePage />} />
+            <Route path="products" element={<AdminProductPage />} />
+            <Route index element={<AdminSoftwarePage />} />
+          </Route>
         </Routes>
         <MyChatbot />
       </div>
