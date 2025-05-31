@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import axios from "../hooks/useAxios";
 import api from "../hooks/useAxios";
+import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
   const [loading, setLoading] = useState(false);
@@ -33,33 +34,53 @@ const AdminPage = () => {
     fetchRecommendations(pagination.currentPage);
   }, [pagination.currentPage, searchTerm, filterBy]);
 
+  const getEnumFromFilter = (value) => {
+    switch (value) {
+      case "gaming":
+        return "게임용";
+      case "work":
+        return "작업용";
+      case "office":
+        return "사무용";
+      case "development":
+        return "개발용";
+      default:
+        return "";
+    }
+  };
+
   const fetchRecommendations = async (page = 1) => {
     setLoading(true);
     try {
-      console.log("Fetching recommendations...");
-      const response = await axios.get(
-        `/recommendations?page=${page}&limit=${pagination.itemsPerPage}&search=${searchTerm}&filter=${filterBy}`,
-      );
-      console.log("Recommendations response:", response.data);
-      const { items, currentPage, totalPages, totalItems, itemsPerPage } =
-        response.data.data;
-      setRecommendations(items);
+      const offset = (page - 1) * pagination.itemsPerPage;
+      const purposeFilter = getEnumFromFilter(filterBy);
+      const response = await api.get(`/v1/admin/computers/show`, {
+        params: {
+          offset,
+          limit: pagination.itemsPerPage,
+          search: searchTerm,
+          purpose: purposeFilter,
+        },
+      });
+
+      const { data, pagination: pageInfo } = response.data;
+
+      setRecommendations(data);
       setPagination({
-        currentPage,
-        totalPages,
-        totalItems,
-        itemsPerPage,
+        currentPage: pageInfo.currentPage,
+        totalPages: pageInfo.totalPages,
+        totalItems: pageInfo.totalItems,
+        itemsPerPage: pageInfo.limit,
       });
     } catch (err) {
       console.error("Error fetching recommendations:", err);
-      setError(
-        err.response?.data?.message ||
-          "프로그램 목록을 불러오는데 실패했습니다.",
-      );
+      setError(err.response?.data?.message || "프로그램 목록을 불러오는데 실패했습니다.");
     } finally {
       setLoading(false);
     }
   };
+
+
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -103,7 +124,7 @@ const AdminPage = () => {
 
     setLoading(true);
     try {
-      await axios.delete(`/recommendations/${id}`);
+      await axios.delete(`/v1/admin/computers/delete/${id}`);
       setSuccessMessage("프로그램 정보가 성공적으로 삭제되었습니다.");
       fetchRecommendations(pagination.currentPage);
     } catch (err) {
@@ -119,18 +140,19 @@ const AdminPage = () => {
     setError(null);
     setSuccessMessage("");
 
+    const payload = {
+      mainProgram: formData.mainProgram,
+      recommendedSpec: formData.recommendedSpec,
+      minimumSpec: formData.minimumSpec,
+      purpose: formData.purpose,
+    };
+
     try {
       if (editingId) {
-        await axios.put(`/recommendations/${editingId}`, formData);
+        await api.patch(`/v1/admin/computers/update/${editingId}`, payload);
         setSuccessMessage("프로그램 정보가 성공적으로 수정되었습니다.");
         setEditingId(null);
       } else {
-        const payload = {
-          mainProgram: formData.mainProgram,
-          recommendedSpec: formData.recommendedSpec,
-          minimumSpec: formData.minimumSpec,
-          purpose: formData.purpose,
-        };
         await api.post("/v1/admin/computers/add", payload);
         setSuccessMessage("새 프로그램 정보가 성공적으로 등록되었습니다.");
       }
@@ -254,15 +276,19 @@ const AdminPage = () => {
           <form onSubmit={handleSubmit} className="recommendation-form">
             <div className="form-group">
               <label htmlFor="purpose">용도</label>
-              <input
-                type="text"
+              <select
                 id="purpose"
                 name="purpose"
                 value={formData.purpose}
                 onChange={handleChange}
                 required
-                placeholder="예: 게임용"
-              />
+              >
+                <option value="">용도를 선택하세요</option>
+                <option value="게임용">게임용</option>
+                <option value="작업용">작업용</option>
+                <option value="사무용">사무용</option>
+                <option value="개발용">개발용</option>
+              </select>
             </div>
 
             <div className="form-group">
