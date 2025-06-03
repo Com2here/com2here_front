@@ -71,7 +71,7 @@ const PcComparisonPage = () => {
             </div>
             <div className="price-section">
               <div className="heart-icon">
-                <img src="/images/heart.svg" alt="찜하기" />
+                <img src="/images/heart-angle.svg" alt="찜하기" />
               </div>
               <div className="price-info">
                 <span className="price-label">견적가</span>

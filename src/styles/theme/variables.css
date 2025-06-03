@@ -1,0 +1,16 @@
+:root {
+  /* 색상 */
+  --bg-primary: linear-gradient(to bottom, #101126, #2a2c3f);
+  --color-primary: #05f2f2; /* 쨍한 색 */
+  /* --color-primary: #3cc9c2; */
+  --color-primary-rgb: 5, 242, 242;
+  --color-card: #1f2033;
+  --color-muted: #292a3d;
+
+  --text-primary: #fff;
+  --text-dark: #161722;
+  --text-muted: #b3bbcc;
+
+  /* 타이포그래피 */
+  --font-size-xs: 0.8rem; /* 12.8px */
+}

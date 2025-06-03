@@ -8,8 +8,8 @@ import Dropdown from "./Dropdown";
 
 const NavBar = () => {
   const imgPathLogo = "/images/logo.svg";
-  const imgPathHeart = "/images/heart.svg";
-  const imgPathHistory = "/images/history.png";
+  const imgPathHeart = "/images/heart-angle.svg";
+  const imgPathHistory = "/images/clock-square.svg";
 
   const navRef = useRef(null);
 

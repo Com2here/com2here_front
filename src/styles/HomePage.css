@@ -18,9 +18,9 @@
   text-align: center;
   font-size: 1.7rem;
   font-weight: 600;
-  line-height: 1.2em;
   letter-spacing: 0.45em;
   margin-top: 2.4em;
+  color: var(--text-muted);
 }
 
 .home-cover-text br {
@@ -30,7 +30,7 @@
 }
 
 .home-cover-text span {
-  color: var(--main-red);
+  color: var(--text-primary);
   font-weight: 700;
   letter-spacing: 0.2em;
   font-size: 2.4rem;
@@ -47,14 +47,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 4px solid var(--main-black);
   padding: 2rem 10rem;
-  border-radius: 44px;
+  border-radius: 1rem;
   cursor: pointer;
-}
-
-.home-rec-wrapper:hover {
-  border: 4px solid var(--main-red);
+  background-color: var(--color-card);
 }
 
 .home-rec-wrapper button {
@@ -72,9 +68,8 @@
   border-radius: 44px;
   padding: 16px 48px;
   margin: 0 12px;
-  box-shadow: 3px 8px 4px 0 #ee0d4350;
-  background-color: var(--main-red);
-  color: var(--main-white);
+  background-color: var(--color-primary);
+  color: var(--text-dark);
   text-align: center;
   font-size: 16px;
   font-weight: 700;

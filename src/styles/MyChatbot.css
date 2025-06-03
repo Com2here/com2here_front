@@ -4,7 +4,7 @@
   bottom: 45px;
   width: 62px;
   height: 62px;
-  background: linear-gradient(135deg, var(--color4) 0%, var(--color6) 100%);
+  background: var(--color-primary);
   border: none;
   border-radius: 28px;
   cursor: pointer;

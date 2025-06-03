@@ -47,10 +47,10 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: var(--color6);
-  color: var(--main-white);
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-primary);
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: var(--font-size-xs);
   margin-left: 9px;
 }
 

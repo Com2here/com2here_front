@@ -1,3 +1,6 @@
+@import url("./theme/fonts.css");
+@import url("./theme/variables.css");
+
 html {
   scroll-behavior: smooth;
 }
@@ -6,97 +9,6 @@ html {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 900;
-  font-display: swap;
-  src:
-    local("Pretendard Black"),
-    url(../fonts/Pretendard-Black.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 800;
-  font-display: swap;
-  src:
-    local("Pretendard ExtraBold"),
-    url(../fonts/Pretendard-ExtraBold.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 700;
-  font-display: swap;
-  src:
-    local("Pretendard Bold"),
-    url(../fonts/Pretendard-Bold.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 600;
-  font-display: swap;
-  src:
-    local("Pretendard SemiBold"),
-    url(../fonts/Pretendard-SemiBold.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 500;
-  font-display: swap;
-  src:
-    local("Pretendard Medium"),
-    url(../fonts/Pretendard-Medium.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 400;
-  font-display: swap;
-  src:
-    local("Pretendard Regular"),
-    url(../fonts/Pretendard-Regular.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 300;
-  font-display: swap;
-  src:
-    local("Pretendard Light"),
-    url(../fonts/Pretendard-Light.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 200;
-  font-display: swap;
-  src:
-    local("Pretendard ExtraLight"),
-    url(../fonts/Pretendard-ExtraLight.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 100;
-  font-display: swap;
-  src:
-    local("Pretendard Thin"),
-    url(../fonts/Pretendard-Thin.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Hakgyoansim Samulham";
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-  src:
-    local("Hakgyoansim Samulham"),
-    url(../fonts/HakgyoansimSamulham.otf) format("opentype");
 }
 
 html,
@@ -117,14 +29,7 @@ body {
 }
 
 :root {
-  /* Color */
-  --bg-primary: linear-gradient(to bottom, #101126, #2a2c3f);
-  --color-primary: #05f2f2; /* 쨍한 색 */
-  /* --color-primary: #3cc9c2; 덜 쨍한 색 */
-  --color-primary-rgb: 5, 242, 242;
-  --text-primary: #fff;
-  --text-dark: #161722;
-
+  /* Color (구) */
   --main-red: #f23a30;
   --main-white: #fff;
   --main-black: #424242;

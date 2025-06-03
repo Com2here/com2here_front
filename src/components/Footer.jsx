@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../styles/Footer.css";
 
 const Footer = () => {
-  const imgPathLogo = "/images/logo-bg.png";
+  const imgPathLogo = "/images/logo.svg";
   const imgPathInstagram = "/images/Instagram-logo.svg";
   const imgPathGithub = "/images/github-logo.svg";
   const imgPathNotion = "/images/notion-logo.svg";
@@ -13,6 +13,7 @@ const Footer = () => {
         <div className="footer-left">
           <Link to="/">
             <img src={imgPathLogo} alt="컴히얼 로고" />
+            <h1>컴히얼</h1>
           </Link>
           <div className="footer-left-content">
             <ul className="footer-socials">

@@ -16,13 +16,6 @@ const MyPage = () => {
         <meta name="twitter:title" content={PAGE_TITLES.mypage}></meta>
         <meta name="twitter:url" content={`${SITE_URL}${ROUTES.MYPAGE}`}></meta>
       </Helmet>
-      <section className="myPage-location">
-        <div className="myPage-inner-wrap">
-          <div className="myPage-location-text">
-            Home &gt; <Link to="/mypage">나의 컴퓨터</Link>
-          </div>
-        </div>
-      </section>
 
       <div className="myPage-inner-wrap">
         <div className="container">
