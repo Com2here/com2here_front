@@ -271,13 +271,13 @@ const AdminSoftwarePage = () => {
       <nav className="admin-nav">
         <Link
           to={ROUTES.ADMIN.SOFTWARE}
-          className={`admin-nav-link ${location.pathname === "/admin/software" ? "active" : ""}`}
+          className={`admin-nav-link ${location.pathname === ROUTES.ADMIN.SOFTWARE ? "active" : ""}`}
         >
           소프트웨어 사양 관리
         </Link>
         <Link
           to={ROUTES.ADMIN.PRODUCTS}
-          className={`admin-nav-link ${location.pathname === "/admin/products" ? "active" : ""}`}
+          className={`admin-nav-link ${location.pathname === ROUTES.ADMIN.PRODUCTS ? "active" : ""}`}
         >
           상품 정보 관리
         </Link>

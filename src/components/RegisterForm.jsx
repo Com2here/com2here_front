@@ -1,9 +1,12 @@
+import "../styles/RegisterForm.css";
+
+import Joi from "joi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Joi from "joi";
-import api from "../hooks/useAxios";
+
 import { REGISTER_ERROR_MESSAGES } from "../constants/errors";
-import "../styles/RegisterForm.css";
+import { ROUTES } from "../constants/routes";
+import api from "../hooks/useAxios";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -139,7 +142,7 @@ const RegisterForm = () => {
       setIsEmailVerified(true);
       alert("이메일 인증이 완료되었습니다.");
       setIsModalOpen(false);
-      navigate("/login");
+      navigate(ROUTES.LOGIN);
     } catch (error) {
       console.error("이메일 인증 실패:", error);
       alert("이메일 인증 실패");

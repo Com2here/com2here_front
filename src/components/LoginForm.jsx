@@ -64,7 +64,7 @@ const LoginForm = () => {
           },
         });
         alert("로그인 성공!");
-        navigate("/");
+        navigate(ROUTES.HOME);
       }
     } catch (error) {
       const errorCode = response.data.code;

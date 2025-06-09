@@ -1,9 +1,10 @@
 import "../styles/PasswordChange.css";
 
 import Joi from "joi";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { ROUTES } from "../constants/routes";
 import api from "../hooks/useAxios.js";
 
 const PasswordChange = () => {
@@ -76,7 +77,7 @@ const PasswordChange = () => {
     const email = localStorage.getItem("email");
     if (!email) {
       alert("로그인이 필요합니다.");
-      navigate("/login");
+      navigate(ROUTES.LOGIN);
       return;
     }
 

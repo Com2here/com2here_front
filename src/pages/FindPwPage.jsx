@@ -1,12 +1,14 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Joi from "joi";
-import api from "../hooks/useAxios";
-import { ROUTES } from "../constants/routes";
-import { Helmet } from "react-helmet-async";
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
-import { FIND_PW_ERROR_MESSAGES } from "../constants/errors";
 import "../styles/FindPwPage.css";
+
+import Joi from "joi";
+import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { Link, useNavigate } from "react-router-dom";
+
+import { PAGE_TITLES, SITE_URL } from "../constants/constants";
+import { FIND_PW_ERROR_MESSAGES } from "../constants/errors";
+import { ROUTES } from "../constants/routes";
+import api from "../hooks/useAxios";
 
 const FindPwPage = () => {
   const navigate = useNavigate();
@@ -221,7 +223,10 @@ const FindPwPage = () => {
                   required
                 />
                 <div className="find-pw-right">
-                  <button type="button" onClick={() => toggleVisible("password")}>
+                  <button
+                    type="button"
+                    onClick={() => toggleVisible("password")}
+                  >
                     <img
                       src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
                       alt="비밀번호 보기"
@@ -244,7 +249,10 @@ const FindPwPage = () => {
                   required
                 />
                 <div className="find-pw-right">
-                  <button type="button" onClick={() => toggleVisible("confirmPassword")}>
+                  <button
+                    type="button"
+                    onClick={() => toggleVisible("confirmPassword")}
+                  >
                     <img
                       src={
                         isConfirmPasswordVisible ? imgPathEyeSlash : imgPathEye
@@ -267,7 +275,7 @@ const FindPwPage = () => {
         {message && <div className="find-pw-message">{message}</div>}
       </section>
       <section className="find-pw-right-side">
-        <Link to="/">
+        <Link to={ROUTES.HOME}>
           <h1 className="find-pw-logo">
             <img src={imgPath} alt="컴히얼" />
           </h1>

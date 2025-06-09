@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import "../styles/HomePage.css";
+
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+
+import { PAGE_TITLES, SITE_URL } from "../constants/constants";
+import { ROUTES } from "../constants/routes";
 
 const HomePage = () => {
   const imgPathComputerTower = "/images/computer-tower.png";
@@ -24,7 +26,7 @@ const HomePage = () => {
           <span>Com, here!</span>
         </h2>
         <div className="home-btn-wrapper">
-          <Link to={"/estimate"}>
+          <Link to={ROUTES.ESTIMATE}>
             <div className="home-rec-wrapper">
               <img
                 className="home-img"

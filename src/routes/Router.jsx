@@ -5,17 +5,18 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LoginCallbackPage from "../components/LoginCallbackPage.jsx";
 import MyChatbot from "../components/MyChatbot";
+import { ROUTES } from "../constants/routes";
 import OAuthCallback from "../oauth/OAuthCallback.jsx";
 import AccountPage from "../pages/AccountPage";
 import AdminProductPage from "../pages/AdminProductPage";
 import AdminSoftwarePage from "../pages/AdminSoftwarePage";
+import ComparePage from "../pages/ComparePage.jsx";
 import EstimatePage from "../pages/EstimatePage";
 import FindPwPage from "../pages/FindPwPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import MylistPage from "../pages/MylistPage";
 import MyPage from "../pages/MyPage";
-import PcComparisonPage from "../pages/PcComparisonPage";
 import RegisterPage from "../pages/RegisterPage";
 import SupportPage from "../pages/SupportPage";
 import ScrollToTop from "../utils/scrollToTop.js";
@@ -27,16 +28,16 @@ export const Router = () => {
       <Header></Header>
       <div className="main-content">
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/support" element={<SupportPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/mylist" element={<MylistPage />}></Route>
+          <Route path={ROUTES.HOME} element={<HomePage />} />
+          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+          <Route path={ROUTES.SUPPORT} element={<SupportPage />} />
+          <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+          <Route path={ROUTES.MYPAGE} element={<MyPage />} />
+          <Route path={ROUTES.MYLIST} element={<MylistPage />}></Route>
           <Route path="/account/*" element={<AccountPage />}></Route>
-          <Route path="/estimate" element={<EstimatePage />}></Route>
-          <Route path="/pc-comparison" element={<PcComparisonPage />}></Route>
-          <Route path="/help/findPw" element={<FindPwPage />}></Route>
+          <Route path={ROUTES.ESTIMATE} element={<EstimatePage />}></Route>
+          <Route path={ROUTES.COMPARE} element={<ComparePage />}></Route>
+          <Route path={ROUTES.HELP.FIND_PW} element={<FindPwPage />}></Route>
           <Route path="/login/callback" element={<LoginCallbackPage />} />
 
           <Route

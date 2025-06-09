@@ -1,6 +1,6 @@
 import "../styles/AccountDelete.css";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ACCOUNT_DELETE_ERROR_MESSAGES } from "../constants/errors";
@@ -40,7 +40,7 @@ const AccountDelete = () => {
       if (result.code === 200) {
         alert("계정이 삭제되었습니다.");
         logout();
-        navigate("/");
+        navigate(ROUTES.HOME);
       } else {
         alert(
           `삭제 실패: ${ACCOUNT_DELETE_ERROR_MESSAGES[result.code] || "알 수 없는 오류"}`,

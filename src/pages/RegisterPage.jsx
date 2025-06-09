@@ -1,10 +1,11 @@
+import "../styles/RegisterPage.css";
+
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
 import RegisterForm from "../components/RegisterForm";
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
+import { PAGE_TITLES, SITE_URL } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-import "../styles/RegisterPage.css";
 
 const RegisterPage = () => {
   const imgPath = "/images/logo-white.svg";
@@ -26,7 +27,7 @@ const RegisterPage = () => {
         <RegisterForm />
       </div>
       <div className="register-right-side">
-        <Link to="/">
+        <Link to={ROUTES.HOME}>
           <h1 className="register-page-logo">
             <img src={imgPath} alt="컴히얼" />
           </h1>
