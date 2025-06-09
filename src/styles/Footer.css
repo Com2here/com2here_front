@@ -1,6 +1,7 @@
 .footer {
   background-color: var(--color-muted);
   color: var(--text-muted);
+  height: 13.6rem;
 }
 
 .footer-content {

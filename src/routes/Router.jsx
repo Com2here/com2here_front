@@ -11,6 +11,7 @@ import AccountPage from "../pages/AccountPage";
 import AdminProductPage from "../pages/AdminProductPage";
 import AdminSoftwarePage from "../pages/AdminSoftwarePage";
 import ComparePage from "../pages/ComparePage.jsx";
+import ErrorPage from "../pages/ErrorPage.jsx";
 import EstimatePage from "../pages/EstimatePage";
 import FindPwPage from "../pages/FindPwPage";
 import HomePage from "../pages/HomePage";
@@ -58,6 +59,8 @@ export const Router = () => {
             <Route path="products" element={<AdminProductPage />} />
             <Route index element={<AdminSoftwarePage />} />
           </Route>
+
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
         <MyChatbot />
       </div>
