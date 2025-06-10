@@ -4,8 +4,11 @@ import { ROUTES } from "../constants/routes";
 import { useAuth } from "../contexts/AuthContext";
 
 const PrivateRoute = () => {
-  const { isLoggedIn } = useAuth();
-  console.log("PrivateRoute isLoggedIn:", isLoggedIn);
+  const { isLoggedIn, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return isLoggedIn ? <Outlet /> : <Navigate to={ROUTES.LOGIN} />;
 };
