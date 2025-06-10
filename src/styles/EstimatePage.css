@@ -17,156 +17,115 @@
   width: 1200px;
 }
 
-.estimate-pc-usage,
-.estimate-budget-section {
+.estimate-pc-usage {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 7.4h;
-  min-height: 56px;
-  /* justify-content: space-between; */
-  gap: 2rem;
-  padding: 1.5rem 3rem;
-  background-color: var(--secondary-pink);
-  font-size: 1rem;
+  padding: 2rem;
+  background-color: var(--color-card);
   border-radius: 10px;
 }
 
-.category-container {
-  width: 100%;
+.estimate-pc-usage h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  text-align: center;
 }
 
-.estimate-category {
-  width: 100%;
-  height: auto;
-  padding: 0.8rem 1.2rem;
-  background-color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: left;
-  transition: all 0.3s ease;
-}
-
-.estimate-category:hover {
-  background-color: #f0f0f0;
-}
-
-.estimate-category.selected {
-  background-color: #e0e0e0;
-}
-
-.program-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
   padding: 1rem;
-  margin-top: 0.5rem;
-  background-color: white;
+  background-color: var(--text-muted);
   border-radius: 8px;
-  animation: slideDown 0.3s ease-out;
 }
 
-.program-item {
+.game-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.program-item:hover {
-  background-color: #f5f5f5;
-  border-radius: 4px;
-}
-
-.program-item input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-
-.selected-programs {
-  background-color: white;
-  padding: 1rem 2rem;
+  gap: 0.8rem;
+  padding: 1rem;
+  background-color: var(--color-card);
   border-radius: 8px;
-  margin-top: 1rem;
-}
-
-.selected-programs h3 {
-  margin: 0 0 1rem 0;
-  color: #333;
-}
-
-.selected-programs-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.selected-program-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background-color: #f0f0f0;
-  border-radius: 20px;
-  font-size: 0.9rem;
-}
-
-.remove-program {
-  background: none;
-  border: none;
-  color: #666;
   cursor: pointer;
-  padding: 0 0.2rem;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: all 0.2s ease;
 }
 
-.remove-program:hover {
-  color: #ff4444;
+.game-item:hover {
+  background-color: var(--color-muted);
+  transform: translateY(-2px);
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.game-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 .estimate-budget-section {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
-  text-align: center;
-  border-radius: 8px;
-  width: 100%;
-  box-sizing: border-box;
+  padding: 2rem;
+  background-color: var(--color-card);
+  border-radius: 10px;
+  gap: 1.5rem;
 }
 
 .estimate-pc-budget-header {
   display: flex;
   align-items: center;
-  white-space: nowrap;
+  justify-content: center;
 }
 
 .estimate-pc-title {
-  font-size: 1.1rem;
-  margin-right: 1rem;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
-.budget-value {
-  font-weight: bold;
-  color: #007bff;
-  white-space: nowrap;
+.budget-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.budget-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-muted);
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+}
+
+.budget-input {
+  width: 150px;
+  padding: 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 1.2rem;
+  text-align: right;
+  background-color: var(--color-card);
+  color: var(--text-primary);
+}
+
+.budget-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.budget-unit {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.budget-separator {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .custom-slider {
@@ -244,6 +203,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--text-dark);
 }
 
 .pc-actions {
@@ -253,8 +213,8 @@
 }
 
 .buy-button {
-  background-color: red;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--text-dark);
   padding: 8px 16px;
   border: none;
   cursor: pointer;
@@ -265,4 +225,65 @@
   border: 1px solid #ccc;
   padding: 8px 16px;
   cursor: pointer;
+  color: var(--text-primary);
+}
+
+.selected-programs {
+  background-color: var(--color-card);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.selected-programs h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+}
+
+.selected-programs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.selected-program-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.2rem;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  font-size: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: var(--text-dark);
+}
+
+.remove-program {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.remove-program:hover {
+  color: #ff4444;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
