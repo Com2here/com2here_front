@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+
 import { OAUTH_CALLBACK_ERROR_MESSAGES } from "../constants/errors";
+import { ROUTES } from "../constants/routes";
+import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios";
 
 const OAuthCallback = ({ provider }) => {
@@ -36,7 +38,7 @@ const OAuthCallback = ({ provider }) => {
                 nickname: response.data.data.nickname,
               },
             });
-            navigate("/");
+            navigate(ROUTES.HOME);
           } else {
             console.error(`${provider} 로그인 실패:`, response.data);
           }

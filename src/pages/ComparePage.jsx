@@ -1,7 +1,6 @@
-import React from "react";
-import "../styles/PcComparisonPage.css";
+import "../styles/ComparePage.css";
 
-const PcComparisonPage = () => {
+const ComparePage = () => {
   const computers = [
     {
       id: 1,
@@ -86,4 +85,4 @@ const PcComparisonPage = () => {
   );
 };
 
-export default PcComparisonPage;
+export default ComparePage;

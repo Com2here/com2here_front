@@ -15,8 +15,8 @@ const SideBar = () => {
   return (
     <div className="sidebar">
       <nav className="sidebar-nav">
-        {locationNow.pathname === "/mypage" && (
-          <Link to="/mypage">
+        {locationNow.pathname === ROUTES.MYPAGE && (
+          <Link to={ROUTES.MYPAGE}>
             <p className="sidebar-nav-title">나의 컴퓨터</p>
           </Link>
         )}
@@ -29,9 +29,9 @@ const SideBar = () => {
         <div>
           <img src={imgPath} className="sidebar-nav-img" />
           <ul className="sidebar-menu-list">
-            {locationNow.pathname === "/mypage" && (
+            {locationNow.pathname === ROUTES.MYPAGE && (
               <>
-                <Link to={"/mylist"}>
+                <Link to={ROUTES.MYLIST}>
                   <li>관심목록</li>
                 </Link>
                 <li>

@@ -1,5 +1,8 @@
-import { Link } from "react-router-dom";
 import "../styles/Footer.css";
+
+import { Link } from "react-router-dom";
+
+import { ROUTES } from "../constants/routes";
 
 const Footer = () => {
   const imgPathLogo = "/images/logo.svg";
@@ -11,7 +14,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-left">
-          <Link to="/">
+          <Link to={ROUTES.HOME}>
             <img src={imgPathLogo} alt="컴히얼 로고" />
             <h1>컴히얼</h1>
           </Link>

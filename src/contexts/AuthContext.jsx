@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+
 import {
   getAccessToken,
   getRefreshToken,
@@ -22,6 +23,7 @@ const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState();
 
@@ -38,6 +40,7 @@ export const AuthProvider = ({ children }) => {
         role: localStorage.getItem("role"),
       },
     });
+    setIsLoading(false);
   }, []);
 
   const login = ({ token, user }) => {
@@ -56,7 +59,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, userInfo, login, logout }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, userInfo, login, logout, isLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
-import { ROUTES } from "../constants/routes.js";
+import { ROUTES } from "../constants/routes";
 import api from "../hooks/useAxios";
 import AdminSoftwarePage from "../pages/AdminSoftwarePage.jsx";
 

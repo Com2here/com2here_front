@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import "../styles/LoginPage.css";
+
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 import LoginForm from "../components/LoginForm";
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
+import { PAGE_TITLES, SITE_URL } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-import "../styles/LoginPage.css";
 
 const LoginPage = () => {
   const imgPath = "/images/logo-white.svg";
@@ -24,12 +25,12 @@ const LoginPage = () => {
         <div className="login-register">
           아직 가입하지 않으셨나요?
           <span className="login-register-link">
-            <Link to="/register">회원가입</Link>
+            <Link to={ROUTES.REGISTER}>회원가입</Link>
           </span>
         </div>
       </div>
       <div className="login-form-right-side">
-        <Link to="/">
+        <Link to={ROUTES.HOME}>
           <h1 className="login-page-logo">
             <img src={imgPath} alt="컴히얼" />
           </h1>

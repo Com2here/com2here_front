@@ -1,8 +1,11 @@
+import "../styles/Dropdown.css";
+
 import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+
 import { DROPDOWN_MENU } from "../constants/menuItems";
-import "../styles/Dropdown.css";
+import { ROUTES } from "../constants/routes";
+import { useAuth } from "../contexts/AuthContext";
 
 const Dropdown = ({ showDropdown, setShowDropdown, navRef }) => {
   // 드롭다운 div 요소를 위한 ref
@@ -38,7 +41,7 @@ const Dropdown = ({ showDropdown, setShowDropdown, navRef }) => {
   // 로그아웃
   const handleLogout = async () => {
     await logout();
-    navigate("/");
+    navigate(ROUTES.HOME);
   };
 
   return (

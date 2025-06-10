@@ -3,6 +3,7 @@ import "../styles/Navbar.css";
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { ROUTES } from "../constants/routes";
 import { useAuth } from "../contexts/AuthContext";
 import Dropdown from "./Dropdown";
 
@@ -20,7 +21,7 @@ const NavBar = () => {
   return (
     <div className="navbar">
       <div className="nav-logo">
-        <Link to={"/"}>
+        <Link to={ROUTES.HOME}>
           <img src={imgPathLogo} alt="컴히얼 로고" />
           <h1>컴히얼</h1>
         </Link>
@@ -31,7 +32,7 @@ const NavBar = () => {
             <div className="nav-recent">
               <img src={imgPathHistory} alt="최근 본 견적" />
             </div>
-            <Link className="navbar-mylist" to={"/mylist"}>
+            <Link className="navbar-mylist" to={ROUTES.MYLIST}>
               <img src={imgPathHeart} alt="찜한 견적" />
             </Link>
             <div
@@ -51,7 +52,7 @@ const NavBar = () => {
           </>
         ) : (
           <>
-            <Link className="navbarLogin" to={"/login"}>
+            <Link className="navbarLogin" to={ROUTES.LOGIN}>
               로그인
             </Link>
           </>
