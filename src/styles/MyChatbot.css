@@ -4,8 +4,7 @@
   bottom: 45px;
   width: 62px;
   height: 62px;
-  background: var(--color-primary);
-  border: none;
+  border: 1px solid var(--text-muted);
   border-radius: 28px;
   cursor: pointer;
   transition: transform 0.14s ease;

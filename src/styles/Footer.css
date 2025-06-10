@@ -28,7 +28,8 @@
   display: inline-block;
   font-family: "Hakgyoansim Samulham", "Noto Sans KR", sans-serif;
   font-size: 1.8rem;
-  color: var(--color-primary);
+  color: var(--text-muted);
+  transform: translateY(2px);
 }
 
 .footer-left-content {

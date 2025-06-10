@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 
 const Footer = () => {
-  const imgPathLogo = "/images/logo.svg";
+  const imgPathLogo = "/images/logo-muted.svg";
   const imgPathInstagram = "/images/Instagram-logo.svg";
   const imgPathGithub = "/images/github-logo.svg";
   const imgPathNotion = "/images/notion-logo.svg";
