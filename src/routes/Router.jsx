@@ -21,6 +21,7 @@ import MyPage from "../pages/MyPage";
 import RegisterPage from "../pages/RegisterPage";
 import SupportPage from "../pages/SupportPage";
 import ScrollToTop from "../utils/scrollToTop.js";
+import PrivateRoute from "./PrivateRoute.jsx";
 
 export const Router = () => {
   return (
@@ -33,11 +34,14 @@ export const Router = () => {
           <Route path={ROUTES.LOGIN} element={<LoginPage />} />
           <Route path={ROUTES.SUPPORT} element={<SupportPage />} />
           <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
-          <Route path={ROUTES.MYPAGE} element={<MyPage />} />
-          <Route path={ROUTES.MYLIST} element={<MylistPage />}></Route>
-          <Route path="/account/*" element={<AccountPage />}></Route>
+          <Route element={<PrivateRoute />}>
+            {/* 로그인이 필요한 페이지 */}
+            <Route path={ROUTES.MYPAGE} element={<MyPage />} />
+            <Route path={ROUTES.MYLIST} element={<MylistPage />}></Route>
+            <Route path="/account/*" element={<AccountPage />}></Route>
+            <Route path={ROUTES.COMPARE} element={<ComparePage />}></Route>
+          </Route>
           <Route path={ROUTES.ESTIMATE} element={<EstimatePage />}></Route>
-          <Route path={ROUTES.COMPARE} element={<ComparePage />}></Route>
           <Route path={ROUTES.HELP.FIND_PW} element={<FindPwPage />}></Route>
           <Route path="/login/callback" element={<LoginCallbackPage />} />
 
