@@ -19,7 +19,7 @@ body,
   letter-spacing: -0.015rem;
   min-height: calc(100vh - 70px);
   color: var(--text-primary);
-  background: var(--bg-primary);
+  background: var(--bg-gradient);
 }
 
 body {

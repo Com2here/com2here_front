@@ -3,23 +3,10 @@ import "../styles/EstimatePage.css";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
+import BaseButton from "../components/common/Button/BaseButton";
 import { PAGE_TITLES, SITE_URL } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
-
-const GAMES = [
-  "리그오브레전드",
-  "발로란트",
-  "FC 24",
-  "배틀그라운드",
-  "서든어택",
-  "로스트아크",
-  "메이플스토리",
-  "디아블로4",
-  "오버워치2",
-  "스타크래프트2",
-  "월드오브워크래프트",
-  "카운터스트라이크2",
-];
+import { GAMES } from "../constants/software";
 
 const EstimatePage = () => {
   const [budget, setBudget] = useState(100);
@@ -45,6 +32,10 @@ const EstimatePage = () => {
     setBudget(value);
   };
 
+  const handleClick = () => {
+    // navigate(ROUTES.HOME);
+  };
+
   return (
     <div className="estimate-page">
       <Helmet>
@@ -61,7 +52,7 @@ const EstimatePage = () => {
         <section className="estimate-pc-usage">
           <h2>주로 플레이하실 게임을 선택해주세요</h2>
           <div className="games-grid">
-            {GAMES.map((game) => (
+            {Object.values(GAMES).map((game) => (
               <label key={game} className="game-item">
                 <input
                   type="checkbox"
@@ -111,7 +102,9 @@ const EstimatePage = () => {
           </div>
         </section>
 
-        {selectedGames.length > 0 ? (
+        <BaseButton onClick={handleClick}>나에게 딱 맞는 조립PC 찾기</BaseButton>
+
+        {/* {selectedGames.length > 0 ? (
           <section className="pc-list">
             {[1, 2, 3].map((item) => (
               <div key={item} className="pc-card">
@@ -125,9 +118,9 @@ const EstimatePage = () => {
           </section>
         ) : (
           <section>
-            {/* <p>주로 플레이하실 게임을 하나 이상 선택해주세요</p> */}
+            <p>주로 플레이하실 게임을 하나 이상 선택해주세요</p>
           </section>
-        )}
+        )} */}
       </div>
     </div>
   );
