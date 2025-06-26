@@ -49,6 +49,17 @@
   box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.3);
 }
 
+.estimate-container > button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.estimate-container > button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 .estimate-pc-usage {
   padding: 1.5rem;
 }
@@ -61,6 +72,52 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   text-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.game-search-container {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.game-search-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
+  border-radius: 4px;
+  font-size: 1rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.game-search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.2);
+}
+
+.game-search-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.search-results-info {
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  text-align: center;
+  opacity: 0.8;
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  background: var(--color-muted);
+  border-radius: 4px;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.1);
 }
 
 .games-grid {
@@ -343,4 +400,261 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.error-message {
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  color: #ff0000;
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.login-notice {
+  background: rgba(var(--color-primary-rgb), 0.1);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
+  color: var(--color-primary);
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.recommendations-section {
+  padding: 1.5rem;
+  background: var(--color-muted);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+  border-radius: 8px;
+}
+
+.recommendations-section h3 {
+  margin: 0 0 1rem 0;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.recommendations-content {
+  background: var(--bg-primary);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.1);
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.recommendations-content pre {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.product-list-section {
+  margin-top: 2rem;
+  padding: 2rem 1rem;
+  background: var(--color-card);
+  border-radius: 12px;
+  box-shadow: 0 0 24px rgba(var(--color-primary-rgb), 0.08);
+}
+
+.product-list-title {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.product-list-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem 2rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.product-card {
+  background: var(--bg-primary);
+  border: 2px solid rgba(var(--color-primary-rgb), 0.12);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(var(--color-primary-rgb), 0.06);
+  padding: 2.5rem 2rem 2rem 2rem;
+  min-width: 340px;
+  max-width: 480px;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition:
+    box-shadow 0.2s,
+    border 0.2s;
+}
+
+.product-card.top-recommend {
+  border: 2.5px solid #3ecfff;
+  box-shadow: 0 4px 24px rgba(62, 207, 255, 0.15);
+}
+
+.top-badge {
+  position: absolute;
+  top: -1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3ecfff;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: bold;
+  padding: 0.3rem 1.2rem;
+  border-radius: 8px 8px 8px 8px;
+  box-shadow: 0 2px 8px rgba(62, 207, 255, 0.12);
+  letter-spacing: 1px;
+  z-index: 2;
+}
+
+.product-image-wrap {
+  width: 180px;
+  height: 120px;
+  background: #f4f7fa;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.product-info {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.product-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.3rem;
+}
+
+.product-mall {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.product-price {
+  font-size: 1.2rem;
+  color: #3ecfff;
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+}
+
+.product-actions {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.view-deal-btn {
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--text-dark);
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: none;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+  text-align: center;
+}
+
+.view-deal-btn:hover {
+  background: var(--color-primary-800);
+  color: var(--text-dark);
+}
+
+.wishlist-btn {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  transition: background 0.15s;
+  z-index: 2;
+}
+
+.wishlist-btn:hover {
+  background: rgba(var(--color-primary-rgb), 0.08);
+}
+
+.heart-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.product-result-screen {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #181f2a 0%, #232b3b 100%);
+  padding: 3rem 0 4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.product-result-screen .product-list-title {
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
+  color: var(--color-primary);
+  font-weight: bold;
+  text-align: center;
+}
+
+.back-btn {
+  margin: 2.5rem auto 0 auto;
+  display: block;
+  background: #232b3b;
+  color: #fff;
+  border: 1.5px solid #3ecfff;
+  border-radius: 8px;
+  padding: 0.8rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border 0.2s;
+}
+
+.back-btn:hover {
+  background: #3ecfff;
+  color: #232b3b;
+  border: 1.5px solid #232b3b;
 }
