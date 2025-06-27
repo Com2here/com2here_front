@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { useAuth } from "../contexts/AuthContext";
 import api from "./useAxios.js";
 
 export const useRecs = () => {
