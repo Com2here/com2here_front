@@ -136,11 +136,6 @@ const EstimatePage = () => {
   };
 
   const handleClick = async () => {
-    if (!isLoggedIn) {
-      alert("PC 추천을 받으려면 로그인이 필요합니다.");
-      return;
-    }
-
     if (selectedGames.length === 0) {
       alert("최소 하나의 게임을 선택해주세요.");
       return;
@@ -264,19 +259,9 @@ const EstimatePage = () => {
           </div>
         </section>
 
-        <BaseButton onClick={handleClick} disabled={loading || !isLoggedIn}>
-          {loading
-            ? "추천 중..."
-            : !isLoggedIn
-              ? "로그인 후 추천받기"
-              : "나에게 딱 맞는 조립PC 찾기"}
+        <BaseButton onClick={handleClick} disabled={loading}>
+          {loading ? "추천 중..." : "나에게 딱 맞는 조립PC 찾기"}
         </BaseButton>
-
-        {!isLoggedIn && (
-          <div className="login-notice">
-            PC 추천을 받으려면 로그인이 필요합니다.
-          </div>
-        )}
 
         {error && <div className="error-message">{error}</div>}
       </div>
