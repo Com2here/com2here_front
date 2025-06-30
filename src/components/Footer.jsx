@@ -39,8 +39,8 @@ const Footer = () => {
               </li>
             </ul>
             <ul className="footer-info">
-              <Link to="mailto:support@comhere.com">
-                <li>E: support@comhere.com</li>
+              <Link to="mailto:comhere@comhere.site">
+                <li>E: comhere@comhere.site</li>
               </Link>
               <li>Copyright © 2025 컴히얼. All rights reserved.</li>
             </ul>
