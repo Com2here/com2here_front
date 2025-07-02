@@ -14,7 +14,7 @@ const FindPwPage = () => {
   const navigate = useNavigate();
   const imgPathEye = "/images/eye.svg";
   const imgPathEyeSlash = "/images/eye-slash.svg";
-  const imgPath = "/images/logo-white.svg";
+  const imgPath = "/images/logo.svg";
 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");

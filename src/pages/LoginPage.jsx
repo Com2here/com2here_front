@@ -8,7 +8,7 @@ import { PAGE_TITLES, SITE_URL } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
 
 const LoginPage = () => {
-  const imgPath = "/images/logo-white.svg";
+  const imgPathLogo = "/images/logo-dark.svg";
 
   return (
     <div className="login-page">
@@ -32,7 +32,8 @@ const LoginPage = () => {
       <div className="login-form-right-side">
         <Link to={ROUTES.HOME}>
           <h1 className="login-page-logo">
-            <img src={imgPath} alt="컴히얼" />
+            <img src={imgPathLogo} alt="컴히얼" />
+            <span>컴히얼</span>
           </h1>
         </Link>
         <div className="login-description">

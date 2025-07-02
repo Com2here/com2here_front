@@ -72,6 +72,11 @@
   opacity: 95%;
 }
 
+.login-google-text {
+  color: black;
+  opacity: 85%;
+}
+
 .login-divider {
   display: flex;
   width: 100%;
@@ -92,7 +97,7 @@
   flex-grow: 1;
   text-align: center;
   line-height: 18px;
-  color: rgba(117, 117, 117, 0.7);
+  color: var(--text-muted);
   letter-spacing: 0.48px;
   justify-content: center;
 }
@@ -163,11 +168,11 @@
   height: 100%;
   display: flex;
   gap: 0.4rem;
-  color: var(--main-black);
+  color: var(--text-muted);
 }
 
 .login-remember > input {
-  border: 1px solid rgba(117, 117, 117, 0.7);
+  border: 1px solid var(--text-muted);
   width: 0.9rem;
   height: 0.9rem;
   border-radius: 0.25rem;
@@ -180,6 +185,7 @@
 
 .login-find {
   color: var(--main-red);
+  color: var(--color-primary);
   opacity: 0.95;
   cursor: pointer;
 }
@@ -192,8 +198,8 @@
   justify-content: center;
   text-align: center;
   font-size: 1rem;
-  background-color: var(--btn-red);
-  color: var(--main-white);
+  background-color: var(--color-primary);
+  color: var(--text-dark);
   border: none;
   border-radius: 12px;
   height: 39px;

@@ -8,7 +8,7 @@ import { PAGE_TITLES, SITE_URL } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
 
 const RegisterPage = () => {
-  const imgPath = "/images/logo-white.svg";
+  const imgPath = "/images/logo.svg";
 
   return (
     <div className="register-page">

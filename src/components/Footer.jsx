@@ -1,6 +1,7 @@
 import "../styles/Footer.css";
 
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { ROUTES } from "../constants/routes";
 
@@ -9,6 +10,14 @@ const Footer = () => {
   const imgPathInstagram = "/images/Instagram-logo.svg";
   const imgPathGithub = "/images/github-logo.svg";
   const imgPathNotion = "/images/notion-logo.svg";
+  const locationNow = useLocation();
+
+  if (
+    locationNow.pathname === ROUTES.LOGIN ||
+    locationNow.pathname === ROUTES.REGISTER ||
+    locationNow.pathname === ROUTES.HELP.FIND_PW
+  )
+    return null;
 
   return (
     <footer className="footer">
