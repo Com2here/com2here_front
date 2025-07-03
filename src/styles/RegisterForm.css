@@ -92,8 +92,8 @@
   justify-content: center;
   text-align: center;
   font-size: 1rem;
-  background-color: rgba(242, 58, 48, 0.7);
-  color: var(--main-white);
+  background-color: rgba(var(--color-primary-rgb), 0.7);
+  color: var(--text-dark);
   border: none;
   border-radius: 12px;
   height: 39px;

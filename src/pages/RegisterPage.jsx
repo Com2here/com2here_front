@@ -8,7 +8,7 @@ import { PAGE_TITLES, SITE_URL } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
 
 const RegisterPage = () => {
-  const imgPath = "/images/logo.svg";
+  const imgPath = "/images/logo-dark.svg";
 
   return (
     <div className="register-page">
@@ -30,6 +30,7 @@ const RegisterPage = () => {
         <Link to={ROUTES.HOME}>
           <h1 className="register-page-logo">
             <img src={imgPath} alt="컴히얼" />
+            <span>컴히얼</span>
           </h1>
         </Link>
         <div className="register-description">

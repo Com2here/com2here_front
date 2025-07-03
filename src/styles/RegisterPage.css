@@ -26,21 +26,35 @@
   flex-direction: column;
   text-align: center;
   align-items: center;
-  background: var(--main-red);
+  background-color: rgba(var(--color-primary-rgb), 0.95);
   width: 40%;
   height: 100vh;
   padding-top: 40vh;
 }
 
 .register-description {
-  margin-top: 10px;
+  margin-top: 1rem;
   font-size: 24px;
   font-weight: 700;
-  color: var(--main-gray);
+  color: var(--text-dark);
   line-height: 32px;
   letter-spacing: 0.2rem;
 }
 
 input {
   appearance: none;
+}
+
+.register-page-logo img {
+  height: 2rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.register-page-logo span {
+  display: inline-block;
+  font-family: "Hakgyoansim Samulham", "Noto Sans KR", sans-serif;
+  font-size: 1.8rem;
+  transform: translateY(3px);
+  color: var(--text-dark);
 }
