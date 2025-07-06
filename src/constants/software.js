@@ -16,7 +16,7 @@ export const GAMES = {
   sevenKnightsRebirth: "세븐나이츠 리버스",
   aion: "아이온",
   worldOfwarcraft: "월드 오브 워크래프트",
-  lineage: "리니지",
+  lineageRemastered: "리니지 리마스터",
   warcraft3: "리포지드: 워크래프트 III",
   counterStrike2: "카운터-스트라이크 2",
   cyphers: "사이퍼즈",

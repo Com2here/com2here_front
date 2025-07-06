@@ -1,11 +1,9 @@
 import "../styles/LoginForm.css";
 
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {
-  LOGIN_ERROR_MESSAGES
-} from "../constants/errors";
+import { LOGIN_ERROR_MESSAGES } from "../constants/errors";
 import { ROUTES } from "../constants/routes";
 import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios"; // Axios 인스턴스 가져오기
@@ -26,6 +24,9 @@ const LoginForm = () => {
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isEmailVerified, setIsEmailVerified] = useState(true); // 이메일 인증 상태
+  const [isModalOpen, setIsModalOpen] = useState(false); // 이메일 인증 모달 상태
+  const [verificationCode, setVerificationCode] = useState(""); // 인증 코드 입력값
 
   const handleOAuthLogin = async (provider) => {
     try {
@@ -38,7 +39,6 @@ const LoginForm = () => {
     }
   };
 
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -46,28 +46,82 @@ const LoginForm = () => {
     });
   };
 
+  // 이메일 인증 코드 전송
+  const handleEmailVerification = async () => {
+    try {
+      const response = await api.post("v1/email/authcode", {
+        mail: formData.email,
+      });
+
+      console.log("이메일 인증 코드 전송 성공:", response.data);
+      alert("이메일로 인증 코드가 전송되었습니다.");
+    } catch (error) {
+      console.error("이메일 인증 코드 전송 실패:", error);
+      alert("이메일 인증 코드 전송 실패");
+    }
+  };
+
+  // 인증 코드 확인
+  const handleVerifyCode = async () => {
+    try {
+      const response = await api.post("v1/email/verify", {
+        mail: formData.email,
+        verifyCode: verificationCode,
+      });
+
+      console.log("이메일 인증 성공:", response.data);
+      setIsEmailVerified(true);
+      alert("이메일 인증이 완료되었습니다.");
+      setIsModalOpen(false);
+
+      // 인증 완료 후 로그인 처리
+      alert("로그인 성공!");
+      navigate(ROUTES.HOME);
+    } catch (error) {
+      console.error("이메일 인증 실패:", error);
+      alert("이메일 인증 실패");
+    }
+  };
+
+  // 모달 닫기
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   // 일반 로그인
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await api.post("v1/user/login", formData);
     try {
+      const response = await api.post("v1/user/login", formData);
+
       if (response.status === 200) {
-        login({
-          token: {
-            accessToken: response.data.data.accessToken,
-            refreshToken: response.data.data.refreshToken,
-          },
-          user: {
-            nickname: response.data.data.nickname,
-            email: response.data.data.email,
-            role: response.data.data.role,
-          },
-        });
-        alert("로그인 성공!");
-        navigate(ROUTES.HOME);
+        // 이메일 인증 상태 확인
+        const isEmailVerified = response.data.data.is_email_verified;
+
+        if (isEmailVerified === 0) {
+          // 이메일 인증이 필요한 경우
+          setIsEmailVerified(false);
+          setIsModalOpen(true);
+          // 자동으로 코드 전송하지 않음
+        } else {
+          // 이메일 인증이 완료된 경우 바로 로그인
+          login({
+            token: {
+              accessToken: response.data.data.accessToken,
+              refreshToken: response.data.data.refreshToken,
+            },
+            user: {
+              nickname: response.data.data.nickname,
+              email: response.data.data.email,
+              role: response.data.data.role,
+            },
+          });
+          alert("로그인 성공!");
+          navigate(ROUTES.HOME);
+        }
       }
     } catch (error) {
-      const errorCode = response.data.code;
+      const errorCode = error.response?.data?.code;
       const errorMessage =
         LOGIN_ERROR_MESSAGES[errorCode] || "알 수 없는 오류가 발생했습니다.";
       alert(errorMessage);
@@ -175,6 +229,25 @@ const LoginForm = () => {
           로그인
         </button>
       </form>
+
+      {/* 이메일 인증 모달 */}
+      {isModalOpen && !isEmailVerified && (
+        <div className="email-verification-modal">
+          <button className="modal-close-btn" onClick={handleModalClose}>
+            ×
+          </button>
+          <h3>이메일 인증</h3>
+          <p>이메일 인증 후 로그인 가능합니다.</p>
+          <button onClick={handleEmailVerification}>인증 코드 전송</button>
+          <input
+            type="text"
+            placeholder="인증 코드"
+            value={verificationCode}
+            onChange={(e) => setVerificationCode(e.target.value)}
+          />
+          <button onClick={handleVerifyCode}>인증하기</button>
+        </div>
+      )}
     </div>
   );
 };

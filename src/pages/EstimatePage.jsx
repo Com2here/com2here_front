@@ -203,18 +203,20 @@ const EstimatePage = () => {
               </div>
             )}
           </div>
-          <div className="games-grid">
-            {filteredGames.map((game) => (
-              <label key={game} className="game-item">
-                <input
-                  type="checkbox"
-                  checked={selectedGames.includes(game)}
-                  onChange={() => handleGameSelect(game)}
-                />
-                {game}
-              </label>
-            ))}
-          </div>
+          {filteredGames.length > 0 && (
+            <div className="games-grid">
+              {filteredGames.map((game) => (
+                <label key={game} className="game-item">
+                  <input
+                    type="checkbox"
+                    checked={selectedGames.includes(game)}
+                    onChange={() => handleGameSelect(game)}
+                  />
+                  {game}
+                </label>
+              ))}
+            </div>
+          )}
           {filteredGames.length === 0 && searchTerm && (
             <div className="no-results">
               &ldquo;{searchTerm}&rdquo;에 대한 검색 결과가 없습니다.

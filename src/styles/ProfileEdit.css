@@ -155,7 +155,7 @@
   font-size: 14px;
 }
 
-.email-verification-modal button {
+/* .email-verification-modal button {
   margin: 5px;
   padding: 10px 20px;
   background-color: rgba(242, 58, 48, 0.7);
@@ -167,7 +167,7 @@
 .email-verification-modal button:hover {
   background-color: rgba(242, 58, 48, 0.7);
   color: rgba(242, 58, 48, 0.9);
-}
+} */
 
 .profile-img-label {
   font-weight: bold;

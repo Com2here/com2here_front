@@ -109,6 +109,24 @@ const recommendations = [
   },
 ];
 
+// 테스트용 사용자 데이터
+const testUsers = [
+  {
+    email: "unverified@test.com",
+    password: "password123",
+    nickname: "미인증사용자",
+    role: "USER",
+    is_email_verified: 0,
+  },
+  {
+    email: "verified@test.com",
+    password: "password123",
+    nickname: "인증된사용자",
+    role: "USER",
+    is_email_verified: 1,
+  },
+];
+
 const filterRecommendations = (items, searchTerm, filterBy) => {
   let filtered = [...items];
 
@@ -154,6 +172,112 @@ const filterRecommendations = (items, searchTerm, filterBy) => {
 };
 
 export const handlers = [
+  // 로그인 API
+  http.post("/api/v1/user/login", async ({ request }) => {
+    const { email, password } = await request.json();
+
+    // 테스트용 사용자 찾기
+    const user = testUsers.find(
+      (u) => u.email === email && u.password === password,
+    );
+
+    if (!user) {
+      return HttpResponse.json(
+        {
+          code: 4001,
+          message: "이메일 또는 비밀번호가 일치하지 않습니다.",
+        },
+        { status: 400 },
+      );
+    }
+
+    return HttpResponse.json(
+      {
+        code: 200,
+        message: "로그인 성공",
+        data: {
+          accessToken: "mock_access_token_" + user.email,
+          refreshToken: "mock_refresh_token_" + user.email,
+          nickname: user.nickname,
+          email: user.email,
+          role: user.role,
+          is_email_verified: user.is_email_verified,
+        },
+      },
+      { status: 200 },
+    );
+  }),
+
+  // 이메일 인증 코드 전송 API
+  http.post("/api/v1/email/authcode", async ({ request }) => {
+    const { mail } = await request.json();
+
+    // 테스트용 사용자 확인
+    const user = testUsers.find((u) => u.email === mail);
+
+    if (!user) {
+      return HttpResponse.json(
+        {
+          code: 4001,
+          message: "존재하지 않는 이메일입니다.",
+        },
+        { status: 400 },
+      );
+    }
+
+    return HttpResponse.json(
+      {
+        code: 200,
+        message: "인증 코드가 이메일로 전송되었습니다.",
+        data: {
+          authCode: "123456", // 테스트용 고정 코드
+        },
+      },
+      { status: 200 },
+    );
+  }),
+
+  // 이메일 인증 코드 확인 API
+  http.post("/api/v1/email/verify", async ({ request }) => {
+    const { mail, verifyCode } = await request.json();
+
+    // 테스트용 사용자 확인
+    const user = testUsers.find((u) => u.email === mail);
+
+    if (!user) {
+      return HttpResponse.json(
+        {
+          code: 4001,
+          message: "존재하지 않는 이메일입니다.",
+        },
+        { status: 400 },
+      );
+    }
+
+    // 테스트용 고정 코드 확인
+    if (verifyCode === "123456") {
+      // 인증 성공 시 사용자 상태 업데이트
+      user.is_email_verified = 1;
+
+      return HttpResponse.json(
+        {
+          code: 200,
+          message: "이메일 인증이 완료되었습니다.",
+          data: null,
+        },
+        { status: 200 },
+      );
+    } else {
+      return HttpResponse.json(
+        {
+          code: 4002,
+          message: "인증 코드가 일치하지 않습니다.",
+        },
+        { status: 400 },
+      );
+    }
+  }),
+
   http.delete("/api/v1/user/delete", async ({ request }) => {
     const { password } = await request.json();
 
@@ -311,7 +435,7 @@ export const handlers = [
       );
     }
 
-    recommendations = recommendations.filter((rec) => rec.id !== Number(id));
+    recommendations.splice(index, 1);
 
     return HttpResponse.json(
       {
