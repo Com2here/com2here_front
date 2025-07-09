@@ -65,7 +65,7 @@
   display: flex;
   flex-direction: column;
   border: none;
-  border-radius: 44px;
+  border-radius: 0.5rem;
   padding: 16px 48px;
   margin: 0 12px;
   background-color: var(--color-primary);
@@ -75,4 +75,26 @@
   font-weight: 700;
   line-height: 22px;
   letter-spacing: -0.4px;
+}
+
+.home-laptop-disabled {
+  position: relative;
+  opacity: 0.5;
+}
+
+.home-laptop-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8); /* 더 진한 배경 */
+  color: #fffae0;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  z-index: 2;
 }

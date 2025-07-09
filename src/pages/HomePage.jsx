@@ -36,9 +36,10 @@ const HomePage = () => {
               <button className="home-btn-rec">조립PC 고르기</button>
             </div>
           </Link>
-          <div className="home-rec-wrapper">
+          <div className="home-rec-wrapper home-laptop-disabled">
             <img className="home-img" src={imgPathLaptop} alt="노트북" />
             <button className="home-btn-rec">노트북 고르기</button>
+            <div className="home-laptop-overlay">준비 중입니다</div>
           </div>
         </div>
       </section>

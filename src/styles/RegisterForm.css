@@ -203,3 +203,14 @@
   transform: none !important;
   box-shadow: none !important;
 }
+
+.register-terms-guide {
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.register-terms-guide a {
+  color: #1c7ed6;
+}
