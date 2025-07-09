@@ -5,7 +5,7 @@
   font-display: swap;
   src:
     local("Pretendard Variable"),
-    url("/fonts/PretendardVariable.woff2") format("woff2-variations");
+    url("../../fonts/PretendardVariable.woff2") format("woff2-variations");
 }
 
 @font-face {
@@ -15,5 +15,5 @@
   font-display: swap;
   src:
     local("Hakgyoansim Samulham"),
-    url("/fonts/HakgyoansimSamulham.otf") format("opentype");
+    url("../../fonts/HakgyoansimSamulham.otf") format("opentype");
 }
