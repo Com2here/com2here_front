@@ -9,13 +9,11 @@ import App from "./App.jsx";
 const queryClient = new QueryClient();
 
 async function enableMocking() {
-  if (process.env.NODE_ENV !== "development") {
-    return;
+  if (import.meta.env.MODE === "development") {
+    import("./mocks/browser").then(({ worker }) => {
+      // worker.start();
+    });
   }
-
-  const { worker } = await import("./mocks/browser");
-
-  // return worker.start();
 }
 
 enableMocking().then(() => {
