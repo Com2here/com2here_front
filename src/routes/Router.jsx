@@ -20,6 +20,7 @@ import MylistPage from "../pages/MylistPage";
 import MyPage from "../pages/MyPage";
 import RegisterPage from "../pages/RegisterPage";
 import SupportPage from "../pages/SupportPage";
+import TermsPage from "../pages/TermsPage.jsx";
 import ScrollToTop from "../utils/scrollToTop.js";
 import PrivateRoute from "./PrivateRoute.jsx";
 import PublicRoute from "./PublicRoute.jsx";
@@ -47,6 +48,7 @@ export const Router = () => {
           <Route path={ROUTES.ESTIMATE} element={<EstimatePage />}></Route>
           <Route path={ROUTES.HELP.FIND_PW} element={<FindPwPage />}></Route>
           <Route path={ROUTES.SUPPORT} element={<SupportPage />} />
+          <Route path={ROUTES.TERMS} element={<TermsPage />} />
           <Route path="/login/callback" element={<LoginCallbackPage />} />
 
           <Route

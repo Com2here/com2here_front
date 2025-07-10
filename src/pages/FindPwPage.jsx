@@ -14,7 +14,7 @@ const FindPwPage = () => {
   const navigate = useNavigate();
   const imgPathEye = "/images/eye.svg";
   const imgPathEyeSlash = "/images/eye-slash.svg";
-  const imgPath = "/images/logo.svg";
+  const imgPath = "/images/logo-dark.svg";
 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -185,16 +185,34 @@ const FindPwPage = () => {
 
       <section className="find-pw-left-side">
         <h2>비밀번호 찾기</h2>
-
+        <div
+          className="findpw-guide"
+          style={{
+            textAlign: "center",
+            color: "#888",
+            fontSize: 15,
+            marginBottom: 18,
+          }}
+        >
+          가입하신 이메일로 인증코드를 받아
+          <br />새 비밀번호로 변경할 수 있습니다.
+        </div>
         {!isCodeSent ? (
           <form onSubmit={handleSubmitEmail}>
             <div className="find-pw-input">
               <input
                 type="email"
-                placeholder="가입한 이메일을 입력하세요"
+                placeholder="이메일 주소 (ex: user@email.com)"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                style={{
+                  paddingLeft: 36,
+                  backgroundImage: "url(/images/email.svg)",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "10px center",
+                  backgroundSize: "18px",
+                }}
               />
             </div>
             <button type="submit" disabled={loading}>
@@ -206,10 +224,17 @@ const FindPwPage = () => {
             <div className="find-pw-input">
               <input
                 type="text"
-                placeholder="이메일로 받은 인증 코드를 입력하세요"
+                placeholder="인증 코드 (이메일 확인)"
                 value={authCode}
                 onChange={(e) => setAuthCode(e.target.value)}
                 required
+                style={{
+                  paddingLeft: 36,
+                  backgroundImage: "url(/images/lock.svg)",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "10px center",
+                  backgroundSize: "18px",
+                }}
               />
             </div>
             <div className="find-pw-input">
@@ -217,10 +242,17 @@ const FindPwPage = () => {
                 <input
                   type={isPasswordVisible ? "text" : "password"}
                   name="password"
-                  placeholder="새 비밀번호"
+                  placeholder="새 비밀번호 (영문+숫자+특수문자 8자 이상)"
                   value={newPassword}
                   onChange={handleCheckPassword}
                   required
+                  style={{
+                    paddingLeft: 36,
+                    backgroundImage: "url(/images/lock.svg)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "10px center",
+                    backgroundSize: "18px",
+                  }}
                 />
                 <div className="find-pw-right">
                   <button
@@ -247,6 +279,13 @@ const FindPwPage = () => {
                   value={confirmPassword}
                   onChange={handleCheckPassword}
                   required
+                  style={{
+                    paddingLeft: 36,
+                    backgroundImage: "url(/images/lock.svg)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "10px center",
+                    backgroundSize: "18px",
+                  }}
                 />
                 <div className="find-pw-right">
                   <button
@@ -271,23 +310,23 @@ const FindPwPage = () => {
             </button>
           </form>
         )}
-
-        {message && <div className="find-pw-message">{message}</div>}
+        {message && <div className="find-pw-message fade-in">{message}</div>}
       </section>
-      <section className="find-pw-right-side">
+      <div className="login-form-right-side">
         <Link to={ROUTES.HOME}>
-          <h1 className="find-pw-logo">
+          <h1 className="login-page-logo">
             <img src={imgPath} alt="컴히얼" />
+            <span>컴히얼</span>
           </h1>
         </Link>
-        <div className="find-pw-description">
+        <div className="login-description">
           <p>
             컴알못에게 가장 쉬운
             <br />
             PC추천 플랫폼
           </p>
         </div>
-      </section>
+      </div>
     </main>
   );
 };

@@ -15,6 +15,7 @@ export const ROUTES = {
   HELP: {
     FIND_PW: "/help/findPw",
   },
+  TERMS: "/terms",
   ADMIN: {
     SOFTWARE: "/admin/software",
     PRODUCTS: "/admin/products",

@@ -269,10 +269,14 @@ const RegisterForm = () => {
           이용약관
         </a>{" "}
         및{" "}
-        <a href="/privacy" target="_blank" rel="noopener noreferrer">
+        <a
+          href="/terms?type=privacy#privacy-section"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           개인정보 처리방침
         </a>
-        에 동의하는 것으로 간주합니다.
+        에 동의하는 것으로 간주됩니다.
       </div>
 
       {/* 이메일 인증 모달 */}

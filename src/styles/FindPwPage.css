@@ -69,7 +69,6 @@
   width: 100%;
   padding: 12px;
   font-size: 16px;
-  background-color: rgba(242, 58, 48, 0.9);
   color: var(--main-white);
   border: none;
   border-radius: 12px;
@@ -78,7 +77,6 @@
 }
 
 .find-pw-left-side button:disabled {
-  background-color: rgba(242, 58, 48, 0.7);
   cursor: default;
 }
 
@@ -131,4 +129,127 @@
   color: var(--main-gray);
   line-height: 32px;
   letter-spacing: 0.2rem;
+}
+
+.findpw-illust-wrap img {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
+}
+.findpw-guide {
+  margin-bottom: 18px;
+  color: #888;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.find-pw-left-side {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
+  padding: 36px 32px 32px 32px;
+  min-width: 320px;
+  min-height: 420px;
+}
+.find-pw-input input {
+  background-color: #fafbfc;
+  border: 1.5px solid #e0e0e0;
+  transition:
+    border 0.2s,
+    box-shadow 0.2s;
+  padding-left: 36px;
+}
+.find-pw-input input:focus {
+  border-color: #f23a30;
+  box-shadow: 0 0 0 2px rgba(242, 58, 48, 0.08);
+}
+.find-pw-left-side button {
+  margin-top: 8px;
+  color: var(--text-dark);
+  height: 39px;
+  border-radius: 12px;
+  background-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(242, 58, 48, 0.08);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+.find-pw-left-side button:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ff7e5f 0%, #f23a30 100%);
+  box-shadow: 0 4px 16px rgba(242, 58, 48, 0.13);
+}
+.find-pw-message.fade-in {
+  animation: fadeIn 0.7s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* LoginPage 오른쪽 영역 스타일을 FindPwPage에도 적용 */
+.login-form-right-side {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  background-color: rgba(var(--color-primary-rgb), 0.95);
+  width: 40%;
+  height: 100vh;
+  padding-top: 40vh;
+}
+.login-page-logo img {
+  height: 2rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+.login-page-logo span {
+  display: inline-block;
+  font-family: "Hakgyoansim Samulham", "Noto Sans KR", sans-serif;
+  font-size: 1.8rem;
+  transform: translateY(3px);
+  color: var(--text-dark);
+}
+.login-description {
+  margin-top: 1rem;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 32px;
+  letter-spacing: 0.2rem;
+}
+@media (max-width: 900px) {
+  .find-pw-container {
+    flex-direction: column;
+  }
+  .find-pw-right-side {
+    width: 100vw;
+    height: 180px;
+    padding-top: 32px;
+    border-radius: 0 0 24px 24px;
+  }
+  .find-pw-left-side form:first-of-type button[type="submit"] {
+    background: var(--color-primary);
+    color: var(--text-dark);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    box-shadow: 0 2px 8px rgba(5, 242, 242, 0.08);
+    margin-top: 8px;
+    border-radius: 12px;
+    transition:
+      background 0.2s,
+      box-shadow 0.2s;
+  }
+  .find-pw-left-side
+    form:first-of-type
+    button[type="submit"]:hover:not(:disabled) {
+    background-color: var(--color-primary);
+  }
+  .login-form-right-side {
+    width: 100vw;
+    height: 180px;
+    padding-top: 32px;
+    border-radius: 0 0 24px 24px;
+  }
 }
