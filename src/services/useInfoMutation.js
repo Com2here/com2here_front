@@ -4,7 +4,7 @@ import api from "../hooks/useAxios";
 
 const patchUserInfo = async (formData) => {
   const response = await api.patch("/v1/user/update", formData);
-  return response.data;
+  return response;
 };
 
 export const useProfileMutation = () => {

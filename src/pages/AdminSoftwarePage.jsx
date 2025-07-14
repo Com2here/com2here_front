@@ -66,7 +66,7 @@ const AdminSoftwarePage = () => {
         },
       });
 
-      const { data, pagination: pageInfo } = response.data;
+      const { data, pagination: pageInfo } = response;
 
       setRecommendations(data);
       setPagination({
@@ -78,7 +78,7 @@ const AdminSoftwarePage = () => {
     } catch (err) {
       console.error("Error fetching recommendations:", err);
       setError(
-        err.response?.data?.message ||
+        err.response?.message ||
           "소프트웨어 목록을 불러오는데 실패했습니다.",
       );
     } finally {
@@ -132,7 +132,7 @@ const AdminSoftwarePage = () => {
       setSuccessMessage("소프트웨어 정보가 성공적으로 삭제되었습니다.");
       fetchRecommendations(pagination.currentPage);
     } catch (err) {
-      setError(err.response?.data?.message || "삭제 중 오류가 발생했습니다.");
+      setError(err.response?.message || "삭제 중 오류가 발생했습니다.");
     } finally {
       setLoading(false);
     }
@@ -164,7 +164,7 @@ const AdminSoftwarePage = () => {
       setFormData(initialFormData);
       fetchRecommendations(pagination.currentPage);
     } catch (err) {
-      setError(err.response?.data?.message || "처리 중 오류가 발생했습니다.");
+      setError(err.response?.message || "처리 중 오류가 발생했습니다.");
     } finally {
       setLoading(false);
     }

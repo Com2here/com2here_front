@@ -95,8 +95,9 @@ const RegisterForm = () => {
           "Content-Type": "application/json",
         },
       });
-      const code = response.data.code;
-      console.log(response.data);
+
+      console.log("회원가입 응답:", response);
+      const code = response.code;
 
       if (code === 200) {
         // 회원가입 성공 후 이메일 인증 코드 전송
@@ -107,8 +108,7 @@ const RegisterForm = () => {
         return;
       }
     } catch (error) {
-      if (error.response && error.response.data) {
-        const { code, message } = error.response.data;
+      if (error.response && error.response) {
         alert("회원가입 실패!");
       } else {
         console.error("회원가입 에러:", error);
@@ -123,7 +123,7 @@ const RegisterForm = () => {
         mail: formData.email,
       });
 
-      console.log("이메일 인증 코드 전송 성공:", response.data);
+      console.log("이메일 인증 코드 전송 성공:", response);
       alert("이메일로 인증 코드가 전송되었습니다.");
     } catch (error) {
       console.error("이메일 인증 코드 전송 실패:", error);
@@ -138,7 +138,7 @@ const RegisterForm = () => {
         verifyCode: verificationCode,
       });
 
-      console.log("이메일 인증 성공:", response.data);
+      console.log("이메일 인증 성공:", response);
       setIsEmailVerified(true);
       alert("이메일 인증이 완료되었습니다.");
       setIsModalOpen(false);

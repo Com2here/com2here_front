@@ -95,11 +95,11 @@ const FindPwPage = () => {
       });
 
       // 응답 코드가 200인 경우 성공 처리
-      if (response.data.code === 200) {
+      if (response.code === 200) {
         setMessage("인증 코드가 이메일로 전송되었습니다.");
         alert("인증 코드가 이메일로 전송되었습니다.");
         setIsCodeSent(true);
-      } else if (response.data.code === 2106) {
+      } else if (response.code === 2106) {
         // 존재하지 않는 이메일
         setMessage("가입된 이메일이 없습니다.");
       } else {
@@ -143,16 +143,15 @@ const FindPwPage = () => {
       confirmPassword: confirmPassword,
     });
     try {
-      if (response.data.code === 200) {
+      if (response.code === 200) {
         alert("비밀번호가 성공적으로 변경되었습니다.");
         navigate(ROUTES.LOGIN); // 비밀번호 변경 후 로그인 페이지로 리디렉션
       } else {
-        const errorCode = response.data.code;
+        const errorCode = response.code;
         const errorMessage =
           FIND_PW_ERROR_MESSAGES[errorCode] ||
           "알 수 없는 오류가 발생했습니다.";
         alert(errorMessage);
-        console.log(response.data);
       }
     } catch (error) {
       console.error("비밀번호 변경 실패:", error);

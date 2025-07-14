@@ -1,6 +1,6 @@
 import "../styles/LoginForm.css";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { LOGIN_ERROR_MESSAGES } from "../constants/errors";
@@ -27,12 +27,23 @@ const LoginForm = () => {
   const [isEmailVerified, setIsEmailVerified] = useState(true); // 이메일 인증 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 이메일 인증 모달 상태
   const [verificationCode, setVerificationCode] = useState(""); // 인증 코드 입력값
+  const [rememberMe, setRememberMe] = useState(false); // 로그인 유지 체크박스 상태
+
+  const handleRememberMeChange = (e) => {
+    const checked = e.target.checked;
+    setRememberMe(checked);
+    if (checked) {
+      alert(
+        "개인정보 보호를 위해 본인 기기에서만 사용해 주세요. 이 기능을 이용함으로써 발생하는 보안 문제의 책임은 본인에게 있습니다.",
+      );
+    }
+  };
 
   const handleOAuthLogin = async (provider) => {
     try {
       const response = await api.get(`v1/oauth/${provider}`);
-      if (response.data.code === 200) {
-        window.location.href = response.data.data;
+      if (response.code === 200) {
+        window.location.href = response.data;
       }
     } catch (error) {
       alert("소셜 로그인 중 오류가 발생했습니다.");
@@ -53,7 +64,7 @@ const LoginForm = () => {
         mail: formData.email,
       });
 
-      console.log("이메일 인증 코드 전송 성공:", response.data);
+      console.log("이메일 인증 코드 전송 성공:", response);
       alert("이메일로 인증 코드가 전송되었습니다.");
     } catch (error) {
       console.error("이메일 인증 코드 전송 실패:", error);
@@ -69,7 +80,7 @@ const LoginForm = () => {
         verifyCode: verificationCode,
       });
 
-      console.log("이메일 인증 성공:", response.data);
+      console.log("이메일 인증 성공:", response);
       setIsEmailVerified(true);
       alert("이메일 인증이 완료되었습니다.");
       setIsModalOpen(false);
@@ -96,7 +107,7 @@ const LoginForm = () => {
 
       if (response.status === 200) {
         // 이메일 인증 상태 확인
-        const isEmailVerified = response.data.data.is_email_verified;
+        const isEmailVerified = response.data.is_email_verified;
 
         if (isEmailVerified === 0) {
           // 이메일 인증이 필요한 경우
@@ -105,15 +116,22 @@ const LoginForm = () => {
           // 자동으로 코드 전송하지 않음
         } else {
           // 이메일 인증이 완료된 경우 바로 로그인
+          // rememberMe가 true면 localStorage, 아니면 sessionStorage에 저장
+          const { accessToken, refreshToken } = response.data;
+          if (rememberMe) {
+            localStorage.setItem("refreshToken", refreshToken);
+          } else {
+            sessionStorage.setItem("refreshToken", refreshToken);
+          }
           login({
             token: {
-              accessToken: response.data.data.accessToken,
-              refreshToken: response.data.data.refreshToken,
+              accessToken: accessToken,
+              // refreshToken: refreshToken,
             },
             user: {
-              nickname: response.data.data.nickname,
-              email: response.data.data.email,
-              role: response.data.data.role,
+              nickname: response.data.nickname,
+              email: response.data.email,
+              role: response.data.role,
             },
           });
           alert("로그인 성공!");
@@ -121,7 +139,7 @@ const LoginForm = () => {
         }
       }
     } catch (error) {
-      const errorCode = error.response?.data?.code;
+      const errorCode = error.response?.code;
       const errorMessage =
         LOGIN_ERROR_MESSAGES[errorCode] || "알 수 없는 오류가 발생했습니다.";
       alert(errorMessage);
@@ -217,7 +235,12 @@ const LoginForm = () => {
           </div>
           <div className="login-feat">
             <div className="login-remember">
-              <input type="checkbox" id="remember" />
+              <input
+                type="checkbox"
+                id="remember"
+                checked={rememberMe}
+                onChange={handleRememberMeChange}
+              />
               <label htmlFor="remember">로그인 상태 유지</label>
             </div>
             <span className="login-find" onClick={handleFindPassword}>

@@ -124,7 +124,7 @@ const ProfileEdit = () => {
         mail: formData.email,
       });
 
-      console.log("이메일 인증 코드 전송 성공:", response.data);
+      console.log("이메일 인증 코드 전송 성공:", response);
       alert("이메일로 인증 코드가 전송되었습니다.");
     } catch (error) {
       console.error("이메일 인증 코드 전송 실패:", error);
@@ -139,7 +139,7 @@ const ProfileEdit = () => {
         verifyCode: verificationCode,
       });
 
-      console.log("이메일 인증 성공:", response.data);
+      console.log("이메일 인증 성공:", response);
       setIsEmailVerified(true);
       alert("이메일 인증이 완료되었습니다.");
       setIsModalOpen(false);

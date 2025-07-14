@@ -26,24 +26,24 @@ const OAuthCallback = ({ provider }) => {
           code,
         });
 
-        if (response.data.code === 200) {
-          if (response.data.data.accessToken) {
+        if (response.code === 200) {
+          if (response.data.accessToken) {
             login({
               token: {
-                accessToken: response.data.data.accessToken,
-                refreshToken: response.data.data.refreshToken,
+                accessToken: response.data.accessToken,
+                refreshToken: response.data.refreshToken,
               },
               user: {
-                email: response.data.data.email,
-                nickname: response.data.data.nickname,
+                email: response.data.email,
+                nickname: response.data.nickname,
               },
             });
             navigate(ROUTES.HOME);
           } else {
-            console.error(`${provider} 로그인 실패:`, response.data);
+            console.error(`${provider} 로그인 실패:`, response);
           }
-        } else if (response.data.code in OAUTH_CALLBACK_ERROR_MESSAGES) {
-          alert(OAUTH_CALLBACK_ERROR_MESSAGES[response.data.code]);
+        } else if (response.code in OAUTH_CALLBACK_ERROR_MESSAGES) {
+          alert(OAUTH_CALLBACK_ERROR_MESSAGES[response.code]);
         }
       } catch (error) {
         console.error(`${provider} 로그인 처리 중 오류:`, error);

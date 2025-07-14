@@ -94,14 +94,12 @@ const PasswordChange = () => {
         confirmPassword: confirmPwd,
       });
 
-      const responseData = response.data;
-
-      if (responseData.code !== 200) {
-        if (responseData.code === 2603) {
+      if (response.code !== 200) {
+        if (response.code === 2603) {
           alert("현재 비밀번호가 일치하지 않습니다.");
         } else {
           alert(
-            `비밀번호 변경 실패: ${responseData.message || "알 수 없는 오류입니다."}`,
+            `비밀번호 변경 실패: ${response.message || "알 수 없는 오류입니다."}`,
           );
         }
         return;

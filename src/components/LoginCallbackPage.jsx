@@ -20,14 +20,10 @@ const LoginCallbackPage = () => {
       return;
     }
 
-    // console.log("OAuth 리디렉션 감지됨:", code, provider);
-
     (async () => {
       try {
         const userInfoRes = await api.post(`/v1/oauth/${provider}`, { code });
-        const userInfo = userInfoRes.data.data;
-
-        // console.log("유저 정보 받음:", userInfo);
+        const userInfo = userInfoRes.data;
 
         const saveRes = await api.post("/v1/oauth/social-login", {
           email: userInfo.email,
@@ -37,10 +33,8 @@ const LoginCallbackPage = () => {
           oauthId: userInfo.oauthId,
         });
 
-        // console.log("소셜 계정 저장 응답:", saveRes.data);
-
-        if (saveRes.data.code === 1000 || saveRes.data.code === 200) {
-          const tokenInfo = saveRes.data.data;
+        if (saveRes.code === 1000 || saveRes.code === 200) {
+          const tokenInfo = saveRes.data;
 
           login({
             token: {
@@ -56,7 +50,7 @@ const LoginCallbackPage = () => {
           alert("소셜 로그인 성공!");
           navigate(ROUTES.HOME);
         } else {
-          alert("소셜 로그인 실패: " + saveRes.data.message);
+          alert("소셜 로그인 실패: " + saveRes.message);
           navigate(ROUTES.LOGIN);
         }
       } catch (err) {

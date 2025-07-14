@@ -3,7 +3,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 import { ROUTES } from "../constants/routes";
 import api from "../hooks/useAxios";
-import AdminSoftwarePage from "../pages/AdminSoftwarePage.jsx";
 
 const AdminPageGuard = () => {
   const [user, setUser] = useState(null);
@@ -13,8 +12,8 @@ const AdminPageGuard = () => {
   useEffect(() => {
     const checkRole = async () => {
       try {
-        const res = await api.get("/v1/user/show");
-        const userData = res.data.data;
+        const response = await api.get("/v1/user/show");
+        const userData = response.data;
 
         if (userData.role !== "ADMIN") {
           alert("접근 권한이 없습니다.");

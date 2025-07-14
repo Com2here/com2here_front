@@ -21,8 +21,8 @@ export const useRecs = () => {
       console.log("API 요청 데이터:", requestData);
 
       const response = await api.post("/v1/recommend", requestData);
-      setRecommendations(response.data);
-      return response.data;
+      setRecommendations(response);
+      return response;
     } catch (err) {
       let errorMessage = "추천 요청 중 오류가 발생했습니다.";
 
