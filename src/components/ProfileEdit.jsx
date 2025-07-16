@@ -1,5 +1,6 @@
 import "../styles/ProfileEdit.css";
 
+import Joi from "joi";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +9,9 @@ import { useAuth } from "../contexts/AuthContext";
 import api from "../hooks/useAxios";
 import { useProfileMutation } from "../services/useInfoMutation";
 import { User } from "../services/useUserInfo";
+
+const imgPathEye = "/images/eye.svg";
+const imgPathEyeSlash = "/images/eye-slash.svg";
 
 const ProfileEdit = () => {
   const imgPathProfile = "/images/default-profile.svg";
@@ -31,6 +35,36 @@ const ProfileEdit = () => {
     nickname: "",
     email: "",
     profileImage: null,
+    password: "",
+    confirmPassword: "",
+  });
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
+  const [errors, setErrors] = useState({});
+  const schema = Joi.object({
+    password: Joi.string()
+      .required()
+      .pattern(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]).{8,20}$/,
+      )
+      .messages({
+        "string.pattern.base": "영문, 숫자, 특수문자를 포함해주세요.",
+        "string.empty": "",
+      })
+      .min(8)
+      .max(20)
+      .messages({
+        "string.min": "비밀번호는 최소 8글자 이상 입력해주세요.",
+        "string.max": "비밀번호는 최대 20글자 이하로 입력해주세요.",
+      }),
+    confirmPassword: Joi.string()
+      .valid(Joi.ref("password"))
+      .required()
+      .messages({
+        "string.empty": "",
+        "any.only": "비밀번호가 일치하지 않습니다.",
+      }),
   });
 
   useEffect(() => {
@@ -39,11 +73,13 @@ const ProfileEdit = () => {
         nickname: user.nickname || "",
         email: user.email || "",
         profileImage: null, // 초기엔 업로드된 파일 없음
+        password: "",
+        confirmPassword: "",
       });
       setImgUrl(
         user.profileImageUrl
           ? `http://localhost:3000${user.profileImageUrl}`
-          : imgPathProfile
+          : imgPathProfile,
       );
       setOriginalEmail(user.email || "");
     }
@@ -72,10 +108,29 @@ const ProfileEdit = () => {
     }
   };
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+      // 비밀번호 관련 필드만 검사
+      const validation = schema.validate(
+        {
+          password: updated.password,
+          confirmPassword: updated.confirmPassword,
+        },
+        { abortEarly: false },
+      );
+      if (validation.error) {
+        const errorMessages = {};
+        validation.error.details.forEach((detail) => {
+          errorMessages[detail.path[0]] = detail.message;
+        });
+        setErrors(errorMessages);
+      } else {
+        setErrors({});
+      }
+      return updated;
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -154,7 +209,7 @@ const ProfileEdit = () => {
     <div className="profile-edit">
       <div className="profile-header">
         <h2>내 프로필</h2>
-        <button className="profile-logout-btn">
+        <button className="profile-logout-btn" onClick={logout}>
           <span className="text top">로그아웃</span>
           <span className="text bottom">로그아웃</span>
         </button>
@@ -173,10 +228,9 @@ const ProfileEdit = () => {
                       width: "6rem",
                       height: "6rem",
                       objectFit: "cover",
-                      borderRadius: "50%",
+                      // borderRadius: "50%",
                     }}
                   />
-
                 </div>
                 <label htmlFor="profileImg" className="profile-img-label">
                   프로필 이미지 업로드
@@ -212,6 +266,69 @@ const ProfileEdit = () => {
                     required
                   />
                 </div>
+
+                {/* 비밀번호 입력 */}
+                <div className="register-input-wrap input-password">
+                  <div>
+                    <input
+                      name="password"
+                      placeholder="비밀번호"
+                      type={isPasswordVisible ? "text" : "password"}
+                      value={formData.password}
+                      onChange={handleChange}
+                      autoComplete="new-password"
+                    />
+                    <div className="register-pw-right">
+                      <button
+                        type="button"
+                        onClick={() => setIsPasswordVisible((v) => !v)}
+                      >
+                        <img
+                          src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
+                          alt="비밀번호 보기"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  {errors.password && (
+                    <span className="register-error-message">
+                      {errors.password}
+                    </span>
+                  )}
+                </div>
+                {/* 비밀번호 확인 입력 */}
+                <div className="register-input-wrap input-password">
+                  <div>
+                    <input
+                      name="confirmPassword"
+                      placeholder="비밀번호 확인"
+                      type={isConfirmPasswordVisible ? "text" : "password"}
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      autoComplete="new-password"
+                    />
+                    <div className="register-pw-right">
+                      <button
+                        type="button"
+                        onClick={() => setIsConfirmPasswordVisible((v) => !v)}
+                      >
+                        <img
+                          src={
+                            isConfirmPasswordVisible
+                              ? imgPathEyeSlash
+                              : imgPathEye
+                          }
+                          alt="비밀번호 보기"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  {errors.confirmPassword && (
+                    <span className="register-error-message">
+                      {errors.confirmPassword}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -219,7 +336,6 @@ const ProfileEdit = () => {
               <button type="submit">프로필 업데이트</button>
             </div>
           </form>
-
           {/* 인증 모달 */}
           {isModalOpen && (
             <div className="email-verification-modal">
@@ -234,6 +350,15 @@ const ProfileEdit = () => {
             </div>
           )}
         </div>
+      </div>
+      <div className="profile-delete-btn-row">
+        <button
+          className="profile-delete-btn"
+          type="button"
+          onClick={() => navigate("/account/delete")}
+        >
+          탈퇴하기
+        </button>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@
 }
 
 .profile-logout-btn {
-  background-color: var(--btn-red);
+  background-color: var(--text-dark);
   color: var(--main-white);
   font-size: 0.875rem;
   align-items: center;
@@ -33,6 +33,7 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
 }
 
 .profile-logout-btn .text {
@@ -63,6 +64,10 @@
   padding: 1.5rem;
   border-radius: 10px;
   row-gap: 2rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  background: rgba(30, 32, 44, 0.95);
+  background: var(--color-card);
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.18);
 }
 .profile-edit-wrapper h3 {
   font-size: 1.75rem;
@@ -102,10 +107,6 @@
   flex-direction: column;
   width: 66.6666666667%;
   gap: 2rem;
-}
-
-.profile-edit-info div {
-  padding-bottom: 12px;
 }
 
 .profile-edit-btn {
@@ -201,4 +202,28 @@
 
 .profile-img-input {
   display: none;
+}
+
+.profile-delete-btn-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-delete-btn {
+  background-color: var(--text-dark);
+  color: var(--main-white);
+  font-size: 0.875rem;
+  align-items: center;
+  max-width: max-content;
+  max-height: 48px;
+  height: fit-content;
+  font-weight: 400;
+  line-height: 120%;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  overflow: hidden;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
 }

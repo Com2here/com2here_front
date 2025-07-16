@@ -23,7 +23,7 @@ const AccountPage = () => {
           content={`${SITE_URL}${ROUTES.ACCOUNT}`}
         ></meta>
       </Helmet>
-      <SideBar />
+      {/* <SideBar /> */}
       <Routes>
         <Route path="/profile" element={<ProfileEdit />}></Route>
         <Route path="/changePw" element={<PasswordChange />}></Route>
