@@ -105,7 +105,7 @@ const LoginForm = () => {
     try {
       const response = await api.post("v1/user/login", formData);
 
-      if (response.status === 200) {
+      if (response.code === 200) {
         // 이메일 인증 상태 확인
         const isEmailVerified = response.data.is_email_verified;
 
