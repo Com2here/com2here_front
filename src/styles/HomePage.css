@@ -75,11 +75,60 @@
   font-weight: 700;
   line-height: 22px;
   letter-spacing: -0.4px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s,
+    color 0.3s,
+    box-shadow 0.3s;
+}
+
+.home-btn-rec .circle-bg-btn {
+  transform: translate3d(-50%, 50%, 0px) scale3d(0, 0, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  transform-style: preserve-3d;
+  background-color: var(--color-primary-900);
+  border-radius: 5000vw;
+  width: 30em;
+  height: 30em;
+  transition: 0.3s;
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+  z-index: 1;
+}
+
+.home-btn-rec .btn-link {
+  font-size: 1em;
+  position: relative;
+  z-index: 2;
+}
+
+.home-btn-rec:hover .circle-bg-btn {
+  transform: translate3d(-50%, 50%, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+}
+
+.home-btn-rec:hover {
+  transform: scale(0.95);
+  color: var(--text-primary);
+  box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5);
+}
+
+.home-btn-rec.no-hover:hover,
+.home-btn-rec.no-hover:active,
+.home-btn-rec.no-hover:focus {
+  background-color: var(--color-primary);
+  color: var(--text-dark);
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
 }
 
 .home-laptop-disabled {
   position: relative;
   opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .home-laptop-overlay {

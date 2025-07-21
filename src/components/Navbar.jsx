@@ -29,9 +29,14 @@ const NavBar = () => {
       <div className="nav-links">
         {isLoggedIn ? (
           <>
-            <div className="nav-recent">
+            {userInfo.user.role === "ADMIN" && (
+              <Link className="navbar-admin" to={ROUTES.ADMIN.SOFTWARE}>
+                관리자
+              </Link>
+            )}
+            {/* <div className="nav-recent">
               <img src={imgPathHistory} alt="최근 본 견적" />
-            </div>
+            </div> */}
             <Link className="navbar-mylist" to={ROUTES.MYLIST}>
               <img src={imgPathHeart} alt="찜한 견적" />
             </Link>

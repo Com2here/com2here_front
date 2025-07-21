@@ -33,12 +33,15 @@ const HomePage = () => {
                 src={imgPathComputerTower}
                 alt="조립PC"
               />
-              <button className="home-btn-rec">조립PC 고르기</button>
+              <button className="home-btn-rec">
+                <div className="circle-bg-btn"></div>
+                <div className="btn-link">조립PC 고르기</div>
+              </button>
             </div>
           </Link>
           <div className="home-rec-wrapper home-laptop-disabled">
             <img className="home-img" src={imgPathLaptop} alt="노트북" />
-            <button className="home-btn-rec">노트북 고르기</button>
+            <button className="home-btn-rec no-hover">노트북 고르기</button>
             <div className="home-laptop-overlay">준비 중입니다</div>
           </div>
         </div>
