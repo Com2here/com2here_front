@@ -10,6 +10,7 @@ import OAuthCallback from "../oauth/OAuthCallback.jsx";
 import AccountPage from "../pages/AccountPage";
 import AdminProductPage from "../pages/AdminProductPage";
 import AdminSoftwarePage from "../pages/AdminSoftwarePage";
+import AdminUserPage from "../pages/AdminUserPage";
 import ComparePage from "../pages/ComparePage.jsx";
 import ErrorPage from "../pages/ErrorPage.jsx";
 import EstimatePage from "../pages/EstimatePage";
@@ -67,6 +68,7 @@ export const Router = () => {
           <Route path="/admin" element={<AdminPageGuard />}>
             <Route path="software" element={<AdminSoftwarePage />} />
             <Route path="products" element={<AdminProductPage />} />
+            <Route path="users" element={<AdminUserPage />} />
             <Route index element={<AdminSoftwarePage />} />
           </Route>
 

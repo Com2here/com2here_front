@@ -131,6 +131,12 @@ const AdminProductPage = () => {
         >
           상품 정보 관리
         </Link>
+        <Link
+          to={ROUTES.ADMIN.USERS}
+          className={`admin-nav-link ${location.pathname === ROUTES.ADMIN.USERS ? "active" : ""}`}
+        >
+          회원 관리
+        </Link>
       </nav>
 
       {error && <div className="error-message">{error}</div>}

@@ -19,5 +19,6 @@ export const ROUTES = {
   ADMIN: {
     SOFTWARE: "/admin/software",
     PRODUCTS: "/admin/products",
+    USERS: "/admin/users",
   },
 };

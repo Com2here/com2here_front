@@ -27,6 +27,10 @@
   color: white;
 }
 
+.user-table {
+  color: var(--text-dark);
+}
+
 @media (max-width: 768px) {
   .admin-nav {
     flex-direction: column;

@@ -78,8 +78,7 @@ const AdminSoftwarePage = () => {
     } catch (err) {
       console.error("Error fetching recommendations:", err);
       setError(
-        err.response?.message ||
-          "소프트웨어 목록을 불러오는데 실패했습니다.",
+        err.response?.message || "소프트웨어 목록을 불러오는데 실패했습니다.",
       );
     } finally {
       setLoading(false);
@@ -280,6 +279,12 @@ const AdminSoftwarePage = () => {
           className={`admin-nav-link ${location.pathname === ROUTES.ADMIN.PRODUCTS ? "active" : ""}`}
         >
           상품 정보 관리
+        </Link>
+        <Link
+          to={ROUTES.ADMIN.USERS}
+          className={`admin-nav-link ${location.pathname === ROUTES.ADMIN.USERS ? "active" : ""}`}
+        >
+          회원 관리
         </Link>
       </nav>
 
