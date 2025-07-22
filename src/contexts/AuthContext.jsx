@@ -23,11 +23,28 @@ const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }) => {
+  const isDev = import.meta.env.MODE === "development";
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
+    if (isDev) {
+      setIsLoggedIn(true);
+      setUserInfo({
+        token: {
+          accessToken: "dev-access-token",
+          refreshToken: "dev-refresh-token",
+        },
+        user: {
+          nickname: "devuser",
+          email: "dev@com2here.com",
+          role: "ADMIN",
+        },
+      });
+      setIsLoading(false);
+      return;
+    }
     setIsLoggedIn(!!getAccessToken());
     setUserInfo({
       token: {
