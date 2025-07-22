@@ -175,7 +175,7 @@ const ProfileEdit = () => {
 
   const handleEmailVerification = async () => {
     try {
-      const response = await api.post("/v1/email/authcode", {
+      const response = await api.post("/v1/email/code", {
         mail: formData.email,
       });
 
@@ -189,7 +189,7 @@ const ProfileEdit = () => {
 
   const handleVerifyCode = async () => {
     try {
-      const response = await api.post("/v1/email/verify", {
+      const response = await api.post("/v1/email/code/verify", {
         mail: formData.email,
         verifyCode: verificationCode,
       });

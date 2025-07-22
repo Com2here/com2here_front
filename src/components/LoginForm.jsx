@@ -60,7 +60,7 @@ const LoginForm = () => {
   // 이메일 인증 코드 전송
   const handleEmailVerification = async () => {
     try {
-      const response = await api.post("v1/email/authcode", {
+      const response = await api.post("v1/email/code", {
         mail: formData.email,
       });
 
@@ -75,7 +75,7 @@ const LoginForm = () => {
   // 인증 코드 확인
   const handleVerifyCode = async () => {
     try {
-      const response = await api.post("v1/email/verify", {
+      const response = await api.post("v1/email/code/verify", {
         mail: formData.email,
         verifyCode: verificationCode,
       });

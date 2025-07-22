@@ -90,7 +90,7 @@ const FindPwPage = () => {
     setMessage("");
 
     try {
-      const response = await api.post("/v1/email/authcode", {
+      const response = await api.post("/v1/email/code", {
         mail: email,
       });
 
