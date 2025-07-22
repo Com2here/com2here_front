@@ -118,11 +118,6 @@ const LoginForm = () => {
           // 이메일 인증이 완료된 경우 바로 로그인
           // rememberMe가 true면 localStorage, 아니면 sessionStorage에 저장
           const { accessToken, refreshToken } = response.data;
-          if (rememberMe) {
-            localStorage.setItem("refreshToken", refreshToken);
-          } else {
-            sessionStorage.setItem("refreshToken", refreshToken);
-          }
           login({
             token: {
               accessToken: accessToken,
@@ -134,6 +129,11 @@ const LoginForm = () => {
               role: response.data.role,
             },
           });
+          if (rememberMe) {
+            localStorage.setItem("refreshToken", refreshToken);
+          } else {
+            sessionStorage.setItem("refreshToken", refreshToken);
+          }
           alert("로그인 성공!");
           navigate(ROUTES.HOME);
         }
