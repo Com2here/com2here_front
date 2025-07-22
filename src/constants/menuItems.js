@@ -1,11 +1,11 @@
 import { ROUTES } from "../constants/routes";
 
 export const DROPDOWN_MENU = [
-  {
-    id: "mypage",
-    label: "내 컴퓨터",
-    href: ROUTES.MYPAGE,
-  },
+  // {
+  //   id: "mypage",
+  //   label: "내 컴퓨터",
+  //   href: ROUTES.MYPAGE,
+  // },
   {
     id: "account",
     label: "계정 설정",

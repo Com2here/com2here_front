@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         user: {
           nickname: "devuser",
           email: "dev@com2here.com",
-          role: "ADMIN",
+          // role: "ADMIN",
         },
       });
       setIsLoading(false);

@@ -26,11 +26,6 @@
   margin-top: 4px;
 }
 
-.nav-recent:hover,
-.navbar-mylist:hover {
-  background-color: var(--hover-gray);
-}
-
 .nav-recent img {
   width: 32px;
 }
