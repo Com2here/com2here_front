@@ -57,7 +57,7 @@ const AdminSoftwarePage = () => {
     try {
       const offset = (page - 1) * pagination.itemsPerPage;
       const purposeFilter = getEnumFromFilter(filterBy);
-      const response = await api.get(`/v1/admin/computers/show`, {
+      const response = await api.get(`/v1/admin/program/show`, {
         params: {
           offset,
           limit: pagination.itemsPerPage,
@@ -127,7 +127,7 @@ const AdminSoftwarePage = () => {
 
     setLoading(true);
     try {
-      await api.delete(`/v1/admin/computers/delete/${id}`);
+      await api.delete(`/v1/admin/program/delete/${id}`);
       setSuccessMessage("소프트웨어 정보가 성공적으로 삭제되었습니다.");
       fetchRecommendations(pagination.currentPage);
     } catch (err) {
@@ -152,11 +152,11 @@ const AdminSoftwarePage = () => {
 
     try {
       if (editingId) {
-        await api.patch(`/v1/admin/computers/update/${editingId}`, payload);
+        await api.patch(`/v1/admin/program/update/${editingId}`, payload);
         setSuccessMessage("소프트웨어 정보가 성공적으로 수정되었습니다.");
         setEditingId(null);
       } else {
-        await api.post("/v1/admin/computers/add", payload);
+        await api.post("/v1/admin/program/add", payload);
         setSuccessMessage("새 소프트웨어 정보가 성공적으로 등록되었습니다.");
       }
 
