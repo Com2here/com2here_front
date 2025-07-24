@@ -3,7 +3,6 @@ import "../styles/AdminNav.css";
 
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 import { ROUTES } from "../constants/routes";
 import api from "../hooks/useAxios";
@@ -21,7 +20,7 @@ const AdminSoftwarePage = () => {
     currentPage: 1,
     totalPages: 1,
     totalItems: 0,
-    itemsPerPage: 5,
+    itemsPerPage: 10,
   });
 
   const initialFormData = {
@@ -34,8 +33,12 @@ const AdminSoftwarePage = () => {
   const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
+    setPagination((prev) => ({ ...prev, currentPage: 1 }));
+  }, [searchTerm, filterBy]);
+
+  useEffect(() => {
     fetchRecommendations(pagination.currentPage);
-  }, [pagination.currentPage, searchTerm, filterBy]);
+  }, [pagination.currentPage]);
 
   const getEnumFromFilter = (value) => {
     switch (value) {
@@ -55,25 +58,36 @@ const AdminSoftwarePage = () => {
   const fetchRecommendations = async (page = 1) => {
     setLoading(true);
     try {
-      const offset = (page - 1) * pagination.itemsPerPage;
       const purposeFilter = getEnumFromFilter(filterBy);
       const response = await api.get(`/v1/admin/program/show`, {
         params: {
-          offset,
+          page: page,
           limit: pagination.itemsPerPage,
           search: searchTerm,
           purpose: purposeFilter,
         },
       });
 
-      const { data, pagination: pageInfo } = response;
+      const { content, pageNumber, totalPages, totalElements, pageSize } =
+        response.data;
 
-      setRecommendations(data);
-      setPagination({
-        currentPage: pageInfo.currentPage,
-        totalPages: pageInfo.totalPages,
-        totalItems: pageInfo.totalItems,
-        itemsPerPage: pageInfo.limit,
+      setRecommendations(content);
+
+      setPagination((prev) => {
+        if (
+          prev.currentPage === page &&
+          prev.totalPages === totalPages &&
+          prev.totalItems === totalElements &&
+          prev.itemsPerPage === pageSize
+        ) {
+          return prev;
+        }
+        return {
+          ...prev,
+          totalPages,
+          totalItems: totalElements,
+          itemsPerPage: pageSize,
+        };
       });
     } catch (err) {
       console.error("Error fetching recommendations:", err);
@@ -87,12 +101,10 @@ const AdminSoftwarePage = () => {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    setPagination((prev) => ({ ...prev, currentPage: 1 }));
   };
 
   const handleFilterChange = (e) => {
     setFilterBy(e.target.value);
-    setPagination((prev) => ({ ...prev, currentPage: 1 }));
   };
 
   const handleChange = (e) => {
@@ -404,18 +416,23 @@ const AdminSoftwarePage = () => {
             <>
               <div className="recommendations-list">
                 {recommendations.map((rec) => (
-                  <div key={rec.id} className="recommendation-item">
+                  <div key={rec.program} className="recommendation-item">
                     <div className="recommendation-content">
-                      <h3>{rec.mainProgram}</h3>
+                      <h3>{rec.program}</h3>
                       <div className="recommendation-details">
                         <p>
                           <strong>용도 분류:</strong> {rec.purpose}
                         </p>
                         <p>
-                          <strong>권장 사양:</strong> {rec.recommendedSpec}
+                          <strong>사양 등급:</strong> {rec.specLevel}
                         </p>
                         <p>
-                          <strong>최소 사양:</strong> {rec.minimumSpec}
+                          <strong>권장 사양:</strong>{" "}
+                          {JSON.stringify(rec.recSpec)}
+                        </p>
+                        <p>
+                          <strong>최소 사양:</strong>{" "}
+                          {JSON.stringify(rec.minSpec)}
                         </p>
                       </div>
                     </div>
