@@ -21,6 +21,7 @@ export const useRecs = () => {
       console.log("API 요청 데이터:", requestData);
 
       const response = await api.post("/v1/recommend", requestData);
+      console.log("API 응답 데이터:", response);
       setRecommendations(response);
       return response;
     } catch (err) {

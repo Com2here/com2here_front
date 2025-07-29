@@ -1,5 +1,6 @@
 import "../styles/EstimatePage.css";
 
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
@@ -9,22 +10,77 @@ import { ROUTES } from "../constants/routes";
 import { GAMES } from "../constants/software";
 import { useAuth } from "../contexts/AuthContext";
 import { useRecs } from "../hooks/useRecs";
+import { useWishlist } from "../hooks/useWishlist";
 
 const SORT_OPTIONS = [
   { label: "가격 낮은 순", value: "price_asc" },
   { label: "가성비 좋은 순", value: "score_price_ratio" },
 ];
 
+ProductResultScreen.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+      price: PropTypes.number,
+      lprice: PropTypes.number,
+      mall: PropTypes.string,
+      mallName: PropTypes.string,
+    }),
+  ).isRequired,
+  onBack: PropTypes.func.isRequired,
+};
+
 function ProductResultScreen({ products, onBack }) {
   const [sortOption, setSortOption] = useState("price_asc");
+  // const { addToWishlist, isInWishlist } = useWishlist();
+  const [wishlistItems, setWishlistItems] = useState({}); // 관심상품 상태를 객체로 관리
+  const { addToWishlist } = useWishlist();
+  const { isLoggedIn } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+
+  // const handleAddToWishlist = async (product) => {
+  //   if (!isLoggedIn) {
+  //     alert("로그인이 필요한 서비스입니다.");
+  //     return;
+  //   }
+
+  //   setIsLoading(true);
+  //   try {
+  //     const result = await addToWishlist(product.id);
+  //     if (result.success) {
+  //       alert("관심상품에 추가되었습니다.");
+  //     } else {
+  //       alert(result.error);
+  //     }
+  //   } catch (error) {
+  //     console.error("위시리스트 추가 실패:", error);
+  //     alert("관심상품 추가에 실패했습니다.");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // 관심상품 추가 시 토글
+  const handleAddToWishlist = (product, index) => {
+    // product.id가 없는 경우 title과 index를 조합하여 고유 키 생성
+    const itemKey = product.id || `${product.title}-${index}`;
+    
+    setWishlistItems(prev => ({
+      ...prev,
+      [itemKey]: !prev[itemKey]
+    }));
+  };
 
   // 정렬 함수
   const sortedProducts = [...products].sort((a, b) => {
     if (sortOption === "price_asc") {
       return (a.price || a.lprice) - (b.price || b.lprice);
     } else if (sortOption === "score_price_ratio") {
-      const aRatio = (a.totalScores || 0) / ((a.price || a.lprice) || 1);
-      const bRatio = (b.totalScores || 0) / ((b.price || b.lprice) || 1);
+      const aRatio = (a.totalScores || 0) / (a.price || a.lprice || 1);
+      const bRatio = (b.totalScores || 0) / (b.price || b.lprice || 1);
       return bRatio - aRatio; // 가성비 높은 순
     }
     return 0;
@@ -49,12 +105,17 @@ function ProductResultScreen({ products, onBack }) {
 
       <h2 className="product-list-title">추천 상품</h2>
       <div className="product-list-grid">
-        {sortedProducts.map((item) => (
-          <div className="product-card" key={item.title}>
-            <button className="wishlist-btn" title="견적 담기">
+        {sortedProducts.map((item, index) => (
+          <div className="product-card" key={item.id || `${item.title}-${index}`}>
+            <button
+              className={`wishlist-btn ${wishlistItems[item.id || `${item.title}-${index}`] ? 'active' : ''}`}
+              title={wishlistItems[item.id || `${item.title}-${index}`] ? "관심상품 해제" : "관심상품 담기"}
+              onClick={() => handleAddToWishlist(item, index)}
+              disabled={isLoading}
+            >
               <img
-                src="/public/images/heart-angle.svg"
-                alt="관심 담기"
+                src={wishlistItems[item.id || `${item.title}-${index}`] ? "/public/images/heart-angle-filled.svg" : "/public/images/heart-angle.svg"}
+                alt={wishlistItems[item.id || `${item.title}-${index}`] ? "관심상품 해제" : "관심상품 담기"}
                 className="heart-icon"
               />
             </button>
@@ -186,7 +247,6 @@ const EstimatePage = () => {
       const programs = selectedGames;
       const budgetInWon = budget * 10000; // 만원 단위를 원 단위로 변환
       await getRecommendations(purpose, programs, budgetInWon);
-      console.log("추천 결과:", recommendations);
     } catch (err) {
       console.error("추천 요청 실패:", err);
     }
