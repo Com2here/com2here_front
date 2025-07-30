@@ -24,7 +24,7 @@ const AdminUserPage = () => {
     role: "USER",
     profileImageUrl: "",
   });
-  
+
   const [selectedUser, setSelectedUser] = useState(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editFormData, setEditFormData] = useState({
@@ -47,8 +47,7 @@ const AdminUserPage = () => {
       }
     } catch (err) {
       const errorMessage =
-        err.response?.message ||
-        "회원 정보를 불러오는 중 오류가 발생했습니다.";
+        err.response?.message || "회원 정보를 불러오는 중 오류가 발생했습니다.";
       setError(errorMessage);
       setUsers([]);
     } finally {
@@ -111,24 +110,54 @@ const AdminUserPage = () => {
     setEditModalOpen(true);
   };
 
+  const handleDeleteUser = async (uuid) => {
+    try {
+      const response = await api.delete(`/v1/admin/user/${uuid}`);
+
+      if (response.code === 200) {
+        setSuccessMessage("회원이 성공적으로 삭제되었습니다.");
+        setEditModalOpen(false);
+        fetchUsers();
+      }
+    } catch (err) {
+      let errorMessage = "회원 삭제 중 오류가 발생했습니다.";
+      if (err.response?.code === 401) {
+        errorMessage = "인증이 필요합니다.";
+      } else if (err.response?.code === 403) {
+        errorMessage = "권한이 없습니다.";
+      } else if (err.response?.code === 2106) {
+        errorMessage = "존재하지 않는 회원입니다.";
+      } else if (err.response?.code === 500) {
+        errorMessage = "서버 내부 오류가 발생했습니다.";
+      }
+      setError(errorMessage);
+    }
+  };
+
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
       // FormData 객체 생성
       const formData = new FormData();
-      
-      // 빈 값은 제외하고 요청 데이터 구성
-      if (editFormData.nickname) formData.append('nickname', editFormData.nickname);
-      if (editFormData.role) formData.append('role', editFormData.role);
-      if (editFormData.email) formData.append('email', editFormData.email);
-      formData.append('isEmailVerified', editFormData.isEmailVerified);
-      if (editFormData.profileImageUrl) formData.append('profileImageUrl', editFormData.profileImageUrl);
 
-      const response = await api.patch(`/v1/admin/user/${selectedUser.uuid}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      // 빈 값은 제외하고 요청 데이터 구성
+      if (editFormData.nickname)
+        formData.append("nickname", editFormData.nickname);
+      if (editFormData.role) formData.append("role", editFormData.role);
+      if (editFormData.email) formData.append("email", editFormData.email);
+      formData.append("isEmailVerified", editFormData.isEmailVerified);
+      if (editFormData.profileImageUrl)
+        formData.append("profileImageUrl", editFormData.profileImageUrl);
+
+      const response = await api.patch(
+        `/v1/admin/user/${selectedUser.uuid}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
 
       if (response.code === 200) {
         setSuccessMessage("회원 정보가 성공적으로 수정되었습니다.");
@@ -270,8 +299,8 @@ const AdminUserPage = () => {
               <tbody>
                 {filteredUsers.length > 0 ? (
                   filteredUsers.map((user) => (
-                    <tr 
-                      key={user.uuid} 
+                    <tr
+                      key={user.uuid}
                       onClick={() => handleEditClick(user)}
                       className="user-row"
                     >
@@ -299,7 +328,16 @@ const AdminUserPage = () => {
           {editModalOpen && (
             <div className="modal-overlay">
               <div className="edit-modal">
-                <h3>회원 정보 수정</h3>
+                <div className="modal-header">
+                  <h3>회원 정보 수정</h3>
+                  <button
+                    type="button"
+                    className="close-btn"
+                    onClick={() => setEditModalOpen(false)}
+                  >
+                    ×
+                  </button>
+                </div>
                 <form onSubmit={handleEditSubmit}>
                   <div className="form-group">
                     <label>UUID</label>
@@ -345,7 +383,7 @@ const AdminUserPage = () => {
                       onChange={(e) =>
                         setEditFormData({
                           ...editFormData,
-                          isEmailVerified: e.target.value === 'true',
+                          isEmailVerified: e.target.value === "true",
                         })
                       }
                     >
@@ -384,15 +422,21 @@ const AdminUserPage = () => {
                     />
                   </div> */}
                   <div className="modal-buttons">
-                    <button type="submit" className="submit-btn">
-                      저장
-                    </button>
                     <button
                       type="button"
-                      className="cancel-btn"
-                      onClick={() => setEditModalOpen(false)}
+                      className="delete-btn"
+                      onClick={() => {
+                        if (
+                          window.confirm("정말로 이 회원을 삭제하시겠습니까?")
+                        ) {
+                          handleDeleteUser(selectedUser.uuid);
+                        }
+                      }}
                     >
-                      취소
+                      회원 삭제
+                    </button>
+                    <button type="submit" className="submit-btn">
+                      저장
                     </button>
                   </div>
                 </form>

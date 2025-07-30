@@ -75,8 +75,33 @@
   max-width: 500px;
 }
 
-.edit-modal h3 {
+.modal-header {
+  position: relative;
+  display: flex;
+  align-items: center;
   margin-bottom: 1.5rem;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.close-btn {
+  position: absolute;
+  right: -1rem;
+  top: -1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
   color: #333;
 }
 
@@ -112,6 +137,15 @@
 
 .cancel-btn:hover {
   background-color: #5a6268;
+}
+
+.delete-btn {
+  background-color: #dc3545 !important;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c82333 !important;
 }
 
 .loading {
