@@ -1,7 +1,7 @@
 import "../styles/AdminNav.css";
 import "../styles/AdminUserPage.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { ROUTES } from "../constants/routes";
@@ -13,6 +13,10 @@ const AdminUserPage = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState(null);
   const [showAddUserForm, setShowAddUserForm] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize] = useState(10);
+  const [loading, setLoading] = useState(false);
   const [newUser, setNewUser] = useState({
     nickname: "",
     password: "",
@@ -21,42 +25,36 @@ const AdminUserPage = () => {
     profileImageUrl: "",
   });
 
-  // 더미 회원 데이터
-  const dummyUsers = [
-    {
-      id: 1,
-      nickname: "홍길동",
-      email: "hong@test.com",
-      is_email_verified: true,
-      last_login_at: "2024-06-01 10:00:00",
-      created_at: "2024-01-01 09:00:00",
-      role: "일반회원",
-    },
-    {
-      id: 2,
-      nickname: "김관리자",
-      email: "admin@test.com",
-      is_email_verified: true,
-      last_login_at: "2024-06-02 11:30:00",
-      created_at: "2023-12-15 14:20:00",
-      role: "관리자",
-    },
-    {
-      id: 3,
-      nickname: "이회원",
-      email: "leeuser@test.com",
-      is_email_verified: false,
-      last_login_at: "2024-05-20 08:45:00",
-      created_at: "2024-02-10 16:10:00",
-      role: "일반회원",
-    },
-  ];
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get(
+        `/v1/admin/user?page=${currentPage}&size=${pageSize}&sort=createdAt,asc`,
+      );
+      if (response.code === 200) {
+        setUsers(response.data.content);
+        setError(null);
+      }
+    } catch (err) {
+      const errorMessage =
+        err.response?.message ||
+        "회원 정보를 불러오는 중 오류가 발생했습니다.";
+      setError(errorMessage);
+      setUsers([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const filteredUsers = dummyUsers.filter(
+  useEffect(() => {
+    fetchUsers();
+  }, [currentPage, pageSize]);
+
+  const filteredUsers = users.filter(
     (user) =>
-      user.nickname.includes(searchTerm) ||
-      user.email.includes(searchTerm) ||
-      user.role.includes(searchTerm),
+      user.nickname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.role.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleInputChange = (e) => {
@@ -184,7 +182,7 @@ const AdminUserPage = () => {
           )}
           <input
             type="text"
-            placeholder="이름, 이메일, 역할로 검색"
+            placeholder="이름, 이메일, 권한 등으로 검색"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
@@ -192,40 +190,57 @@ const AdminUserPage = () => {
         </section>
         <section className="user-list-section">
           <h2>회원 목록</h2>
-          <table className="user-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>닉네임</th>
-                <th>이메일</th>
-                <th>이메일 인증</th>
-                <th>최근 로그인</th>
-                <th>가입일</th>
-                <th>역할</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.length > 0 ? (
-                filteredUsers.map((user) => (
-                  <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.nickname}</td>
-                    <td>{user.email}</td>
-                    <td>{user.is_email_verified ? "인증됨" : "미인증"}</td>
-                    <td>{user.last_login_at}</td>
-                    <td>{user.created_at}</td>
-                    <td>{user.role}</td>
-                  </tr>
-                ))
-              ) : (
+          {loading ? (
+            <div className="loading">데이터를 불러오는 중...</div>
+          ) : (
+            <table className="user-table">
+              <thead>
                 <tr>
-                  <td colSpan="7" style={{ textAlign: "center" }}>
-                    검색 결과가 없습니다.
-                  </td>
+                  <th>UUID</th>
+                  <th>닉네임</th>
+                  <th>이메일</th>
+                  <th>이메일 인증</th>
+                  {/* <th>프로필 이미지</th> */}
+                  <th>권한</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredUsers.length > 0 ? (
+                  filteredUsers.map((user) => (
+                    <tr key={user.uuid}>
+                      <td>{user.uuid}</td>
+                      <td>{user.nickname}</td>
+                      <td>{user.email}</td>
+                      <td>{user.verified ? "인증됨" : "미인증"}</td>
+                      {/* <td>{user.profileImageUrl ? "있음" : "없음"}</td> */}
+                      <td>{user.role === "ADMIN" ? "관리자" : "일반회원"}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" style={{ textAlign: "center" }}>
+                      {error ? error : "검색 결과가 없습니다."}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          )}
+          <div className="pagination">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(0, prev - 1))}
+              disabled={currentPage === 0 || loading}
+            >
+              이전
+            </button>
+            <span>페이지 {currentPage + 1}</span>
+            <button
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+              disabled={users.length < pageSize || loading}
+            >
+              다음
+            </button>
+          </div>
         </section>
       </div>
     </div>
