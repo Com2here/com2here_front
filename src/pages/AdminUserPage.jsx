@@ -24,6 +24,16 @@ const AdminUserPage = () => {
     role: "USER",
     profileImageUrl: "",
   });
+  
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editFormData, setEditFormData] = useState({
+    nickname: "",
+    role: "",
+    email: "",
+    isEmailVerified: false,
+    profileImageUrl: "",
+  });
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -80,11 +90,62 @@ const AdminUserPage = () => {
           profileImageUrl: "",
         });
         setShowAddUserForm(false);
-        // TODO: Refresh user list
+        fetchUsers();
       }
     } catch (err) {
       const errorMessage =
         err.response?.message || "회원 등록 중 오류가 발생했습니다.";
+      setError(errorMessage);
+    }
+  };
+
+  const handleEditClick = (user) => {
+    setSelectedUser(user);
+    setEditFormData({
+      nickname: user.nickname || "",
+      role: user.role || "",
+      email: user.email || "",
+      isEmailVerified: user.verified || false,
+      profileImageUrl: user.profileImageUrl || "",
+    });
+    setEditModalOpen(true);
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // FormData 객체 생성
+      const formData = new FormData();
+      
+      // 빈 값은 제외하고 요청 데이터 구성
+      if (editFormData.nickname) formData.append('nickname', editFormData.nickname);
+      if (editFormData.role) formData.append('role', editFormData.role);
+      if (editFormData.email) formData.append('email', editFormData.email);
+      formData.append('isEmailVerified', editFormData.isEmailVerified);
+      if (editFormData.profileImageUrl) formData.append('profileImageUrl', editFormData.profileImageUrl);
+
+      const response = await api.patch(`/v1/admin/user/${selectedUser.uuid}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (response.code === 200) {
+        setSuccessMessage("회원 정보가 성공적으로 수정되었습니다.");
+        setEditModalOpen(false);
+        fetchUsers();
+      }
+    } catch (err) {
+      let errorMessage = "회원 정보 수정 중 오류가 발생했습니다.";
+      if (err.response?.code === 401) {
+        errorMessage = "인증이 필요합니다.";
+      } else if (err.response?.code === 403) {
+        errorMessage = "권한이 없습니다.";
+      } else if (err.response?.code === 404) {
+        errorMessage = "수정하려는 회원을 찾을 수 없습니다.";
+      } else if (err.response?.code === 400) {
+        errorMessage = "잘못된 요청입니다. 수정할 필드를 확인해주세요.";
+      }
       setError(errorMessage);
     }
   };
@@ -202,18 +263,26 @@ const AdminUserPage = () => {
                   <th>이메일 인증</th>
                   {/* <th>프로필 이미지</th> */}
                   <th>권한</th>
+                  <th>가입일시</th>
+                  <th>최근 로그인 일시</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredUsers.length > 0 ? (
                   filteredUsers.map((user) => (
-                    <tr key={user.uuid}>
+                    <tr 
+                      key={user.uuid} 
+                      onClick={() => handleEditClick(user)}
+                      className="user-row"
+                    >
                       <td>{user.uuid}</td>
                       <td>{user.nickname}</td>
                       <td>{user.email}</td>
                       <td>{user.verified ? "인증됨" : "미인증"}</td>
                       {/* <td>{user.profileImageUrl ? "있음" : "없음"}</td> */}
                       <td>{user.role === "ADMIN" ? "관리자" : "일반회원"}</td>
+                      <td>{user.createdAt}</td>
+                      <td>{user.lastLoginAt}</td>
                     </tr>
                   ))
                 ) : (
@@ -225,6 +294,110 @@ const AdminUserPage = () => {
                 )}
               </tbody>
             </table>
+          )}
+
+          {editModalOpen && (
+            <div className="modal-overlay">
+              <div className="edit-modal">
+                <h3>회원 정보 수정</h3>
+                <form onSubmit={handleEditSubmit}>
+                  <div className="form-group">
+                    <label>UUID</label>
+                    <input
+                      type="text"
+                      value={selectedUser.uuid}
+                      disabled
+                      className="readonly-input"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>닉네임</label>
+                    <input
+                      type="text"
+                      value={editFormData.nickname}
+                      onChange={(e) =>
+                        setEditFormData({
+                          ...editFormData,
+                          nickname: e.target.value,
+                        })
+                      }
+                      placeholder="닉네임"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>이메일</label>
+                    <input
+                      type="email"
+                      value={editFormData.email}
+                      onChange={(e) =>
+                        setEditFormData({
+                          ...editFormData,
+                          email: e.target.value,
+                        })
+                      }
+                      placeholder="이메일"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>이메일 인증</label>
+                    <select
+                      value={editFormData.isEmailVerified}
+                      onChange={(e) =>
+                        setEditFormData({
+                          ...editFormData,
+                          isEmailVerified: e.target.value === 'true',
+                        })
+                      }
+                    >
+                      <option value="true">인증됨</option>
+                      <option value="false">미인증</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label>권한</label>
+                    <select
+                      value={editFormData.role}
+                      onChange={(e) =>
+                        setEditFormData({
+                          ...editFormData,
+                          role: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="">권한 선택</option>
+                      <option value="USER">일반회원</option>
+                      <option value="ADMIN">관리자</option>
+                    </select>
+                  </div>
+                  {/* <div className="form-group">
+                    <label>프로필 이미지 URL</label>
+                    <input
+                      type="text"
+                      value={editFormData.profileImageUrl}
+                      onChange={(e) =>
+                        setEditFormData({
+                          ...editFormData,
+                          profileImageUrl: e.target.value,
+                        })
+                      }
+                      placeholder="프로필 이미지 URL"
+                    />
+                  </div> */}
+                  <div className="modal-buttons">
+                    <button type="submit" className="submit-btn">
+                      저장
+                    </button>
+                    <button
+                      type="button"
+                      className="cancel-btn"
+                      onClick={() => setEditModalOpen(false)}
+                    >
+                      취소
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           )}
           <div className="pagination">
             <button
