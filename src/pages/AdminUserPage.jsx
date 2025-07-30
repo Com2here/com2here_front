@@ -5,12 +5,21 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { ROUTES } from "../constants/routes";
+import api from "../hooks/useAxios";
 
 const AdminUserPage = () => {
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState(null);
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
+  const [newUser, setNewUser] = useState({
+    nickname: "",
+    password: "",
+    email: "",
+    role: "USER",
+    profileImageUrl: "",
+  });
 
   // 더미 회원 데이터
   const dummyUsers = [
@@ -50,6 +59,38 @@ const AdminUserPage = () => {
       user.role.includes(searchTerm),
   );
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewUser((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.post("/v1/admin/user/create", newUser);
+
+      if (response.code === 200) {
+        setSuccessMessage("회원이 성공적으로 등록되었습니다.");
+        setNewUser({
+          nickname: "",
+          password: "",
+          email: "",
+          role: "USER",
+          profileImageUrl: "",
+        });
+        setShowAddUserForm(false);
+        // TODO: Refresh user list
+      }
+    } catch (err) {
+      const errorMessage =
+        err.response?.message || "회원 등록 중 오류가 발생했습니다.";
+      setError(errorMessage);
+    }
+  };
+
   return (
     <div className="admin-page">
       <h1>관리자 페이지</h1>
@@ -79,7 +120,68 @@ const AdminUserPage = () => {
       )}
       <div className="admin-content">
         <section className="user-search-section">
-          <h2>회원 검색</h2>
+          <div className="search-header">
+            <h2>회원 검색</h2>
+            <button
+              className="add-user-btn"
+              onClick={() => setShowAddUserForm(!showAddUserForm)}
+            >
+              {showAddUserForm ? "등록 취소" : "회원 등록"}
+            </button>
+          </div>
+          {showAddUserForm && (
+            <form onSubmit={handleSubmit} className="add-user-form">
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="nickname"
+                  value={newUser.nickname}
+                  onChange={handleInputChange}
+                  placeholder="닉네임"
+                  required
+                />
+                <input
+                  type="email"
+                  name="email"
+                  value={newUser.email}
+                  onChange={handleInputChange}
+                  placeholder="이메일"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  name="password"
+                  value={newUser.password}
+                  onChange={handleInputChange}
+                  placeholder="비밀번호"
+                  required
+                />
+                <select
+                  name="role"
+                  value={newUser.role}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="USER">일반회원</option>
+                  <option value="ADMIN">관리자</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="profileImageUrl"
+                  value={newUser.profileImageUrl}
+                  onChange={handleInputChange}
+                  placeholder="프로필 이미지 URL (선택사항)"
+                />
+              </div>
+              <button type="submit" className="submit-btn">
+                회원 등록
+              </button>
+            </form>
+          )}
           <input
             type="text"
             placeholder="이름, 이메일, 역할로 검색"
