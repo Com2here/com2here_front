@@ -4,8 +4,11 @@ const getAccessToken = () => {
 };
 
 const getRefreshToken = () => {
-  const token = localStorage.getItem("refreshToken");
-  return token;
+  const localToken = localStorage.getItem("refreshToken");
+  if (localToken) return localToken;
+
+  const sessionToken = sessionStorage.getItem("refreshToken");
+  return sessionToken;
 };
 
 const setAccessToken = (token) => {
@@ -13,7 +16,12 @@ const setAccessToken = (token) => {
 };
 
 const setRefreshToken = (token) => {
-  localStorage.setItem("refreshToken", token);
+  // 세션스토리지에 토큰이 있으면 세션스토리지에 저장, 없으면 로컬스토리지에 저장
+  if (sessionStorage.getItem("refreshToken")) {
+    sessionStorage.setItem("refreshToken", token);
+  } else {
+    localStorage.setItem("refreshToken", token);
+  }
 };
 
 const removeAccessToken = () => {
@@ -27,8 +35,8 @@ const removeRefreshToken = () => {
 export {
   getAccessToken,
   getRefreshToken,
-  setAccessToken,
-  setRefreshToken,
   removeAccessToken,
   removeRefreshToken,
+  setAccessToken,
+  setRefreshToken,
 };

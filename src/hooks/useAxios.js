@@ -1,8 +1,6 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 import { ROUTES } from "../constants/routes";
-import { useAuth } from "../contexts/AuthContext";
 import {
   getAccessToken,
   getRefreshToken,
@@ -63,33 +61,60 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     // 토큰 만료 시 토큰 갱신
-    if (errorStatus === 401) {
+    if (
+      errorStatus === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url.includes("/v1/token/rotate")
+    ) {
+      originalRequest._retry = true;
+
       try {
-        const { newAccessToken, newRefreshToken } = error.response.data;
+        const refreshToken = getRefreshToken();
+        
+        if (!refreshToken) {
+          throw new Error("리프레시 토큰이 없습니다.");
+        }
+
+        // 토큰 갱신 요청
+        const response = await api.get(
+          "/v1/token/rotate",
+          {},
+          {
+            headers: {
+              // Refresh: refreshToken,
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          },
+        );
+
+        const newAccessToken = response.data.accessToken;
+        const newRefreshToken = response.data.refreshToken;
+
         if (newAccessToken && newRefreshToken) {
           // 새로운 토큰 저장
           setAccessToken(newAccessToken);
           setRefreshToken(newRefreshToken);
 
-          // 반려된 api 재요청
+          // 원래 요청의 헤더 업데이트
           originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
           originalRequest.headers["Refresh"] = newRefreshToken;
 
+          // 원래 요청 재시도
           return await api(originalRequest);
         }
       } catch (refreshTokenError) {
         alert("토큰 갱신 중 오류가 발생했습니다. 다시 로그인해주세요.");
-        const { logout } = useAuth();
-        window.location.href = ROUTES.LOGIN;
+        console.error("토큰 갱신 실패:", refreshTokenError);
 
-        // 어떤 에러라도 로그아웃 처리
-        console.error(
-          "로그아웃 처리. 토큰 갱신 중 오류 발생:",
-          refreshTokenError,
-        );
-        await logout();
+        // 로컬 스토리지의 토큰 제거
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
+        // 로그인 페이지로 리다이렉트
+        window.location.href = ROUTES.LOGIN;
       }
     }
+
     return Promise.reject(error);
   },
 );
