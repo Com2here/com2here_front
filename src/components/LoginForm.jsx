@@ -17,6 +17,7 @@ const LoginForm = () => {
   const imgPathGoogle = "/images/google-logo.svg";
   const imgPathEye = "/images/eye.svg";
   const imgPathEyeSlash = "/images/eye-slash.svg";
+  const imgPathCheckboxChecked = "/images/checkbox-checked.svg";
 
   const handleFindPassword = () => {
     navigate(ROUTES.HELP.FIND_PW); // 비밀번호 찾기 페이지로 이동
@@ -241,7 +242,10 @@ const LoginForm = () => {
                 checked={rememberMe}
                 onChange={handleRememberMeChange}
               />
-              <label htmlFor="remember">로그인 상태 유지</label>
+              <label htmlFor="remember">
+                <span className="custom-checkbox" />
+                로그인 상태 유지
+              </label>
             </div>
             <span className="login-find" onClick={handleFindPassword}>
               비밀번호를 잊어버리셨나요?

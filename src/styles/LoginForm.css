@@ -171,16 +171,36 @@
   color: var(--text-muted);
 }
 
-.login-remember > input {
-  border: 1px solid var(--text-muted);
-  width: 0.9rem;
-  height: 0.9rem;
-  border-radius: 0.25rem;
+.login-remember > label {
+  display: flex;
   cursor: pointer;
+  align-items: center;
+  gap: 0.4rem;
 }
 
-.login-remember > label {
-  cursor: pointer;
+.login-remember input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.custom-checkbox {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("/images/checkbox-default.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: background-image 0.2s ease;
+}
+
+.login-remember input[type="checkbox"]:not(:checked) + label:hover .custom-checkbox {
+  background-image: url("/images/checkbox-hover.svg");
+}
+
+.login-remember input[type="checkbox"]:checked + label .custom-checkbox {
+  background-image: url("/images/checkbox-checked.svg");
 }
 
 .login-find {
