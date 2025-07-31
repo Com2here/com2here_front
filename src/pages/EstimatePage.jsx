@@ -41,38 +41,51 @@ function ProductResultScreen({ products, onBack }) {
   const { isLoggedIn } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
-  // const handleAddToWishlist = async (product) => {
-  //   if (!isLoggedIn) {
-  //     alert("로그인이 필요한 서비스입니다.");
-  //     return;
-  //   }
+  const handleAddToWishlist = async (product, index) => {
+    if (!isLoggedIn) {
+      alert("로그인이 필요한 서비스입니다.");
+      return;
+    }
 
-  //   setIsLoading(true);
-  //   try {
-  //     const result = await addToWishlist(product.id);
-  //     if (result.success) {
-  //       alert("관심상품에 추가되었습니다.");
-  //     } else {
-  //       alert(result.error);
-  //     }
-  //   } catch (error) {
-  //     console.error("위시리스트 추가 실패:", error);
-  //     alert("관심상품 추가에 실패했습니다.");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+    const itemKey = product.id || `${product.title}-${index}`;
+    const alreadyWishlisted = wishlistItems[itemKey];
+
+    if (alreadyWishlisted) {
+      alert("이미 관심상품에 추가된 항목입니다.");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const result = await addToWishlist(product);
+
+      if (result.success) {
+        alert("관심상품에 추가되었습니다.");
+        setWishlistItems((prev) => ({
+        ...prev,
+        [itemKey]: true,
+      }));
+      } else {
+        alert(result.message || "추가에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("관심상품 추가 실패:", error);
+      alert("관심상품 추가 중 오류가 발생했습니다.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // 관심상품 추가 시 토글
-  const handleAddToWishlist = (product, index) => {
-    // product.id가 없는 경우 title과 index를 조합하여 고유 키 생성
-    const itemKey = product.id || `${product.title}-${index}`;
-    
-    setWishlistItems(prev => ({
-      ...prev,
-      [itemKey]: !prev[itemKey]
-    }));
-  };
+  // const handleAddToWishlist = (product, index) => {
+  //   // product.id가 없는 경우 title과 index를 조합하여 고유 키 생성
+  //   const itemKey = product.id || `${product.title}-${index}`;
+
+  //   setWishlistItems(prev => ({
+  //     ...prev,
+  //     [itemKey]: !prev[itemKey]
+  //   }));
+  // };
 
   // 정렬 함수
   const sortedProducts = [...products].sort((a, b) => {
@@ -106,16 +119,31 @@ function ProductResultScreen({ products, onBack }) {
       <h2 className="product-list-title">추천 상품</h2>
       <div className="product-list-grid">
         {sortedProducts.map((item, index) => (
-          <div className="product-card" key={item.id || `${item.title}-${index}`}>
+          <div
+            className="product-card"
+            key={item.id || `${item.title}-${index}`}
+          >
             <button
-              className={`wishlist-btn ${wishlistItems[item.id || `${item.title}-${index}`] ? 'active' : ''}`}
-              title={wishlistItems[item.id || `${item.title}-${index}`] ? "관심상품 해제" : "관심상품 담기"}
+              className={`wishlist-btn ${wishlistItems[item.id || `${item.title}-${index}`] ? "active" : ""}`}
+              title={
+                wishlistItems[item.id || `${item.title}-${index}`]
+                  ? "관심상품 해제"
+                  : "관심상품 담기"
+              }
               onClick={() => handleAddToWishlist(item, index)}
               disabled={isLoading}
             >
               <img
-                src={wishlistItems[item.id || `${item.title}-${index}`] ? "/images/heart-angle-filled.svg" : "/images/heart-angle.svg"}
-                alt={wishlistItems[item.id || `${item.title}-${index}`] ? "관심상품 해제" : "관심상품 담기"}
+                src={
+                  wishlistItems[item.id || `${item.title}-${index}`]
+                    ? "/images/heart-angle-filled.svg"
+                    : "/images/heart-angle.svg"
+                }
+                alt={
+                  wishlistItems[item.id || `${item.title}-${index}`]
+                    ? "관심상품 해제"
+                    : "관심상품 담기"
+                }
                 className="heart-icon"
               />
             </button>
