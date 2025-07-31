@@ -73,7 +73,7 @@ const ProductList = ({ products }) => {
             title="찜 해제"
           >
             <img
-              src="/public/images/heart-angle.svg"
+              src="/images/heart-angle.svg"
               alt="찜 해제"
               className="heart-icon"
             />

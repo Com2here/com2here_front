@@ -114,7 +114,7 @@ function ProductResultScreen({ products, onBack }) {
               disabled={isLoading}
             >
               <img
-                src={wishlistItems[item.id || `${item.title}-${index}`] ? "/public/images/heart-angle-filled.svg" : "/public/images/heart-angle.svg"}
+                src={wishlistItems[item.id || `${item.title}-${index}`] ? "/images/heart-angle-filled.svg" : "/images/heart-angle.svg"}
                 alt={wishlistItems[item.id || `${item.title}-${index}`] ? "관심상품 해제" : "관심상품 담기"}
                 className="heart-icon"
               />
@@ -153,54 +153,6 @@ function ProductResultScreen({ products, onBack }) {
     </div>
   );
 }
-
-// function ProductResultScreen({ products, onBack }) {
-//   return (
-//     <div className="product-result-screen">
-//       <h2 className="product-list-title">추천 상품</h2>
-//       <div className="product-list-grid">
-//         {products.map((item) => (
-//           <div className="product-card" key={item.title}>
-//             <button className="wishlist-btn" title="견적 담기">
-//               <img
-//                 src="/public/images/heart-angle.svg"
-//                 alt="관심 담기"
-//                 className="heart-icon"
-//               />
-//             </button>
-//             <div className="product-image-wrap">
-//               <img
-//                 src={item.image}
-//                 alt={item.title}
-//                 className="product-image"
-//               />
-//             </div>
-//             <div className="product-info">
-//               <div className="product-title">{item.title}</div>
-//               <div className="product-mall">{item.mall || item.mallName}</div>
-//               <div className="product-price">
-//                 {(item.price || item.lprice).toLocaleString()}원
-//               </div>
-//             </div>
-//             <div className="product-actions">
-//               <a
-//                 href={item.link}
-//                 target="_blank"
-//                 rel="noopener noreferrer"
-//                 className="view-deal-btn"
-//               >
-//                 상품 보러가기
-//               </a>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//       <button className="back-btn" onClick={onBack}>
-//         다시 선택하기
-//       </button>
-//     </div>
-//   );
-// }
 
 const EstimatePage = () => {
   const [budget, setBudget] = useState(100);
