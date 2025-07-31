@@ -19,7 +19,7 @@ const ProfileEdit = () => {
   const { logout } = useAuth();
 
   const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
-  const [imgUrl, setImgUrl] = useState(null);
+  const [imgUrl, setImgUrl] = useState(imgPathProfile);
 
   const { data: user, isLoading, error } = User();
   const { mutate: updateProfile } = useProfileMutation();
@@ -76,11 +76,7 @@ const ProfileEdit = () => {
         password: "",
         confirmPassword: "",
       });
-      setImgUrl(
-        user.profileImageUrl
-          ? `http://localhost:3000${user.profileImageUrl}`
-          : imgPathProfile,
-      );
+      setImgUrl(user.profileImageUrl ? user.profileImageUrl : imgPathProfile);
       setOriginalEmail(user.email || "");
     }
   }, [user]);
@@ -225,10 +221,10 @@ const ProfileEdit = () => {
                     src={imgUrl || imgPathProfile}
                     alt="프로필 이미지"
                     style={{
-                      width: "6rem",
-                      height: "6rem",
-                      objectFit: "cover",
-                      // borderRadius: "50%",
+                      width: imgUrl === imgPathProfile ? "6rem" : "100%",
+                      height: imgUrl === imgPathProfile ? "6rem" : "100%",
+                      objectFit:
+                        imgUrl === imgPathProfile ? "contain" : "cover",
                     }}
                   />
                 </div>
