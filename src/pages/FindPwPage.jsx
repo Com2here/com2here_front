@@ -91,7 +91,7 @@ const FindPwPage = () => {
 
     try {
       const response = await api.post("/v1/email/code", {
-        mail: email,
+        email: email,
       });
 
       // 응답 코드가 200인 경우 성공 처리
@@ -137,7 +137,7 @@ const FindPwPage = () => {
     }
 
     const response = await api.post("/v1/email/password/reset", {
-      mail: email,
+      email: email,
       code: authCode,
       password: newPassword,
       confirmPassword: confirmPassword,

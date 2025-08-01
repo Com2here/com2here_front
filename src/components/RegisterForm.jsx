@@ -120,7 +120,7 @@ const RegisterForm = () => {
   const handleEmailVerification = async () => {
     try {
       const response = await api.post("v1/email/code", {
-        mail: formData.email,
+        email: formData.email,
       });
 
       console.log("이메일 인증 코드 전송 성공:", response);
@@ -134,7 +134,7 @@ const RegisterForm = () => {
   const handleVerifyCode = async () => {
     try {
       const response = await api.post("v1/email/code/verify", {
-        mail: formData.email,
+        email: formData.email,
         verifyCode: verificationCode,
       });
 
