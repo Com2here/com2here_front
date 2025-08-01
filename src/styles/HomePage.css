@@ -147,3 +147,56 @@
   pointer-events: none;
   z-index: 2;
 }
+
+@media (max-width: 768px) {
+  .home-page {
+    width: 95vw;
+  }
+
+  .home-cover {
+    padding-top: 1rem;
+    gap: 20px;
+    min-height: auto;
+  }
+
+  .home-cover-text {
+    font-size: 1.3rem;
+    letter-spacing: 0.3em;
+    margin-top: 1.5em;
+  }
+
+  .home-cover-text span {
+    font-size: 1.8rem;
+    letter-spacing: 0.15em;
+  }
+
+  .home-btn-wrapper {
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 24px;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .home-rec-wrapper {
+    padding: 1.5rem 4rem;
+    width: 100%;
+    max-width: 320px;
+    border-radius: 0.75rem;
+  }
+
+  .home-img {
+    height: 160px;
+    margin-bottom: 12px;
+  }
+
+  .home-btn-rec {
+    padding: 12px 32px;
+    font-size: 14px;
+  }
+
+  .home-laptop-overlay {
+    font-size: .84rem;
+    padding: 10px 20px;
+  }
+}
