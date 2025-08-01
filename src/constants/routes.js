@@ -8,7 +8,6 @@ export const ROUTES = {
     // DELETE: "/account/delete",
   },
   ESTIMATE: "/estimate",
-  COMPARE: "/compare",
   MYLIST: "/mylist",
   MYPAGE: "/mypage",
   SUPPORT: "/support",

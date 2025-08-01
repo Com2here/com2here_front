@@ -6,3 +6,12 @@
 .error-page button {
   margin-top: 20%;
 }
+
+@media (max-width: 768px) {
+  .error-page {
+    height: calc(100vh - 3.5rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

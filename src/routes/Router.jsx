@@ -10,7 +10,6 @@ import AccountPage from "../pages/AccountPage";
 import AdminProductPage from "../pages/AdminProductPage";
 import AdminSoftwarePage from "../pages/AdminSoftwarePage";
 import AdminUserPage from "../pages/AdminUserPage";
-import ComparePage from "../pages/ComparePage.jsx";
 import ErrorPage from "../pages/ErrorPage.jsx";
 import EstimatePage from "../pages/EstimatePage";
 import FindPwPage from "../pages/FindPwPage";
@@ -43,7 +42,6 @@ export const Router = () => {
             <Route path={ROUTES.MYPAGE} element={<MyPage />} />
             <Route path={ROUTES.MYLIST} element={<MylistPage />}></Route>
             <Route path="/account/*" element={<AccountPage />}></Route>
-            <Route path={ROUTES.COMPARE} element={<ComparePage />}></Route>
           </Route>
           <Route path={ROUTES.ESTIMATE} element={<EstimatePage />}></Route>
           <Route path={ROUTES.HELP.FIND_PW} element={<FindPwPage />}></Route>
