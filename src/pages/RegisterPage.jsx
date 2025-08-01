@@ -22,6 +22,11 @@ const RegisterPage = () => {
           content={`${SITE_URL}${ROUTES.REGISTER}`}
         ></meta>
       </Helmet>
+      {/* 모바일용 로고 */}
+      <h1 className="login-page-logo mobile-logo">
+        <img src="/images/logo.svg" alt="컴히얼" />
+        <span>컴히얼</span>
+      </h1>
       <div className="register-form-left-side">
         <div className="register-title">회원가입</div>
         <RegisterForm />

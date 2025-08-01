@@ -19,6 +19,11 @@ const LoginPage = () => {
         <meta name="twitter:title" content={PAGE_TITLES.login}></meta>
         <meta name="twitter:url" content={`${SITE_URL}${ROUTES.LOGIN}`}></meta>
       </Helmet>
+      {/* 모바일용 로고 */}
+      <h1 className="login-page-logo mobile-logo">
+        <img src="/images/logo.svg" alt="컴히얼" />
+        <span>컴히얼</span>
+      </h1>
       <div className="login-form-left-side">
         <h1 className="login-page-text">로그인</h1>
         <LoginForm />

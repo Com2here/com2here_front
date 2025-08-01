@@ -214,3 +214,30 @@
 .register-terms-guide a {
   color: #1c7ed6;
 }
+
+@media (max-width: 768px) {
+  .register-form {
+    width: 90vw;
+  }
+
+  .register-input-container {
+    width: 90vw;
+  }
+
+  .active-register-submit-btn,
+  .register-submit-btn {
+    width: 90vw;
+  }
+  
+  .register-title {
+    font-size: 1.6rem;
+  }
+
+  .register-terms-guide {
+    font-size: 0.7rem;
+  }
+
+  .register-form-left-side {
+    padding: 0 1.5rem;
+  }
+}

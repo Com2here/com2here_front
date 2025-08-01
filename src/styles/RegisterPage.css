@@ -58,3 +58,20 @@ input {
   transform: translateY(3px);
   color: var(--text-dark);
 }
+
+@media (max-width: 768px) {
+  .register-page {
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100vh;
+    padding-top: 3rem;
+  }
+
+  .register-right-side {
+    display: none;
+  }
+
+  .register-page .mobile-logo {
+    display: block;
+  }
+}
