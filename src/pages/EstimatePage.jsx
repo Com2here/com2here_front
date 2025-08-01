@@ -62,9 +62,9 @@ function ProductResultScreen({ products, onBack }) {
       if (result.success) {
         alert("관심상품에 추가되었습니다.");
         setWishlistItems((prev) => ({
-        ...prev,
-        [itemKey]: true,
-      }));
+          ...prev,
+          [itemKey]: true,
+        }));
       } else {
         alert(result.message || "추가에 실패했습니다.");
       }
@@ -189,6 +189,8 @@ const EstimatePage = () => {
   const { isLoggedIn, userInfo } = useAuth();
   const { loading, error, recommendations, getRecommendations } = useRecs();
   const [showProducts, setShowProducts] = useState(false);
+  const [showAllGames, setShowAllGames] = useState(false);
+  const toggleShowAllGames = () => setShowAllGames((prev) => !prev);
 
   const handleGameSelect = (game) => {
     setSelectedGames((prev) => {
@@ -281,7 +283,7 @@ const EstimatePage = () => {
               </div>
             )}
           </div>
-          {filteredGames.length > 0 && (
+          {/* {filteredGames.length > 0 && (
             <div className="games-grid">
               {filteredGames.map((game) => (
                 <label key={game} className="game-item">
@@ -294,7 +296,31 @@ const EstimatePage = () => {
                 </label>
               ))}
             </div>
+          )} */}
+
+          {filteredGames.length > 0 && (
+            <div
+              className={`games-grid ${showAllGames ? "expanded" : "collapsed"}`}
+            >
+              {filteredGames.map((game) => (
+                <label key={game} className="game-item">
+                  <input
+                    type="checkbox"
+                    checked={selectedGames.includes(game)}
+                    onChange={() => handleGameSelect(game)}
+                  />
+                  {game}
+                </label>
+              ))}
+            </div>
           )}
+
+          {filteredGames.length > 8 && (
+            <button className="toggle-games-btn" onClick={toggleShowAllGames}>
+              {showAllGames ? "접기 ▲" : "더보기 ▼"}
+            </button>
+          )}
+
           {filteredGames.length === 0 && searchTerm && (
             <div className="no-results">
               &ldquo;{searchTerm}&rdquo;에 대한 검색 결과가 없습니다.

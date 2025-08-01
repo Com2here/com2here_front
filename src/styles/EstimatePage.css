@@ -598,7 +598,7 @@
   left: 1.2rem;
   background: none;
   border: none;
-  padding: .6rem;
+  padding: 0.6rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -615,9 +615,15 @@
 }
 
 @keyframes pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .wishlist-btn:hover {
@@ -659,7 +665,7 @@
   color: var(--color-primary-800);
   font-size: 16px;
   font-weight: 600;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   border-radius: 8px;
   cursor: pointer;
   white-space: nowrap;
@@ -669,7 +675,9 @@
   text-decoration: none;
   border: none;
   min-width: 160px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .back-btn:hover {
@@ -687,7 +695,7 @@
   border: 1.5px solid var(--color-primary-800);
   border-radius: 8px;
   color: #fff;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 .sort-select-wrapper label {
@@ -705,8 +713,8 @@
   border-radius: 6px;
   outline: none;
   transition:
-          background 0.2s ease,
-          border-color 0.2s ease;
+    background 0.2s ease,
+    border-color 0.2s ease;
   appearance: none;
   cursor: pointer;
 }
@@ -718,4 +726,163 @@
 .sort-select:focus {
   border-color: var(--color-primary-800);
   box-shadow: 0 0 0 2px rgba(62, 207, 255, 0.3);
+}
+
+.game-item > input[type="checkbox"] {
+  -webkit-appearance: none; /* Safari */
+  -moz-appearance: none; /* Firefox */
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  width: 0;
+  height: 0;
+}
+
+.toggle-games-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .estimate-container {
+    grid-template-columns: 1fr;
+  }
+
+  .game-search-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-search-input {
+    width: 100%;
+    font-size: 0.75rem;
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(140px, 1fr)
+    ); /* ✅ 최소 너비 조정 */
+    gap: 12px;
+  }
+
+  .estimate-pc-usage h2 {
+    font-size: 1rem;
+  }
+
+  .game-item {
+    font-size: 0.625rem;
+  }
+
+  .games-grid.collapsed {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    max-height: unset;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    mask-image: linear-gradient(
+      to bottom,
+      black 80%,
+      transparent 100%
+    ); /* 부드러운 마무리 optional */
+    max-height: calc((40px + 12px) * 4);
+  }
+
+  .games-grid.expanded {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    mask-image: none;
+    max-height: 1000px; /* 충분히 크게 */
+    transition: max-height 0.3s ease;
+  }
+
+  .toggle-games-btn {
+    display: block;
+    margin-top: 0.8rem;
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    transition: color 0.2s ease;
+  }
+
+  .toggle-games-btn:hover {
+    color: var(--color-primary-800);
+  }
+
+  .estimate-pc-title {
+    font-size: 1rem;
+  }
+
+  .budget-input-container {
+    width: 100%;
+  }
+
+  .budget-input-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .budget-input {
+    font-size: 1rem;
+  }
+
+  .budget-unit {
+    font-size: 0.875rem;
+  }
+
+  .estimate-container > button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .product-list-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .product-card {
+    /* min-width: auto; */
+    max-width: 180px;
+    width: 100%;
+    /* min-height: 300px; */
+    padding: 1.5rem 1rem 1rem 1rem;
+  }
+
+  .product-title {
+    font-size: .875rem;
+  }
+
+  .product-mall {
+    font-size: 0.75rem;
+  }
+
+  .product-price {
+    font-size: 1rem;
+  }
+
+  .view-deal-btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .sort-select-wrapper label {
+    font-size: 0.875rem;
+  }
+
+  .sort-select {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .product-result-screen .product-list-title {
+    font-size: 1.5rem;
+  }
 }

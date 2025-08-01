@@ -11,11 +11,11 @@ export const DROPDOWN_MENU = [
     label: "계정 설정",
     href: ROUTES.ACCOUNT.PROFILE,
   },
-  {
-    id: "support",
-    label: "문의하기",
-    href: ROUTES.SUPPORT,
-  },
+  // {
+  //   id: "support",
+  //   label: "문의하기",
+  //   href: ROUTES.SUPPORT,
+  // },
   {
     id: "logout",
     label: "로그아웃",
