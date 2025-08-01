@@ -47,7 +47,6 @@ const LoginCallbackPage = () => {
               role: tokenInfo.role,
             },
           });
-          alert("소셜 로그인 성공!");
           navigate(ROUTES.HOME);
         } else {
           alert("소셜 로그인 실패: " + saveRes.message);

@@ -87,7 +87,6 @@ const LoginForm = () => {
       setIsModalOpen(false);
 
       // 인증 완료 후 로그인 처리
-      alert("로그인 성공!");
       navigate(ROUTES.HOME);
     } catch (error) {
       console.error("이메일 인증 실패:", error);
@@ -135,7 +134,6 @@ const LoginForm = () => {
           } else {
             sessionStorage.setItem("refreshToken", refreshToken);
           }
-          alert("로그인 성공!");
           navigate(ROUTES.HOME);
         }
       }
