@@ -29,22 +29,22 @@ export const AuthProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
-    // if (isDev) {
-    //   setIsLoggedIn(true);
-    //   setUserInfo({
-    //     token: {
-    //       accessToken: "dev-access-token",
-    //       refreshToken: "dev-refresh-token",
-    //     },
-    //     user: {
-    //       nickname: "devuser",
-    //       email: "dev@com2here.com",
-    //       role: "ADMIN",
-    //     },
-    //   });
-    //   setIsLoading(false);
-    //   return;
-    // }
+    if (isDev) {
+      setIsLoggedIn(true);
+      setUserInfo({
+        token: {
+          accessToken: "dev-access-token",
+          refreshToken: "dev-refresh-token",
+        },
+        user: {
+          nickname: "devuser",
+          email: "dev@com2here.com",
+          role: "ADMIN",
+        },
+      });
+      setIsLoading(false);
+      return;
+    }
     setIsLoggedIn(!!getAccessToken());
     setUserInfo({
       token: {

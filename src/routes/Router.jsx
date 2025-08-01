@@ -4,7 +4,6 @@ import AdminPageGuard from "../components/AdminPageGuard.jsx";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LoginCallbackPage from "../components/LoginCallbackPage.jsx";
-import MyChatbot from "../components/MyChatbot";
 import { ROUTES } from "../constants/routes";
 import OAuthCallback from "../oauth/OAuthCallback.jsx";
 import AccountPage from "../pages/AccountPage";
@@ -74,7 +73,6 @@ export const Router = () => {
 
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-        <MyChatbot />
       </div>
       <Footer></Footer>
     </>

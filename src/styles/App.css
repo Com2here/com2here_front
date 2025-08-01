@@ -20,6 +20,11 @@ body,
   min-height: calc(100vh - 70px);
   color: var(--text-primary);
   background: var(--bg-gradient);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body {

@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-
-import SideBar from "../components/Sidebar";
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
-import { ROUTES } from "../constants/routes";
 import "../styles/MyPage.css";
+
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+
+import { PAGE_TITLES, SITE_URL } from "../constants/constants";
+import { ROUTES } from "../constants/routes";
 
 const MyPage = () => {
   return (
@@ -19,7 +19,6 @@ const MyPage = () => {
 
       <div className="myPage-inner-wrap">
         <div className="container">
-          <SideBar />
           <div className="mypage-contents">
             <main className="mycomputer">
               <section className="mycomputer-info">

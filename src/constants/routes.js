@@ -4,8 +4,8 @@ export const ROUTES = {
   REGISTER: "/register",
   ACCOUNT: {
     PROFILE: "/account/profile",
-    CHANGE_PW: "/account/changePw",
-    DELETE: "/account/delete",
+    // CHANGE_PW: "/account/changePw",
+    // DELETE: "/account/delete",
   },
   ESTIMATE: "/estimate",
   COMPARE: "/compare",

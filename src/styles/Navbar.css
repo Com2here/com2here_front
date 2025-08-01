@@ -121,3 +121,63 @@
   color: var(--color-muted);
   border-color: var(--color-primary-900);
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 5vw;
+    height: 3.5rem;
+  }
+
+  .nav-logo img {
+    height: 1.5rem;
+    margin-right: 0.3rem;
+  }
+
+  .nav-logo h1 {
+    font-size: 1.2rem;
+    transform: translateY(2px);
+  }
+
+  .nav-links {
+    margin-left: auto;
+    gap: 0.5rem;
+  }
+
+  .nav-recent,
+  .navbar-mylist,
+  .nav-profile {
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+    font-size: 0.75rem;
+    margin-top: 2px;
+    padding: 5px 10px;
+  }
+
+  .nav-recent img {
+    width: 24px;
+  }
+
+  .navbar-mylist img {
+    width: 22px;
+  }
+
+  .nav-profile {
+    font-size: 0.7rem;
+    margin-left: 6px;
+    min-width: 36px;
+  }
+
+  .navbarLogin {
+    font-size: 0.75rem;
+    padding: 0 0.8rem;
+    height: 2rem;
+  }
+
+  .navbar-admin {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    margin-right: 8px;
+    margin-top: 2px;
+  }
+}

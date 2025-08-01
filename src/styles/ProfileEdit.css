@@ -69,6 +69,7 @@
   background: var(--color-card);
   box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.18);
 }
+
 .profile-edit-wrapper h3 {
   font-size: 1.75rem;
   font-weight: 500;
@@ -226,4 +227,68 @@
   display: flex;
   flex-direction: column;
   border: 1.5px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .profile-edit {
+    width: 100%;
+    padding: 0 16px;
+    gap: 2rem;
+  }
+
+  .profile-header h2 {
+    font-size: 1.7rem;
+  }
+
+  .profile-edit-wrapper {
+    padding: 24px 16px;
+  }
+
+  .profile-edit-wrapper label {
+    font-size: 0.95rem;
+  }
+
+  .profile-edit-wrapper input,
+  .profile-edit-wrapper button {
+    font-size: 0.75rem;
+  }
+
+  .profile-edit-contents {
+    flex-direction: column;
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .profile-edit-img,
+  .profile-edit-info {
+    width: 100%;
+  }
+
+  .profile-edit-btn button {
+    width: 100%;
+  }
+
+  .email-verification-modal input {
+    width: 100%;
+  }
+
+  .profile-logout-btn {
+    font-size: .625rem;
+    padding: 0.5rem 1rem;
+    line-height: 130%;
+  }
+
+  .profile-edit-wrapper h3 {
+    font-size: 1.25rem;
+  }
+
+  .register-input-wrap {
+    width: 100% !important;
+  }
+
+  .profile-delete-btn {
+    font-size: .625rem;
+    padding: 0.75rem 1rem;
+  }
 }
