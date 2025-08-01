@@ -182,6 +182,12 @@ const FindPwPage = () => {
         ></meta>
       </Helmet>
 
+      {/* 모바일용 로고 */}
+      <h1 className="login-page-logo mobile-logo">
+        <img src="/images/logo.svg" alt="컴히얼" />
+        <span>컴히얼</span>
+      </h1>
+      
       <section className="find-pw-left-side">
         <h2>비밀번호 찾기</h2>
         <div
@@ -200,6 +206,7 @@ const FindPwPage = () => {
           <form onSubmit={handleSubmitEmail}>
             <div className="find-pw-input">
               <input
+                className="find-pw-email"
                 type="email"
                 placeholder="이메일 주소 (ex: user@email.com)"
                 value={email}

@@ -219,15 +219,13 @@
   line-height: 32px;
   letter-spacing: 0.2rem;
 }
-@media (max-width: 900px) {
+.mobile-logo {
+  display: none;
+}
+
+@media (max-width: 768px) {
   .find-pw-container {
     flex-direction: column;
-  }
-  .find-pw-right-side {
-    width: 100vw;
-    height: 180px;
-    padding-top: 32px;
-    border-radius: 0 0 24px 24px;
   }
   .find-pw-left-side form:first-of-type button[type="submit"] {
     background: var(--color-primary);
@@ -247,9 +245,29 @@
     background-color: var(--color-primary);
   }
   .login-form-right-side {
-    width: 100vw;
-    height: 180px;
-    padding-top: 32px;
-    border-radius: 0 0 24px 24px;
+    display: none !important;
+  }
+
+  .find-pw-container {
+    padding: 20px;
+  }
+
+  .find-pw-left-side h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .find-pw-email::placeholder {
+    font-size: 14px !important;
+  }
+
+  .mobile-logo {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .login-page-logo span {
+    color: var(--color-primary) !important;
+    padding-bottom: 30px;
   }
 }
