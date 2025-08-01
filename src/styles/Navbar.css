@@ -3,7 +3,7 @@
   margin: 0 auto;
   align-items: center;
   width: 100vw;
-  height: 70px;
+  height: 4.4rem;
   padding: 15px 7.5vw;
 }
 
@@ -26,11 +26,6 @@
   margin-top: 4px;
 }
 
-.nav-recent:hover,
-.navbar-mylist:hover {
-  background-color: var(--hover-gray);
-}
-
 .nav-recent img {
   width: 32px;
 }
@@ -47,11 +42,12 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: var(--color6);
-  color: var(--main-white);
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  color: var(--color-primary);
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: var(--font-size-xs);
   margin-left: 9px;
+  white-space: nowrap;
 }
 
 .nav-profile:hover {
@@ -60,11 +56,18 @@
 }
 
 .navbarLogin {
-  color: var(--main-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
   text-decoration: none;
-  padding: 10px 18px;
-  background-color: var(--main-red);
-  border-radius: 44px;
+  padding: 0px 1.125rem;
+  background-color: var(--color-primary);
+  border-radius: 0.5rem;
+  height: 2.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 0.0625rem solid transparent;
 }
 
 .navbarSupport {
@@ -77,4 +80,104 @@
 
 .navbarLogin:hover {
   opacity: 80%;
+}
+
+.nav-logo img {
+  height: 2rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.nav-logo h1 {
+  display: inline-block;
+  font-family: "Hakgyoansim Samulham", "Noto Sans KR", sans-serif;
+  font-size: 1.8rem;
+  transform: translateY(3px);
+  color: var(--color-primary);
+}
+
+.navbar-admin {
+  border: 1px solid var(--color-primary-800);
+  border-radius: 6px;
+  padding: 6px 16px;
+  margin-right: 12px;
+  background: var(--color-card);
+  color: var(--text-primary);
+  color: var(--color-primary-800);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border 0.2s;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.navbar-admin:hover {
+  background: var(--color-primary);
+  color: var(--color-muted);
+  border-color: var(--color-primary-900);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 5vw;
+    height: 3.5rem;
+  }
+
+  .nav-logo img {
+    height: 1.5rem;
+    margin-right: 0.3rem;
+  }
+
+  .nav-logo h1 {
+    font-size: 1.2rem;
+    transform: translateY(2px);
+  }
+
+  .nav-links {
+    margin-left: auto;
+    gap: 0.5rem;
+  }
+
+  .nav-recent,
+  .navbar-mylist,
+  .nav-profile {
+    width: 36px;
+    height: 36px;
+    min-height: 36px;
+    font-size: 0.75rem;
+    margin-top: 2px;
+    padding: 5px 10px;
+  }
+
+  .nav-recent img {
+    width: 24px;
+  }
+
+  .navbar-mylist img {
+    width: 22px;
+  }
+
+  .nav-profile {
+    font-size: 0.7rem;
+    margin-left: 6px;
+    min-width: 36px;
+  }
+
+  .navbarLogin {
+    font-size: 0.75rem;
+    padding: 0 0.8rem;
+    height: 2rem;
+  }
+
+  .navbar-admin {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    margin-right: 8px;
+    margin-top: 2px;
+  }
 }

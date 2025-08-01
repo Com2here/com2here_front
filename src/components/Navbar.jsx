@@ -1,13 +1,16 @@
-import React, { useRef, useState } from "react";
+import "../styles/Navbar.css";
+
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { ROUTES } from "../constants/routes";
 import { useAuth } from "../contexts/AuthContext";
 import Dropdown from "./Dropdown";
-import "../styles/Navbar.css";
 
 const NavBar = () => {
   const imgPathLogo = "/images/logo.svg";
-  const imgPathHeart = "/images/heart.svg";
-  const imgPathHistory = "/images/history.png";
+  const imgPathHeart = "/images/heart-angle.svg";
+  const imgPathHistory = "/images/clock-square.svg";
 
   const navRef = useRef(null);
 
@@ -17,18 +20,24 @@ const NavBar = () => {
 
   return (
     <div className="navbar">
-      <h1>
-        <Link to={"/"}>
-          <img src={imgPathLogo} alt="컴히얼" />
+      <div className="nav-logo">
+        <Link to={ROUTES.HOME}>
+          <img src={imgPathLogo} alt="컴히얼 로고" />
+          <h1>컴히얼</h1>
         </Link>
-      </h1>
+      </div>
       <div className="nav-links">
         {isLoggedIn ? (
           <>
-            <div className="nav-recent">
+            {userInfo.user.role === "ADMIN" && (
+              <Link className="navbar-admin" to={ROUTES.ADMIN.SOFTWARE}>
+                관리자
+              </Link>
+            )}
+            {/* <div className="nav-recent">
               <img src={imgPathHistory} alt="최근 본 견적" />
-            </div>
-            <Link className="navbar-mylist" to={"/mylist"}>
+            </div> */}
+            <Link className="navbar-mylist" to={ROUTES.MYLIST}>
               <img src={imgPathHeart} alt="찜한 견적" />
             </Link>
             <div
@@ -36,7 +45,7 @@ const NavBar = () => {
               ref={navRef}
               onClick={() => setView(!view)}
             >
-              {userInfo.user.nickname}
+              {userInfo.user.nickname.slice(0, 4)}
             </div>
             {view && (
               <Dropdown
@@ -48,7 +57,7 @@ const NavBar = () => {
           </>
         ) : (
           <>
-            <Link className="navbarLogin" to={"/login"}>
+            <Link className="navbarLogin" to={ROUTES.LOGIN}>
               로그인
             </Link>
           </>

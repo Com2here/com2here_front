@@ -1,9 +1,12 @@
+import "../styles/RegisterForm.css";
+
+import Joi from "joi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Joi from "joi";
-import api from "../hooks/useAxios";
+
 import { REGISTER_ERROR_MESSAGES } from "../constants/errors";
-import "../styles/RegisterForm.css";
+import { ROUTES } from "../constants/routes";
+import api from "../hooks/useAxios";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -92,8 +95,9 @@ const RegisterForm = () => {
           "Content-Type": "application/json",
         },
       });
-      const code = response.data.code;
-      console.log(response.data);
+
+      console.log("회원가입 응답:", response);
+      const code = response.code;
 
       if (code === 200) {
         // 회원가입 성공 후 이메일 인증 코드 전송
@@ -104,8 +108,7 @@ const RegisterForm = () => {
         return;
       }
     } catch (error) {
-      if (error.response && error.response.data) {
-        const { code, message } = error.response.data;
+      if (error.response && error.response) {
         alert("회원가입 실패!");
       } else {
         console.error("회원가입 에러:", error);
@@ -116,11 +119,11 @@ const RegisterForm = () => {
 
   const handleEmailVerification = async () => {
     try {
-      const response = await api.post("v1/email/authcode", {
-        mail: formData.email,
+      const response = await api.post("v1/email/code", {
+        email: formData.email,
       });
 
-      console.log("이메일 인증 코드 전송 성공:", response.data);
+      console.log("이메일 인증 코드 전송 성공:", response);
       alert("이메일로 인증 코드가 전송되었습니다.");
     } catch (error) {
       console.error("이메일 인증 코드 전송 실패:", error);
@@ -130,16 +133,16 @@ const RegisterForm = () => {
 
   const handleVerifyCode = async () => {
     try {
-      const response = await api.post("v1/email/verify", {
-        mail: formData.email,
+      const response = await api.post("v1/email/code/verify", {
+        email: formData.email,
         verifyCode: verificationCode,
       });
 
-      console.log("이메일 인증 성공:", response.data);
+      console.log("이메일 인증 성공:", response);
       setIsEmailVerified(true);
       alert("이메일 인증이 완료되었습니다.");
       setIsModalOpen(false);
-      navigate("/login");
+      navigate(ROUTES.LOGIN);
     } catch (error) {
       console.error("이메일 인증 실패:", error);
       alert("이메일 인증 실패");
@@ -260,6 +263,21 @@ const RegisterForm = () => {
           회원가입
         </button>
       </form>
+      <div className="register-terms-guide">
+        회원가입 시,{" "}
+        <a href="/terms" target="_blank" rel="noopener noreferrer">
+          이용약관
+        </a>{" "}
+        및{" "}
+        <a
+          href="/terms?type=privacy#privacy-section"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          개인정보 처리방침
+        </a>
+        에 동의하는 것으로 간주됩니다.
+      </div>
 
       {/* 이메일 인증 모달 */}
       {isModalOpen && !isEmailVerified && (

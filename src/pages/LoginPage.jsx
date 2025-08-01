@@ -1,13 +1,14 @@
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-
-import LoginForm from "../components/LoginForm";
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
-import { ROUTES } from "../constants/routes";
 import "../styles/LoginPage.css";
 
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+
+import LoginForm from "../components/LoginForm";
+import { PAGE_TITLES, SITE_URL } from "../constants/constants";
+import { ROUTES } from "../constants/routes";
+
 const LoginPage = () => {
-  const imgPath = "/images/logo-white.svg";
+  const imgPathLogo = "/images/logo-dark.svg";
 
   return (
     <div className="login-page">
@@ -18,20 +19,26 @@ const LoginPage = () => {
         <meta name="twitter:title" content={PAGE_TITLES.login}></meta>
         <meta name="twitter:url" content={`${SITE_URL}${ROUTES.LOGIN}`}></meta>
       </Helmet>
+      {/* 모바일용 로고 */}
+      <h1 className="login-page-logo mobile-logo">
+        <img src="/images/logo.svg" alt="컴히얼" />
+        <span>컴히얼</span>
+      </h1>
       <div className="login-form-left-side">
         <h1 className="login-page-text">로그인</h1>
         <LoginForm />
         <div className="login-register">
           아직 가입하지 않으셨나요?
           <span className="login-register-link">
-            <Link to="/register">회원가입</Link>
+            <Link to={ROUTES.REGISTER}>회원가입</Link>
           </span>
         </div>
       </div>
       <div className="login-form-right-side">
-        <Link to="/">
+        <Link to={ROUTES.HOME}>
           <h1 className="login-page-logo">
-            <img src={imgPath} alt="컴히얼" />
+            <img src={imgPathLogo} alt="컴히얼" />
+            <span>컴히얼</span>
           </h1>
         </Link>
         <div className="login-description">

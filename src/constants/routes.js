@@ -4,15 +4,20 @@ export const ROUTES = {
   REGISTER: "/register",
   ACCOUNT: {
     PROFILE: "/account/profile",
-    CHANGE_PW: "/account/changePw",
-    DELETE: "/account/delete",
+    // CHANGE_PW: "/account/changePw",
+    // DELETE: "/account/delete",
   },
   ESTIMATE: "/estimate",
   MYLIST: "/mylist",
   MYPAGE: "/mypage",
   SUPPORT: "/support",
-  RESET_PASSWORD: "/reset-password",
   HELP: {
     FIND_PW: "/help/findPw",
+  },
+  TERMS: "/terms",
+  ADMIN: {
+    SOFTWARE: "/admin/software",
+    PRODUCTS: "/admin/products",
+    USERS: "/admin/users",
   },
 };

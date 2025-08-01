@@ -15,13 +15,12 @@
 }
 
 .home-cover-text {
-  color: var(--secondary-black);
   text-align: center;
   font-size: 1.7rem;
   font-weight: 600;
-  line-height: 1.2em;
   letter-spacing: 0.45em;
   margin-top: 2.4em;
+  color: var(--text-muted);
 }
 
 .home-cover-text br {
@@ -31,7 +30,7 @@
 }
 
 .home-cover-text span {
-  color: var(--main-red);
+  color: var(--color-primary);
   font-weight: 700;
   letter-spacing: 0.2em;
   font-size: 2.4rem;
@@ -48,14 +47,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 4px solid var(--main-black);
   padding: 2rem 10rem;
-  border-radius: 44px;
+  border-radius: 1rem;
   cursor: pointer;
-}
-
-.home-rec-wrapper:hover {
-  border: 4px solid var(--main-red);
+  background-color: var(--color-card);
 }
 
 .home-rec-wrapper button {
@@ -70,15 +65,138 @@
   display: flex;
   flex-direction: column;
   border: none;
-  border-radius: 44px;
+  border-radius: 0.5rem;
   padding: 16px 48px;
   margin: 0 12px;
-  box-shadow: 3px 8px 4px 0 #ee0d4350;
-  background-color: var(--main-red);
-  color: var(--main-white);
+  background-color: var(--color-primary);
+  color: var(--text-dark);
   text-align: center;
   font-size: 16px;
   font-weight: 700;
   line-height: 22px;
   letter-spacing: -0.4px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s,
+    color 0.3s,
+    box-shadow 0.3s;
+}
+
+.home-btn-rec .circle-bg-btn {
+  transform: translate3d(-50%, 50%, 0px) scale3d(0, 0, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  transform-style: preserve-3d;
+  background-color: var(--color-primary-900);
+  border-radius: 5000vw;
+  width: 30em;
+  height: 30em;
+  transition: 0.5s;
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+  z-index: 1;
+}
+
+.home-btn-rec .btn-link {
+  font-size: 1em;
+  position: relative;
+  z-index: 2;
+}
+
+.home-btn-rec:hover .circle-bg-btn {
+  transform: translate3d(-50%, 50%, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+}
+
+.home-btn-rec:hover {
+  transform: scale(0.95);
+  color: var(--text-primary);
+  box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5);
+}
+
+.home-btn-rec.no-hover:hover,
+.home-btn-rec.no-hover:active,
+.home-btn-rec.no-hover:focus {
+  background-color: var(--color-primary);
+  color: var(--text-dark);
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+}
+
+.home-laptop-disabled {
+  position: relative;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.home-laptop-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8); /* 더 진한 배경 */
+  color: #fffae0;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .home-page {
+    width: 95vw;
+  }
+
+  .home-cover {
+    padding-top: 1rem;
+    gap: 20px;
+    min-height: auto;
+  }
+
+  .home-cover-text {
+    font-size: 1.3rem;
+    letter-spacing: 0.3em;
+    margin-top: 1.5em;
+  }
+
+  .home-cover-text span {
+    font-size: 1.8rem;
+    letter-spacing: 0.15em;
+  }
+
+  .home-btn-wrapper {
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 24px;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .home-rec-wrapper {
+    padding: 1.5rem 4rem;
+    width: 100%;
+    max-width: 320px;
+    border-radius: 0.75rem;
+  }
+
+  .home-img {
+    height: 160px;
+    margin-bottom: 12px;
+  }
+
+  .home-btn-rec {
+    padding: 12px 32px;
+    font-size: 14px;
+  }
+
+  .home-laptop-overlay {
+    font-size: .84rem;
+    padding: 10px 20px;
+  }
 }

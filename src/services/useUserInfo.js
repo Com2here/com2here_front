@@ -7,9 +7,9 @@ import api from "../hooks/useAxios";
 const useUserProfile = async () => {
   try {
     const response = await api.get("/v1/user/show");
-    const code = response.data.code;
+    const { code, data } = response;
     if (code === 200) {
-      return response.data;
+      return data;
     } else if (code in MYPAGE_PROFILE_ERROR_MESSAGES) {
       alert(MYPAGE_PROFILE_ERROR_MESSAGES[code]);
       if (code !== 500) {

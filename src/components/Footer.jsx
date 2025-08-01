@@ -1,18 +1,31 @@
-import { Link } from "react-router-dom";
 import "../styles/Footer.css";
 
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+import { ROUTES } from "../constants/routes";
+
 const Footer = () => {
-  const imgPathLogo = "/images/logo-bg.png";
+  const imgPathLogo = "/images/logo-muted.svg";
   const imgPathInstagram = "/images/Instagram-logo.svg";
   const imgPathGithub = "/images/github-logo.svg";
   const imgPathNotion = "/images/notion-logo.svg";
+  const locationNow = useLocation();
+
+  if (
+    locationNow.pathname === ROUTES.LOGIN ||
+    locationNow.pathname === ROUTES.REGISTER ||
+    locationNow.pathname === ROUTES.HELP.FIND_PW
+  )
+    return null;
 
   return (
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-left">
-          <Link to="/">
+          <Link to={ROUTES.HOME}>
             <img src={imgPathLogo} alt="컴히얼 로고" />
+            <h1>컴히얼</h1>
           </Link>
           <div className="footer-left-content">
             <ul className="footer-socials">
@@ -35,8 +48,8 @@ const Footer = () => {
               </li>
             </ul>
             <ul className="footer-info">
-              <Link to="mailto:support@comhere.com">
-                <li>E: support@comhere.com</li>
+              <Link to="mailto:comhere@comhere.site">
+                <li>E: comhere@comhere.site</li>
               </Link>
               <li>Copyright © 2025 컴히얼. All rights reserved.</li>
             </ul>

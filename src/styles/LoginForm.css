@@ -72,6 +72,11 @@
   opacity: 95%;
 }
 
+.login-google-text {
+  color: black;
+  opacity: 85%;
+}
+
 .login-divider {
   display: flex;
   width: 100%;
@@ -92,7 +97,7 @@
   flex-grow: 1;
   text-align: center;
   line-height: 18px;
-  color: rgba(117, 117, 117, 0.7);
+  color: var(--text-muted);
   letter-spacing: 0.48px;
   justify-content: center;
 }
@@ -163,23 +168,44 @@
   height: 100%;
   display: flex;
   gap: 0.4rem;
-  color: var(--main-black);
-}
-
-.login-remember > input {
-  border: 1px solid rgba(117, 117, 117, 0.7);
-  width: 0.9rem;
-  height: 0.9rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
+  color: var(--text-muted);
 }
 
 .login-remember > label {
+  display: flex;
   cursor: pointer;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.login-remember input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.custom-checkbox {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("/images/checkbox-default.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: background-image 0.2s ease;
+}
+
+.login-remember input[type="checkbox"]:not(:checked) + label:hover .custom-checkbox {
+  background-image: url("/images/checkbox-hover.svg");
+}
+
+.login-remember input[type="checkbox"]:checked + label .custom-checkbox {
+  background-image: url("/images/checkbox-checked.svg");
 }
 
 .login-find {
   color: var(--main-red);
+  color: var(--color-primary);
   opacity: 0.95;
   cursor: pointer;
 }
@@ -192,9 +218,113 @@
   justify-content: center;
   text-align: center;
   font-size: 1rem;
-  background-color: var(--btn-red);
-  color: var(--main-white);
+  background-color: var(--color-primary);
+  color: var(--text-dark);
   border: none;
   border-radius: 12px;
   height: 39px;
+}
+
+/* 이메일 인증 모달 스타일 */
+.email-verification-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-card);
+  padding: 2rem;
+  border: 1px solid var(--color-primary);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(5, 242, 242, 0.2);
+  text-align: center;
+  z-index: 1000;
+  min-width: 320px;
+  max-width: 400px;
+}
+
+.email-verification-modal h3 {
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.email-verification-modal p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.email-verification-modal input {
+  margin-bottom: 1rem;
+  padding: 12px 16px;
+  width: 100%;
+  font-size: 14px;
+  background-color: var(--color-muted);
+  border: 1px solid rgba(5, 242, 242, 0.3);
+  border-radius: 8px;
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.email-verification-modal input::placeholder {
+  color: var(--text-muted);
+}
+
+.email-verification-modal input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(5, 242, 242, 0.2);
+}
+
+/* .email-verification-modal button {
+  margin: 0.5rem;
+  padding: 12px 24px;
+  background-color: var(--color-primary);
+  color: var(--text-dark);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  min-width: 120px;
+} */
+
+.email-verification-modal button:hover {
+  background-color: var(--color-primary-800);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(5, 242, 242, 0.3);
+}
+
+.email-verification-modal button:active {
+  transform: translateY(0);
+}
+.modal-close-btn {
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  font-size: 20px !important;
+  width: 32px !important;
+  height: 32px !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  color: var(--text-muted) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: all 0.2s ease !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  min-width: auto !important;
+}
+
+.modal-close-btn:hover {
+  color: var(--color-primary) !important;
+  background: none !important;
+  transform: none !important;
+  box-shadow: none !important;
 }

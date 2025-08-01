@@ -18,7 +18,7 @@
 }
 
 .profile-logout-btn {
-  background-color: var(--btn-red);
+  background-color: var(--text-dark);
   color: var(--main-white);
   font-size: 0.875rem;
   align-items: center;
@@ -33,6 +33,7 @@
   justify-content: center;
   display: flex;
   flex-direction: column;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
 }
 
 .profile-logout-btn .text {
@@ -61,10 +62,14 @@
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  background-color: var(--color-8);
   border-radius: 10px;
   row-gap: 2rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  background: rgba(30, 32, 44, 0.95);
+  background: var(--color-card);
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.18);
 }
+
 .profile-edit-wrapper h3 {
   font-size: 1.75rem;
   font-weight: 500;
@@ -73,9 +78,9 @@
 
 .profile-edit-contents {
   display: flex;
-  margin-bottom: 2rem;
   justify-content: space-between;
   gap: 3.5rem;
+  padding-bottom: 3.5rem;
 }
 
 .profile-edit-img {
@@ -90,17 +95,12 @@
   display: flex;
   position: relative;
   border-radius: 50%;
-  width: 128px;
-  height: 128px;
+  width: 8rem;
+  height: 8rem;
   overflow: hidden;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--main-gray);
-  background-color: var(--main-black);
-}
-
-.profile-edit-upload img {
-  height: 110%;
+  background-color: rgba(var(--color-primary-rgb), 0.1);
 }
 
 .profile-edit-info {
@@ -110,23 +110,20 @@
   gap: 2rem;
 }
 
-.profile-edit-info div {
-  padding-bottom: 12px;
-}
-
-.profile-edit-toggle-btn {
+.profile-edit-btn {
   display: flex;
-  justify-content: center; /* 가운데 정렬로 변경 */
+  justify-content: center;
 }
 
-.profile-edit-toggle-btn button {
+.profile-edit-btn button {
   padding: 10px 30px;
-  background-color: rgba(242, 58, 48, 0.9);
-  color: #fff;
+  background-color: var(--color-primary);
+  color: var(--text-dark);
   border: none;
   border-radius: 10px;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5rem;
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -134,8 +131,8 @@
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
-.profile-edit-toggle-btn button:hover {
-  background-color: rgba(242, 58, 48, 1);
+.profile-edit-btn button:hover {
+  background-color: rgba(var(--color-primary-rgb), 0.9);
   transform: scale(1.03);
 }
 
@@ -160,7 +157,7 @@
   font-size: 14px;
 }
 
-.email-verification-modal button {
+/* .email-verification-modal button {
   margin: 5px;
   padding: 10px 20px;
   background-color: rgba(242, 58, 48, 0.7);
@@ -172,7 +169,7 @@
 .email-verification-modal button:hover {
   background-color: rgba(242, 58, 48, 0.7);
   color: rgba(242, 58, 48, 0.9);
-}
+} */
 
 .profile-img-label {
   font-weight: bold;
@@ -206,4 +203,92 @@
 
 .profile-img-input {
   display: none;
+}
+
+.profile-delete-btn-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-delete-btn {
+  background-color: var(--text-dark);
+  color: var(--main-white);
+  font-size: 0.875rem;
+  align-items: center;
+  max-width: max-content;
+  max-height: 48px;
+  height: fit-content;
+  font-weight: 400;
+  line-height: 120%;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  overflow: hidden;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .profile-edit {
+    width: 100%;
+    padding: 0 16px;
+    gap: 2rem;
+  }
+
+  .profile-header h2 {
+    font-size: 1.7rem;
+  }
+
+  .profile-edit-wrapper {
+    padding: 24px 16px;
+  }
+
+  .profile-edit-wrapper label {
+    font-size: 0.95rem;
+  }
+
+  .profile-edit-wrapper input,
+  .profile-edit-wrapper button {
+    font-size: 0.75rem;
+  }
+
+  .profile-edit-contents {
+    flex-direction: column;
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .profile-edit-img,
+  .profile-edit-info {
+    width: 100%;
+  }
+
+  .profile-edit-btn button {
+    width: 100%;
+  }
+
+  .email-verification-modal input {
+    width: 100%;
+  }
+
+  .profile-logout-btn {
+    font-size: .625rem;
+    padding: 0.5rem 1rem;
+    line-height: 130%;
+  }
+
+  .profile-edit-wrapper h3 {
+    font-size: 1.25rem;
+  }
+
+  .register-input-wrap {
+    width: 100% !important;
+  }
+
+  .profile-delete-btn {
+    font-size: .625rem;
+    padding: 0.75rem 1rem;
+  }
 }

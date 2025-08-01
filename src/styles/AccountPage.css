@@ -1,7 +1,15 @@
 .account-page {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0 auto;
   padding: 0 7.5vw;
   padding-top: 40px;
+  min-height: calc(100vh - 18rem);
+}
+
+@media (max-width: 768px) {
+  .account-page {
+    padding: 0 16px;
+    padding-top: 24px;
+  }
 }

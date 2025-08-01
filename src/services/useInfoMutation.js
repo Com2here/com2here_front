@@ -2,9 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import api from "../hooks/useAxios";
 
-const patchUserInfo = async (payload) => {
-  const response = await api.patch("/v1/user/update", payload);
-  return response.data;
+const patchUserInfo = async (formData) => {
+  const response = await api.patch("/v1/user/update", formData);
+  return response;
 };
 
 export const useProfileMutation = () => {

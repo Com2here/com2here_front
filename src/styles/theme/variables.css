@@ -1,0 +1,22 @@
+:root {
+  /* 색상 */
+  --bg-gradient: linear-gradient(to bottom, #101126, #2a2c3f);
+  --bg-primary: #101126;
+  --color-primary: #05f2f2;
+  --color-primary-rgb: 5, 242, 242;
+  --color-primary-800: #00d0d0;
+  --color-primary-900: #00a4a4;
+  --color-card: #1f2033;
+  --color-muted: #292a3d;
+
+  --text-primary: #fff;
+  --text-dark: #161722;
+  --text-muted: #b3bbcc;
+
+  /* 타이포그래피 */
+  --font-size-xs: 0.8rem; /* 12.8px */
+  --font-size-xl: 1.13rem; /* 18.08px */
+
+  /* 버튼 */
+  --btn-size-xxl: 1.5rem 3rem;
+}

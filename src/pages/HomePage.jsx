@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
 import "../styles/HomePage.css";
+
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+
+import { PAGE_TITLES, SITE_URL } from "../constants/constants";
+import { ROUTES } from "../constants/routes";
 
 const HomePage = () => {
   const imgPathComputerTower = "/images/computer-tower.png";
@@ -24,19 +26,23 @@ const HomePage = () => {
           <span>Com, here!</span>
         </h2>
         <div className="home-btn-wrapper">
-          <Link to={"/estimate"}>
+          <Link to={ROUTES.ESTIMATE}>
             <div className="home-rec-wrapper">
               <img
                 className="home-img"
                 src={imgPathComputerTower}
                 alt="조립PC"
               />
-              <button className="home-btn-rec">조립PC 고르기</button>
+              <button className="home-btn-rec">
+                <div className="circle-bg-btn"></div>
+                <div className="btn-link">조립PC 고르기</div>
+              </button>
             </div>
           </Link>
-          <div className="home-rec-wrapper">
+          <div className="home-rec-wrapper home-laptop-disabled">
             <img className="home-img" src={imgPathLaptop} alt="노트북" />
-            <button className="home-btn-rec">노트북 고르기</button>
+            <button className="home-btn-rec no-hover">노트북 고르기</button>
+            <div className="home-laptop-overlay">준비 중입니다</div>
           </div>
         </div>
       </section>

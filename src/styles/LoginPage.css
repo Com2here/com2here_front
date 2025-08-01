@@ -20,13 +20,13 @@
   display: flex;
   margin-top: 0.9rem;
   gap: 0.25rem;
-  color: var(--main-black);
+  color: var(--text-muted);
   font-size: 0.95rem;
 }
 
 .login-register-link {
   cursor: pointer;
-  color: var(--main-red);
+  color: var(--color-primary);
   opacity: 0.95;
   text-decoration: none;
 }
@@ -45,17 +45,17 @@
   flex-direction: column;
   text-align: center;
   align-items: center;
-  background: var(--main-red);
+  background-color: rgba(var(--color-primary-rgb), 0.95);
   width: 40%;
   height: 100vh;
   padding-top: 40vh;
 }
 
 .login-description {
-  margin-top: 10px;
+  margin-top: 1rem;
   font-size: 24px;
   font-weight: 700;
-  color: var(--main-gray);
+  color: var(--text-dark);
   line-height: 32px;
   letter-spacing: 0.2rem;
 }
@@ -67,4 +67,128 @@
 
 input {
   appearance: none;
+}
+
+.login-page-logo img {
+  height: 2rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.login-page-logo span {
+  display: inline-block;
+  font-family: "Hakgyoansim Samulham", "Noto Sans KR", sans-serif;
+  font-size: 1.8rem;
+  transform: translateY(3px);
+  color: var(--text-dark);
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 3rem;
+    height: 100vh;
+  }
+
+  .login-form-left-side {
+    width: 90vw;
+    border-radius: 10px;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    align-items: stretch;
+  }
+
+  .login-page-text {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .login-form-right-side {
+    display: none;
+  }
+
+  .login-form {
+    width: 100% !important;
+    padding-top: 1rem !important;
+  }
+
+  .login-input-container,
+  .login-submit-btn {
+    width: 100% !important;
+  }
+
+  .login-submit-btn {
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  /* 로그인 폼 내 input 높이 조정 */
+  .input-id > input::placeholder,
+  .input-password > input::placeholder {
+    height: 48px;
+    font-size: .8rem
+  }
+
+  /* 소셜 로그인 버튼 크기 조정 */
+  .login-oauth-btn {
+    height: 48px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 1rem;
+  }
+
+  /* 로그인 유지 & 비밀번호 찾기 */
+  .login-feat {
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .login-remember label {
+    font-size: 0.8rem;
+  }
+
+  .login-find {
+    font-size: 0.8rem;
+  }
+
+  /* 이메일 인증 모달 크기 조정 */
+  .email-verification-modal {
+    min-width: 90vw;
+    max-width: 400px;
+    padding: 1.5rem 1rem;
+  }
+
+  .email-verification-modal h3 {
+    font-size: 1.1rem;
+  }
+
+  .email-verification-modal p {
+    font-size: 0.85rem;
+  }
+
+  .login-page mobile-logo {
+    display: block;
+  }
+
+  .login-form form {
+    width: 100%;
+  }
+
+  .login-oauth-text {
+    font-size: 0.9rem !important;
+  }
+
+  .custom-checkbox {
+    width: .9rem;
+    height: .9rem;
+  }
+  .login-register {
+    font-size: 0.8rem;
+    justify-content: center;
+  }
 }

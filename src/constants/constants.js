@@ -11,4 +11,5 @@ export const PAGE_TITLES = {
   mypage: `내 컴퓨터 | ${SITE_NAME}`,
   support: `문의하기 | ${SITE_NAME}`,
   findPw: `비밀번호 찾기 | ${SITE_NAME}`,
+  error: `Not Found`,
 };

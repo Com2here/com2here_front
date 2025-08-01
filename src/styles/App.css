@@ -1,85 +1,40 @@
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 900;
-  font-display: swap;
-  src:
-    local("Pretendard Black"),
-    url(../fonts/Pretendard-Black.woff) format("woff");
+@import url("./theme/fonts.css");
+@import url("./theme/variables.css");
+
+html {
+  scroll-behavior: smooth;
 }
 
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 800;
-  font-display: swap;
-  src:
-    local("Pretendard ExtraBold"),
-    url(../fonts/Pretendard-ExtraBold.woff) format("woff");
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 700;
-  font-display: swap;
-  src:
-    local("Pretendard Bold"),
-    url(../fonts/Pretendard-Bold.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 600;
-  font-display: swap;
-  src:
-    local("Pretendard SemiBold"),
-    url(../fonts/Pretendard-SemiBold.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 500;
-  font-display: swap;
-  src:
-    local("Pretendard Medium"),
-    url(../fonts/Pretendard-Medium.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
+html,
+body,
+#root {
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
   font-weight: 400;
-  font-display: swap;
-  src:
-    local("Pretendard Regular"),
-    url(../fonts/Pretendard-Regular.woff) format("woff");
+  letter-spacing: -0.015rem;
+  min-height: calc(100vh - 70px);
+  color: var(--text-primary);
+  background: var(--bg-gradient);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 300;
-  font-display: swap;
-  src:
-    local("Pretendard Light"),
-    url(../fonts/Pretendard-Light.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 200;
-  font-display: swap;
-  src:
-    local("Pretendard ExtraLight"),
-    url(../fonts/Pretendard-ExtraLight.woff) format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 100;
-  font-display: swap;
-  src:
-    local("Pretendard Thin"),
-    url(../fonts/Pretendard-Thin.woff) format("woff");
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.4;
 }
 
 :root {
+  /* Color (구) */
   --main-red: #f23a30;
   --main-white: #fff;
   --main-black: #424242;
@@ -90,7 +45,6 @@
   --secondary-gray: #b0b2b5;
 
   --error-red: #ef4445;
-  --background-color: #f8f9fa;
   --hover-gray: #e9ecef;
   --btn-red: rgba(242, 58, 48, 0.9);
 
@@ -103,18 +57,6 @@
   --color6: #e26264;
   --color-7: #fce8e8;
   --color-8: #f1dcd5;
-}
-
-html,
-body,
-#root {
-  margin: 0;
-  background-color: var(--background-color);
-  font-family: "Pretendard";
-  font-weight: 400;
-  letter-spacing: -0.02px;
-  min-height: calc(100vh - 70px);
-  color: var(--main-black);
 }
 
 h1,
@@ -183,17 +125,6 @@ address {
   border-width: 0;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: #f5f5f5;
-  font-family: "Noto Sans KR", sans-serif;
-}
-
 button {
   border: none;
   background-color: transparent;
@@ -205,5 +136,5 @@ button {
 }
 
 .main-content {
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 18rem);
 }

@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+
 import {
   getAccessToken,
   getRefreshToken,
@@ -22,10 +23,28 @@ const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }) => {
+  const isDev = import.meta.env.MODE === "development";
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
+    if (isDev) {
+      setIsLoggedIn(true);
+      setUserInfo({
+        token: {
+          accessToken: "dev-access-token",
+          refreshToken: "dev-refresh-token",
+        },
+        user: {
+          nickname: "devuser",
+          email: "dev@com2here.com",
+          role: "ADMIN",
+        },
+      });
+      setIsLoading(false);
+      return;
+    }
     setIsLoggedIn(!!getAccessToken());
     setUserInfo({
       token: {
@@ -38,6 +57,7 @@ export const AuthProvider = ({ children }) => {
         role: localStorage.getItem("role"),
       },
     });
+    setIsLoading(false);
   }, []);
 
   const login = ({ token, user }) => {
@@ -56,7 +76,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, userInfo, login, logout }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, userInfo, login, logout, isLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

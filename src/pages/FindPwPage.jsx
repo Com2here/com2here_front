@@ -1,18 +1,20 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Joi from "joi";
-import api from "../hooks/useAxios";
-import { ROUTES } from "../constants/routes";
-import { Helmet } from "react-helmet-async";
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
-import { FIND_PW_ERROR_MESSAGES } from "../constants/errors";
 import "../styles/FindPwPage.css";
+
+import Joi from "joi";
+import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { Link, useNavigate } from "react-router-dom";
+
+import { PAGE_TITLES, SITE_URL } from "../constants/constants";
+import { FIND_PW_ERROR_MESSAGES } from "../constants/errors";
+import { ROUTES } from "../constants/routes";
+import api from "../hooks/useAxios";
 
 const FindPwPage = () => {
   const navigate = useNavigate();
   const imgPathEye = "/images/eye.svg";
   const imgPathEyeSlash = "/images/eye-slash.svg";
-  const imgPath = "/images/logo-white.svg";
+  const imgPath = "/images/logo-dark.svg";
 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -88,16 +90,16 @@ const FindPwPage = () => {
     setMessage("");
 
     try {
-      const response = await api.post("/v1/email/authcode", {
-        mail: email,
+      const response = await api.post("/v1/email/code", {
+        email: email,
       });
 
       // 응답 코드가 200인 경우 성공 처리
-      if (response.data.code === 200) {
+      if (response.code === 200) {
         setMessage("인증 코드가 이메일로 전송되었습니다.");
         alert("인증 코드가 이메일로 전송되었습니다.");
         setIsCodeSent(true);
-      } else if (response.data.code === 2106) {
+      } else if (response.code === 2106) {
         // 존재하지 않는 이메일
         setMessage("가입된 이메일이 없습니다.");
       } else {
@@ -135,22 +137,21 @@ const FindPwPage = () => {
     }
 
     const response = await api.post("/v1/email/password/reset", {
-      mail: email,
+      email: email,
       code: authCode,
       password: newPassword,
       confirmPassword: confirmPassword,
     });
     try {
-      if (response.data.code === 200) {
+      if (response.code === 200) {
         alert("비밀번호가 성공적으로 변경되었습니다.");
         navigate(ROUTES.LOGIN); // 비밀번호 변경 후 로그인 페이지로 리디렉션
       } else {
-        const errorCode = response.data.code;
+        const errorCode = response.code;
         const errorMessage =
           FIND_PW_ERROR_MESSAGES[errorCode] ||
           "알 수 없는 오류가 발생했습니다.";
         alert(errorMessage);
-        console.log(response.data);
       }
     } catch (error) {
       console.error("비밀번호 변경 실패:", error);
@@ -181,18 +182,43 @@ const FindPwPage = () => {
         ></meta>
       </Helmet>
 
+      {/* 모바일용 로고 */}
+      <h1 className="login-page-logo mobile-logo">
+        <img src="/images/logo.svg" alt="컴히얼" />
+        <span>컴히얼</span>
+      </h1>
+      
       <section className="find-pw-left-side">
         <h2>비밀번호 찾기</h2>
-
+        <div
+          className="findpw-guide"
+          style={{
+            textAlign: "center",
+            color: "#888",
+            fontSize: 15,
+            marginBottom: 18,
+          }}
+        >
+          가입하신 이메일로 인증코드를 받아
+          <br />새 비밀번호로 변경할 수 있습니다.
+        </div>
         {!isCodeSent ? (
           <form onSubmit={handleSubmitEmail}>
             <div className="find-pw-input">
               <input
+                className="find-pw-email"
                 type="email"
-                placeholder="가입한 이메일을 입력하세요"
+                placeholder="이메일 주소 (ex: user@email.com)"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                style={{
+                  paddingLeft: 36,
+                  backgroundImage: "url(/images/email.svg)",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "10px center",
+                  backgroundSize: "18px",
+                }}
               />
             </div>
             <button type="submit" disabled={loading}>
@@ -204,10 +230,17 @@ const FindPwPage = () => {
             <div className="find-pw-input">
               <input
                 type="text"
-                placeholder="이메일로 받은 인증 코드를 입력하세요"
+                placeholder="인증 코드 (이메일 확인)"
                 value={authCode}
                 onChange={(e) => setAuthCode(e.target.value)}
                 required
+                style={{
+                  paddingLeft: 36,
+                  backgroundImage: "url(/images/lock.svg)",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "10px center",
+                  backgroundSize: "18px",
+                }}
               />
             </div>
             <div className="find-pw-input">
@@ -215,13 +248,23 @@ const FindPwPage = () => {
                 <input
                   type={isPasswordVisible ? "text" : "password"}
                   name="password"
-                  placeholder="새 비밀번호"
+                  placeholder="새 비밀번호 (영문+숫자+특수문자 8자 이상)"
                   value={newPassword}
                   onChange={handleCheckPassword}
                   required
+                  style={{
+                    paddingLeft: 36,
+                    backgroundImage: "url(/images/lock.svg)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "10px center",
+                    backgroundSize: "18px",
+                  }}
                 />
                 <div className="find-pw-right">
-                  <button type="button" onClick={() => toggleVisible("password")}>
+                  <button
+                    type="button"
+                    onClick={() => toggleVisible("password")}
+                  >
                     <img
                       src={isPasswordVisible ? imgPathEyeSlash : imgPathEye}
                       alt="비밀번호 보기"
@@ -242,9 +285,19 @@ const FindPwPage = () => {
                   value={confirmPassword}
                   onChange={handleCheckPassword}
                   required
+                  style={{
+                    paddingLeft: 36,
+                    backgroundImage: "url(/images/lock.svg)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "10px center",
+                    backgroundSize: "18px",
+                  }}
                 />
                 <div className="find-pw-right">
-                  <button type="button" onClick={() => toggleVisible("confirmPassword")}>
+                  <button
+                    type="button"
+                    onClick={() => toggleVisible("confirmPassword")}
+                  >
                     <img
                       src={
                         isConfirmPasswordVisible ? imgPathEyeSlash : imgPathEye
@@ -263,23 +316,23 @@ const FindPwPage = () => {
             </button>
           </form>
         )}
-
-        {message && <div className="find-pw-message">{message}</div>}
+        {message && <div className="find-pw-message fade-in">{message}</div>}
       </section>
-      <section className="find-pw-right-side">
-        <Link to="/">
-          <h1 className="find-pw-logo">
+      <div className="login-form-right-side">
+        <Link to={ROUTES.HOME}>
+          <h1 className="login-page-logo">
             <img src={imgPath} alt="컴히얼" />
+            <span>컴히얼</span>
           </h1>
         </Link>
-        <div className="find-pw-description">
+        <div className="login-description">
           <p>
             컴알못에게 가장 쉬운
             <br />
             PC추천 플랫폼
           </p>
         </div>
-      </section>
+      </div>
     </main>
   );
 };

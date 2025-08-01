@@ -1,0 +1,47 @@
+@import url("../../..//styles/theme/fonts.css");
+
+/* 포인트 (버튼 1~2개) -p */
+.base-button {
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary-800);
+  border-radius: 1000vw;
+  padding: var(--btn-size-xxl);
+  position: relative;
+  overflow: hidden;
+  color: var(--text-dark);
+  transition:
+    transform 0.3s,
+    color 0.3s,
+    box-shadow 0.3s;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+.circle-bg-btn {
+  transform: translate3d(-50%, 50%, 0px) scale3d(0, 0, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+  transform-style: preserve-3d;
+  background-color: var(--color-primary-900);
+  border-radius: 5000vw;
+  width: 30em;
+  height: 30em;
+  transition: 0.3s;
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+}
+
+.base-button:hover .circle-bg-btn {
+  transform: translate3d(-50%, 50%, 0px) scale3d(1, 1, 1) rotateX(0deg)
+    rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+}
+
+.btn-link {
+  font-size: 1em;
+  position: relative;
+}
+
+.base-button:hover {
+  transform: scale(0.95);
+  color: var(--text-primary);
+  box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5);
+}

@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
-
-import SideBar from "../components/Sidebar";
-import { SITE_URL, PAGE_TITLES } from "../constants/constants";
-import { ROUTES } from "../constants/routes";
 import "../styles/MyPage.css";
+
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+
+import { PAGE_TITLES, SITE_URL } from "../constants/constants";
+import { ROUTES } from "../constants/routes";
 
 const MyPage = () => {
   return (
@@ -16,17 +16,9 @@ const MyPage = () => {
         <meta name="twitter:title" content={PAGE_TITLES.mypage}></meta>
         <meta name="twitter:url" content={`${SITE_URL}${ROUTES.MYPAGE}`}></meta>
       </Helmet>
-      <section className="myPage-location">
-        <div className="myPage-inner-wrap">
-          <div className="myPage-location-text">
-            Home &gt; <Link to="/mypage">나의 컴퓨터</Link>
-          </div>
-        </div>
-      </section>
 
       <div className="myPage-inner-wrap">
         <div className="container">
-          <SideBar />
           <div className="mypage-contents">
             <main className="mycomputer">
               <section className="mycomputer-info">

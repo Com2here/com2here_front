@@ -1,0 +1,23 @@
+// 게임명 상수
+export const GAMES = {
+  leagueOfLegends: "리그 오브 레전드",
+  fcOnline: "FC 온라인",
+  valorant: "발로란트",
+  DungeonAndFighter: "던전앤파이터",
+  maplestory: "메이플스토리",
+  pubg: "PUBG: 배틀그라운드",
+  suddenAttack: "서든어택",
+  mabinogiMobile: "마비노기 모바일",
+  maplestoryWorlds: "메이플스토리 월드",
+  lostark: "로스트아크",
+  overwatch: "오버워치",
+  starcraft: "스타크래프트",
+  eternalReturn: "이터널 리턴",
+  sevenKnightsRebirth: "세븐나이츠 리버스",
+  aion: "아이온",
+  worldOfwarcraft: "월드 오브 워크래프트",
+  lineageRemastered: "리니지 리마스터",
+  warcraft3: "리포지드: 워크래프트 III",
+  counterStrike2: "카운터-스트라이크 2",
+  cyphers: "사이퍼즈",
+};

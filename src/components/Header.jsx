@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
-import Navbar from "./Navbar";
+
 import { ROUTES } from "../constants/routes";
+import Navbar from "./Navbar";
 
 function Header() {
   const locationNow = useLocation();
