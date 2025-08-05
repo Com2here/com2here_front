@@ -130,7 +130,7 @@ const AdminSoftwarePage = () => {
     setEditingId(recommendation.id);
     setFormData({
       purpose: recommendation.purpose || "",
-      mainProgram: recommendation.program || "",
+      mainProgram: recommendation.name || "",
       recommendedSpec: recommendation.recSpec || "",
       minimumSpec: recommendation.minSpec || "",
     });
@@ -486,9 +486,9 @@ const AdminSoftwarePage = () => {
             <>
               <div className="recommendations-list">
                 {recommendations.map((rec) => (
-                  <div key={rec.program} className="recommendation-item">
+                  <div key={rec.id} className="recommendation-item">
                     <div className="recommendation-content">
-                      <h3>{rec.program}</h3>
+                      <h3>{rec.name}</h3>
                       <div className="recommendation-details">
                         <p>
                           <strong>용도 분류:</strong> {rec.purpose}
