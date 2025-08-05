@@ -25,7 +25,7 @@ const WishlistResultScreen = ({ products, onRemove }) => {
             <button
               className="wishlist-btn"
               title="찜 해제"
-              onClick={() => onRemove(item.productId)}
+              onClick={() => onRemove(item.naverProductId)}
             >
               <img
                 src="/images/heart-angle-filled.svg"
@@ -95,13 +95,13 @@ const MylistPage = () => {
     fetchWishlist();
   }, []);
 
-  const handleRemoveWishlist = async (productId) => {
+  const handleRemoveWishlist = async (naverProductId) => {
     if (!window.confirm("이 상품을 관심 목록에서 삭제하시겠습니까?")) return;
 
     try {
-      console.log("삭제 요청:", productId);
-      await api.delete(`/v1/product/wish/delete/${productId}`);
-      setWishlist((prev) => prev.filter((item) => item.productId !== productId));
+      console.log("삭제 요청:", naverProductId);
+      await api.delete(`/v1/product/wish/delete/${naverProductId}`);
+      setWishlist((prev) => prev.filter((item) => item.naverProductId !== naverProductId));
     } catch (err) {
       alert("삭제 중 오류가 발생했습니다.");
       console.error(err);
