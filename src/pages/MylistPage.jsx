@@ -116,6 +116,7 @@ const MylistPage = () => {
         <meta property="og:url" content={`${SITE_URL}${ROUTES.MYLIST}`} />
         <meta name="twitter:title" content={PAGE_TITLES.mylist}></meta>
         <meta name="twitter:url" content={`${SITE_URL}${ROUTES.MYLIST}`}></meta>
+        <meta name="twitter:url" content={`${SITE_URL}${ROUTES.MYLIST}`}></meta>
       </Helmet>
       <div className="mylist-container">
         <h2 className="product-list-title">관심 상품</h2>
