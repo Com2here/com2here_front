@@ -8,54 +8,65 @@ import { PAGE_TITLES, SITE_URL } from "../constants/constants";
 import { ROUTES } from "../constants/routes";
 import api from "../hooks/useAxios";
 
-const WishlistResultScreen = ({ products }) => {
+const WishlistResultScreen = ({ products, onRemove }) => {
   if (!products || products.length === 0) {
     return <div className="empty-wishlist">관심 상품이 없습니다.</div>;
   }
 
   return (
     <div className="product-list-grid">
-      {products.map((item, index) => (
-        <div className="product-card" key={item.id || `${item.title}-${index}`}>
-          <button className="wishlist-btn" title="찜 해제">
-            <img
-              src="/images/heart-angle-filled.svg"
-              alt="관심상품"
-              className="heart-icon"
-            />
-          </button>
-          <div className="product-image-wrap">
-            <img
-              src={item.image}
-              alt={item.title || item.specs?.cpu || "PC 사양"}
-              className="product-image"
-            />
-          </div>
-          <div className="product-info">
-            <div className="product-title">{item.title || "title"}</div>
-            <div className="product-mall">{item.mall || "mall"}</div>
-            <div className="product-price">
-              {(item.price || item.lprice).toLocaleString()}원
+      {products.map((item, index) => {
+        console.log("wishlist item:", item);
+        return (
+          <div
+            className="product-card"
+            key={item.productId || `${item.title}-${index}`}
+          >
+            <button
+              className="wishlist-btn"
+              title="찜 해제"
+              onClick={() => onRemove(item.naverProductId)}
+            >
+              <img
+                src="/images/heart-angle-filled.svg"
+                alt="관심상품"
+                className="heart-icon"
+              />
+            </button>
+            <div className="product-image-wrap">
+              <img
+                src={item.image}
+                alt={item.title || item.specs?.cpu || "PC 사양"}
+                className="product-image"
+              />
+            </div>
+            <div className="product-info">
+              <div className="product-title">{item.title || "title"}</div>
+              <div className="product-mall">{item.mall || "mall"}</div>
+              <div className="product-price">
+                {(item.price || item.lprice).toLocaleString()}원
+              </div>
+            </div>
+            <div className="product-actions">
+              <a
+                href={item.link || `/products/${item.productId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="view-deal-btn"
+              >
+                상품 보러가기
+              </a>
             </div>
           </div>
-          <div className="product-actions">
-            <a
-              href={item.link || `/products/${item.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="view-deal-btn"
-            >
-              상품 보러가기
-            </a>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
 
 WishlistResultScreen.propTypes = {
   products: PropTypes.array.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 const MylistPage = () => {
@@ -84,6 +95,19 @@ const MylistPage = () => {
     fetchWishlist();
   }, []);
 
+  const handleRemoveWishlist = async (naverProductId) => {
+    if (!window.confirm("이 상품을 관심 목록에서 삭제하시겠습니까?")) return;
+
+    try {
+      console.log("삭제 요청:", naverProductId);
+      await api.delete(`/v1/product/wish/delete/${naverProductId}`);
+      setWishlist((prev) => prev.filter((item) => item.naverProductId !== naverProductId));
+    } catch (err) {
+      alert("삭제 중 오류가 발생했습니다.");
+      console.error(err);
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -92,13 +116,17 @@ const MylistPage = () => {
         <meta property="og:url" content={`${SITE_URL}${ROUTES.MYLIST}`} />
         <meta name="twitter:title" content={PAGE_TITLES.mylist}></meta>
         <meta name="twitter:url" content={`${SITE_URL}${ROUTES.MYLIST}`}></meta>
+        <meta name="twitter:url" content={`${SITE_URL}${ROUTES.MYLIST}`}></meta>
       </Helmet>
       <div className="mylist-container">
         <h2 className="product-list-title">관심 상품</h2>
         {error ? (
           <div className="error-message">{error}</div>
         ) : (
-          <WishlistResultScreen products={wishlist} />
+          <WishlistResultScreen
+            products={wishlist}
+            onRemove={handleRemoveWishlist}
+          />
         )}
       </div>
     </>

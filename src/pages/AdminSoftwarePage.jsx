@@ -26,8 +26,18 @@ const AdminSoftwarePage = () => {
   const initialFormData = {
     purpose: "",
     mainProgram: "",
-    recommendedSpec: "",
-    minimumSpec: "",
+    recommendedSpec: {
+      cpu: "",
+      gpu: "",
+      ram: "",
+      size: "",
+    },
+    minimumSpec: {
+      cpu: "",
+      gpu: "",
+      ram: "",
+      size: "",
+    },
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -67,6 +77,7 @@ const AdminSoftwarePage = () => {
           purpose: purposeFilter,
         },
       });
+      console.log("소프트웨어 목록을 불러왔습니다:", response);
 
       const { content, pageNumber, totalPages, totalElements, pageSize } =
         response.data;
@@ -118,10 +129,10 @@ const AdminSoftwarePage = () => {
   const handleEdit = (recommendation) => {
     setEditingId(recommendation.id);
     setFormData({
-      purpose: recommendation.purpose,
-      mainProgram: recommendation.mainProgram,
-      recommendedSpec: recommendation.recommendedSpec,
-      minimumSpec: recommendation.minimumSpec,
+      purpose: recommendation.purpose || "",
+      mainProgram: recommendation.name || "",
+      recommendedSpec: recommendation.recSpec || "",
+      minimumSpec: recommendation.minSpec || "",
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -275,6 +286,19 @@ const AdminSoftwarePage = () => {
     }));
   };
 
+  const handleSpecChange = (e) => {
+    const { name, value } = e.target;
+    const [specType, field] = name.split(".");
+
+    setFormData((prev) => ({
+      ...prev,
+      [specType]: {
+        ...prev[specType],
+        [field]: value,
+      },
+    }));
+  };
+
   return (
     <div className="admin-page">
       <h1>관리자 페이지</h1>
@@ -341,28 +365,74 @@ const AdminSoftwarePage = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="recommendedSpec">권장 사양</label>
+              <label>권장 사양</label>
               <input
                 type="text"
-                id="recommendedSpec"
-                name="recommendedSpec"
-                value={formData.recommendedSpec}
-                onChange={handleChange}
+                name="recommendedSpec.cpu"
+                placeholder="CPU (예: i7)"
+                value={formData.recommendedSpec.cpu}
+                onChange={handleSpecChange}
                 required
-                placeholder="예: i7, 32GB RAM"
+              />
+              <input
+                type="text"
+                name="recommendedSpec.gpu"
+                placeholder="GPU (예: RTX 3060)"
+                value={formData.recommendedSpec.gpu}
+                onChange={handleSpecChange}
+                required
+              />
+              <input
+                type="text"
+                name="recommendedSpec.ram"
+                placeholder="RAM (예: 16GB)"
+                value={formData.recommendedSpec.ram}
+                onChange={handleSpecChange}
+                required
+              />
+              <input
+                type="text"
+                name="recommendedSpec.size"
+                placeholder="저장공간 (예: 50GB)"
+                value={formData.recommendedSpec.size}
+                onChange={handleSpecChange}
+                required
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="minimumSpec">최소 사양</label>
+              <label>최소 사양</label>
               <input
                 type="text"
-                id="minimumSpec"
-                name="minimumSpec"
-                value={formData.minimumSpec}
-                onChange={handleChange}
+                name="minimumSpec.cpu"
+                placeholder="CPU (예: i5)"
+                value={formData.minimumSpec.cpu}
+                onChange={handleSpecChange}
                 required
-                placeholder="예: i5, 16GB RAM"
+              />
+              <input
+                type="text"
+                name="minimumSpec.gpu"
+                placeholder="GPU (예: GTX 1060)"
+                value={formData.minimumSpec.gpu}
+                onChange={handleSpecChange}
+                required
+              />
+              <input
+                type="text"
+                name="minimumSpec.ram"
+                placeholder="RAM (예: 8GB)"
+                value={formData.minimumSpec.ram}
+                onChange={handleSpecChange}
+                required
+              />
+              <input
+                type="text"
+                name="minimumSpec.size"
+                placeholder="저장공간 (예: 20GB)"
+                value={formData.minimumSpec.size}
+                onChange={handleSpecChange}
+                required
               />
             </div>
 
@@ -416,9 +486,9 @@ const AdminSoftwarePage = () => {
             <>
               <div className="recommendations-list">
                 {recommendations.map((rec) => (
-                  <div key={rec.program} className="recommendation-item">
+                  <div key={rec.id} className="recommendation-item">
                     <div className="recommendation-content">
-                      <h3>{rec.program}</h3>
+                      <h3>{rec.name}</h3>
                       <div className="recommendation-details">
                         <p>
                           <strong>용도 분류:</strong> {rec.purpose}

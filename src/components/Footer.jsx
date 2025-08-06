@@ -49,7 +49,7 @@ const Footer = () => {
             </ul>
             <ul className="footer-info">
               <Link to="mailto:comhere@comhere.site">
-                <li>E: comhere@comhere.site</li>
+                <li>E: support@comhere.site</li>
               </Link>
               <li>Copyright © 2025 컴히얼. All rights reserved.</li>
             </ul>

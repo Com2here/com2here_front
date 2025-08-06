@@ -29,35 +29,29 @@ export const useWishlist = () => {
 
   const addToWishlist = async (product) => {
     try {
-      const formData = new FormData();
-      formData.append("cpu", product.cpu);
-      formData.append("gpu", product.gpu);
-      formData.append("image", product.image);
-      formData.append("line", product.line);
-      formData.append("link", product.link);
-      formData.append("mall", product.mall);
-      formData.append("price", product.price);
-      formData.append("productId", product.productId);
-      formData.append("title", product.title);
-      formData.append("totalPrice", product.totalPrice);
-      formData.append("totalScores", product.totalScores);
+      const payload = {
+        cpu: product.cpu,
+        gpu: product.gpu,
+        image: product.image,
+        line: product.line,
+        link: product.link,
+        mall: product.mall,
+        price: product.price,
+        naverProductId: product.productId,
+        title: product.title,
+        totalPrice: product.totalPrice,
+        totalScores: product.totalScores,
+      };
 
       console.log("추가 요청할 상품:", product);
-      console.log("product.id:", product.productId);
 
-      const response = await api.post(
-        `/v1/product/wish/add/${product.productId}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
-      );
+      const response = await api.post("/v1/product/wish/add", payload);
+
       if (response.code === 200) {
         // await getWishlist(); // 위시리스트 목록 새로고침
         return { success: true };
       }
+
       return {
         success: false,
         error: response.message,
